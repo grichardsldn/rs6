@@ -1,0 +1,8 @@
+Write a slew rate filter.
+
+Write a resonator.
+
+Try PD.
+
+Add more waveforms.
+

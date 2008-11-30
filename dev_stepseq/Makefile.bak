@@ -1,0 +1,35 @@
+OBJECTS=stepseq.o
+
+CFLAGS=-g
+
+all: $(OBJECTS)
+
+clean: 
+	rm $(OBJECTS)
+
+depend:
+	makedepend *.cpp
+
+%.o: %.cpp Makefile
+	g++ -c $(CFLAGS) $*.cpp
+
+# DO NOT DELETE
+
+stepseq.o: /usr/include/stdio.h /usr/include/features.h
+stepseq.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+stepseq.o: /usr/lib/gcc-lib/i486-suse-linux/3.2/include/stddef.h
+stepseq.o: /usr/include/bits/types.h /usr/include/libio.h
+stepseq.o: /usr/include/_G_config.h /usr/include/wchar.h
+stepseq.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+stepseq.o: /usr/lib/gcc-lib/i486-suse-linux/3.2/include/stdarg.h
+stepseq.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+stepseq.o: /usr/include/assert.h ../IDevice.h stepseq.h
+testdevice.o: /usr/include/stdio.h /usr/include/features.h
+testdevice.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+testdevice.o: /usr/lib/gcc-lib/i486-suse-linux/3.2/include/stddef.h
+testdevice.o: /usr/include/bits/types.h /usr/include/libio.h
+testdevice.o: /usr/include/_G_config.h /usr/include/wchar.h
+testdevice.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+testdevice.o: /usr/lib/gcc-lib/i486-suse-linux/3.2/include/stdarg.h
+testdevice.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+testdevice.o: ../IDevice.h testdevice.h

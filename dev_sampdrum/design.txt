@@ -1,0 +1,6 @@
+
+Instrument:
+
+Has a sample and is associated with a channel.
+When it gets a hit signal it starts playing thesample.
+

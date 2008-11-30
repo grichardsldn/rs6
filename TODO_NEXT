@@ -1,0 +1,18 @@
+Add pre-play.  Probably done by extending adding a midi call.
+
+ -- This call would be processed like a midi note. 
+
+Work out out how to manage patches for the devices.
+-- Idea of a Project?  Holds the configuration.  It this specified in
+   a .seq?  Does the project point to a .seq?  I dont think so.
+
+   Basically a script interface for IManage.
+
+Make a recorder device
+- Take input from the various busses and writes them to a file
+  once the transport has started.
+
+
+
+Stuff to do  sometime:
+

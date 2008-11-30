@@ -1,0 +1,8 @@
+
+x Copy dev_strings
+x change makefile
+x edit clean.sh
+x edit builsh.sh
+x adde to createdevice.cpp
+x add to main makefile
+

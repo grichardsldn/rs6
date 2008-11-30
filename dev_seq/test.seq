@@ -1,0 +1,65 @@
+pattern OctaveBipBip
+octave 3
+msr 75 
+measure 16
+1 for 2, 12, 12, 1 for 2, 12, 12, 1 for, 12, 12, 1 for 2, 12, rest
+end
+
+pattern Stabs
+octave 5
+12+1, 1, rest, rest, rest, rest, rest, rest
+end
+
+pattern Bass
+measure 8
+BASS, BASS, BASS, BASS
+end
+
+pattern BassSnare
+measure 8
+BASS for 2, SNARE for 2, BASS, BASS + SNARE for 2
+end
+
+pattern Bass4Snare
+measure 8
+BASSx2, BASS + SNARE for 2, BASSx2, BASS + SNARE for 2
+end
+
+pattern HiHat
+measure 8
+rest , HC, rest, HS 
+end
+
+section intro
+channel 1 OctaveBipBip at A2 for 8 
+channel 16 REST for 4 then Bass for 4
+end
+
+section verse
+channel 1 OctaveBipBip at A2 for 2 , at C2 for 2 ,
+at F1 for 4 , at A2 for 2 , at F1 for 2, at A2 for 4 
+channel 16 BassSnare + HiHitfor 16 
+end
+
+section chorus
+channel 1 OctaveBipBip at A2 for 1, at C2 for 1, at A2 for 1 at A2 for 1 
+channel 16 Bass4Snare + HiHat
+end
+
+song 
+intro for 6,
+verse,
+verse,
+chorus,
+intro for 2,
+verse, 
+verse,
+chorus,
+chorus,
+chorus,
+chorus,
+end
+
+
+
+

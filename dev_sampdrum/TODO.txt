@@ -1,0 +1,9 @@
+Add makeup compressor.
+
+Remove click at the end.
+
+Add speed control.
+
+Add Mix of two sounds.
+
+Make it take into account the samplerate
