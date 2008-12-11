@@ -79,7 +79,7 @@ signed short DrumChannel::Clock()
 	{
 		val = data[current];
 		current ++;
-		if( current == length )
+		if( current >= length )
 		{
 			current = -1;
 		}
