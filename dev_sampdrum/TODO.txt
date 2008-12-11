@@ -1,6 +1,8 @@
 Add makeup compressor.
 
 Remove click at the end.
+-  Had a look at this, its not a click at the end of the data and
+  I cant see any problem in the logic. - 6th dec 08.
 
 Add speed control.
 
