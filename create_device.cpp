@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <assert.h>
 #include <string.h>
 #include "IDevice.h"
@@ -11,6 +12,7 @@
 #include "dev_sampdrum/sampdrum.h"
 #include "dev_mixer/mixer.h"
 #include "dev_sub/sub.h"
+#include "dev_recorder/recorder.h"
 // END DEVICES
 
 IDevice *create_device( char *device_type )
@@ -66,6 +68,11 @@ IDevice *create_device( char *device_type )
 		return dev;
 	}
 
+	if( strcmp(device_type, "recorder") == 0)
+	{
+		IDevice *dev = new DeviceRecorder;
+		return dev;
+	}
 
 	return NULL;
 }

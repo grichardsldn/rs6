@@ -1,3 +1,5 @@
+Create a recorder device.
+
 Add pre-play.  Probably done by extending adding a midi call.
 
  -- This call would be processed like a midi note. 
@@ -8,11 +10,7 @@ Work out out how to manage patches for the devices.
 
    Basically a script interface for IManage.
 
-Make a recorder device
-- Take input from the various busses and writes them to a file
-  once the transport has started.
-
-
+Put code in empty recorder device.
 
 Stuff to do  sometime:
 

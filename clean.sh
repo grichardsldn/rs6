@@ -13,6 +13,8 @@ cd ../dev_mixer
 make clean
 cd ../dev_sub
 make clean
+cd ../dev_recorder
+make clean
 cd ../dev_sampdrum
 make clean
 cd ..

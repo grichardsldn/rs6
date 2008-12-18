@@ -49,6 +49,10 @@ int main(int argc, char **argv)
 	ctrl->SetDeviceOutput(id3,"left", 10);
 	ctrl->SetDeviceOutput(id3,"right", 11);
 
+	int id_rec;
+	id_rec = ctrl->CreateDevice("recorder", "rec1", "test.raw");
+	ctrl->SetDeviceInput( id_rec,"", 10 );
+
 
 	int seq1;
 	seq1 = ctrl->CreateDevice( "seq", "seq1", argv[1]);
@@ -57,5 +61,6 @@ int main(int argc, char **argv)
 	midi1 = ctrl->CreateDevice( "midirx", "midi1", "/dev/midi1");
 
 	ctrl->TransportPlay();	
-	sleep(120);
+	sleep(10);
+	ctrl->TransportStop();
 }
