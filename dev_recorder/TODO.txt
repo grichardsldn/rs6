@@ -1,0 +1,6 @@
+x Test that the raw file generated has something sensible in.
+
+x add ability to record multiple files. - allow multiple calls
+ to SetInputDevice().
+
+
