@@ -50,8 +50,9 @@ int main(int argc, char **argv)
 	ctrl->SetDeviceOutput(id3,"right", 11);
 
 	int id_rec;
-	id_rec = ctrl->CreateDevice("recorder", "rec1", "test.raw");
-	ctrl->SetDeviceInput( id_rec,"", 10 );
+	id_rec = ctrl->CreateDevice("recorder", "rec1", "");
+	//ctrl->SetDeviceInput( id_rec,"test.raw", 10 );
+	//ctrl->SetDeviceOutput( id_rec,"play.raw", 9 );
 
 
 	int seq1;
