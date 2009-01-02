@@ -10,11 +10,11 @@
 
 int main(int argc, char **argv)
 {
-	if( argc != 2 )
-	{
-		printf("Please specify sequence file\n");
-		exit(1);
-	}	
+	//if( argc != 2 )
+	//{
+//		printf("Please specify sequence file\n");
+//		exit(1);
+//	}	
 
 	int samplerate = 48000;
 	
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	ctrl->SetDeviceMidiInput( id1, "", 1 );
 
 	int id2;
-	id2 = ctrl->CreateDevice( "sub", "instance2", "" );
+	id2 = ctrl->CreateDevice( "samp", "instance2", "" );
 	ctrl->SetDeviceOutput(id2, "output", 1);
 	ctrl->SetDeviceMidiInput(id2, "", 2 );
 
@@ -55,13 +55,16 @@ int main(int argc, char **argv)
 	//ctrl->SetDeviceOutput( id_rec,"play.raw", 9 );
 
 
-	int seq1;
-	seq1 = ctrl->CreateDevice( "seq", "seq1", argv[1]);
+	if( argc == 2 )
+	{
+		int seq1;
+		seq1 = ctrl->CreateDevice( "seq", "seq1", argv[1]);
+	}
 
 	int midi1;
 	midi1 = ctrl->CreateDevice( "midirx", "midi1", "/dev/midi1");
 
 	ctrl->TransportPlay();	
-	sleep(10);
+	sleep(1000);
 	ctrl->TransportStop();
 }

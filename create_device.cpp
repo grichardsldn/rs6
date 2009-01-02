@@ -13,6 +13,7 @@
 #include "dev_mixer/mixer.h"
 #include "dev_sub/sub.h"
 #include "dev_recorder/recorder.h"
+#include "dev_samp/samp.h"
 // END DEVICES
 
 IDevice *create_device( char *device_type )
@@ -47,6 +48,12 @@ IDevice *create_device( char *device_type )
 	if( strcmp(device_type, "strings") == 0)
 	{
 		DeviceStrings *dev = new DeviceStrings;
+		return dev;
+	}
+
+	if( strcmp(device_type, "samp") == 0)
+	{
+		IDevice *dev = new DeviceSamp;
 		return dev;
 	}
 

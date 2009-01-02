@@ -1,4 +1,3 @@
-Create a recorder device.
 
 Add pre-play.  Probably done by extending adding a midi call.
 
@@ -9,8 +8,6 @@ Work out out how to manage patches for the devices.
    a .seq?  Does the project point to a .seq?  I dont think so.
 
    Basically a script interface for IManage.
-
-Put code in empty recorder device.
 
 Stuff to do  sometime:
 

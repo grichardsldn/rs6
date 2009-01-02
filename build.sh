@@ -13,6 +13,8 @@ cd ../dev_sub
 make
 cd ../dev_recorder
 make
+cd ../dev_samp
+make
 cd ../dev_strings
 make
 cd ../dev_sampdrum

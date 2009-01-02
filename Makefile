@@ -15,6 +15,7 @@ DEVICE_OBJECTS=\
 	$(ROOT)/dev_sub/sub.o\
 	$(ROOT)/dev_sub/comp.o\
 	$(ROOT)/dev_recorder/recorder.o\
+	$(ROOT)/dev_samp/samp.o\
 	$(ROOT)/dev_sampdrum/sampdrum.o
 
 SOURCES=Makefile\
