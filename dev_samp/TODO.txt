@@ -1,0 +1,3 @@
+Make the sampler read a .samp file.  This specifies
+the parameters and the filename for the sample.
+
