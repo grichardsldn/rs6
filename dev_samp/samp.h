@@ -15,7 +15,7 @@ class SampleData
 	int note_freq;
 	char filename[1024];
 	char data_filename[1024];
-
+	bool mono;
 	void ReadFile( char *filename );
 };
 

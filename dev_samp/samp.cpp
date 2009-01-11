@@ -1,30 +1,116 @@
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
+#include <string.h>
+#include <stdlib.h>
 
 #include "../IDevice.h"
 #include "samp.h"
 #include "../dev_seq/reader.h"
 
-// format
-// SAMPLE
+// filename <filename> 
 // valuename value
-// ...
-// end
+// ... till end of file
 //
 // values are:
-// filename, start, loop_start, loop_end, release_point
+//  start, loop_start, loop_end, release
 // samplerate, note_freq
+// mono (on its own)
 void SampleData::ReadFile ( char *a_filename )
 {
-/*
 	strcpy( filename, a_filename );
 	Reader reader;
 	reader.OpenFile( filename );
 
-BBB Finish this.	
-*/
+	loop_start_point = -1;
+	loop_end_point = -1;
+	release_point = -1;
+	samplerate = -1;
+	mono = false;
+
+	char *word = NULL;
+	while( 1)
+	{
+		word = reader.NextWord();
+		if( strcmp( word, "" ) == 0)
+		{
+			break;
+		}
+		else if( strcmp( word, "loop_start" ) == 0)
+		{
+			loop_start_point = atoi( reader.NextWord() );	
+			printf("loop start read %d\n", loop_start_point );
+		}
+		else if( strcmp( word, "start" ) == 0)
+		{
+			start_point = atoi( reader.NextWord() );	
+			printf("start read %d\n", start_point );
+		}
+		else if( strcmp( word, "loop_end" ) == 0)
+		{
+			loop_end_point = atoi( reader.NextWord() );	
+			printf("loop end read %d\n", loop_end_point );
+		}
+		else if( strcmp( word, "release" ) == 0)
+		{
+			release_point = atoi( reader.NextWord() );	
+			printf("release read %d\n", release_point );
+			
+		}
+		else if( strcmp( word, "samplerate" ) == 0)
+		{
+			samplerate = atoi( reader.NextWord() );	
+			printf("read %d\n", samplerate );
+			
+		}
+		else if( strcmp( word, "freq" ) == 0)
+		{
+			note_freq = atoi( reader.NextWord() );	
+			printf("read %d\n", note_freq);
+		}
+		else if( strcmp( word, "filename" ) == 0)
+		{
+			strcpy( data_filename, reader.NextWord() );	
+			printf("Reading %s:\n", data_filename );
+		}
+		else if( strcmp( word, "mono") == 0)
+		{
+			mono = true;
+		}
+	}
+	
+	FILE *inptr;
+	inptr = fopen(data_filename, "rb");
+
+	assert( inptr != NULL );
+	fseek( inptr , 0, SEEK_END );
+	length = ftell(inptr) / 2;
+	fseek( inptr, 0, SEEK_SET );
+
+	data = new signed short[length];
+
+	length = fread( data, 2, length, inptr );
+
+	printf("samp: file %s read %d samples.\n", data_filename, length );
+	fclose( inptr );
+
+	if( release_point == -1)
+	{
+		release_point = length;
+	}
+
+	if( loop_end_point == -1)
+	{
+		loop_end_point = length + 1000;
+	}
+
+	if( start_point == -1 )
+	{
+		start_point = 0;
+	}
+
 }
+
 int SampChannel::getNote()
 {
 	return note;
@@ -88,8 +174,9 @@ void SampChannel::Trigger( SampleData *new_data, int new_note, int new_vol, int 
 
 void SampChannel::Release()
 {
-	//play_point = (float)data->length;
-	play_point = (float)data->release_point;
+	play_point = (float)data->length;
+	//play_point = (float)data->release_point;
+	//printf("setting playpoint to %d\n", data->release_point );
 	note =0;
 }
 		
@@ -105,23 +192,7 @@ void DeviceSamp::Init( 	IDeviceEvents *event,
 	assert(data !=NULL);
 	samplerate = a_samplerate;
 
-	FILE *inptr;
-	inptr = fopen("dev_samp/string.raw", "rb");
-
-	assert( inptr != NULL );
-	fseek( inptr , 0, SEEK_END );
-	int length = ftell(inptr) / 2;
-	fseek( inptr, 0, SEEK_SET );
-
-	data->data = new signed short[length];
-
-	data->length = fread( data->data, 2, length, inptr );
-	fclose( inptr );
-	data->start_point = 1000;
-	data->release_point = length;
-	data->loop_end_point = length - 200;
-	data->loop_start_point =  12000;
-	
+	data->ReadFile( startup_params );
 }
 
 bool DeviceSamp::SetMidiInput( char *input_name, int channel )
@@ -175,11 +246,18 @@ void DeviceSamp::MidiNoteOn( int channel, int note, int vol )
 	printf("Triggering channel %d\n", next_channel );
 	channels[next_channel].Trigger( data, note, vol, samplerate );
 
-	next_channel ++;
-	if( next_channel == NUM_CHANNELS)
+	if( data->mono == false )
+	{
+		next_channel ++;
+		if( next_channel == NUM_CHANNELS)
+		{
+			next_channel = 0;
+		}	
+	}
+	else
 	{
 		next_channel = 0;
-	}	
+	}
 }
 
 void DeviceSamp::MidiNoteOff( int channel, int note )
