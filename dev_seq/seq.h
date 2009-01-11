@@ -2,7 +2,7 @@
 //#include "pattern.h"
 //#include "reader.h"
 
-#define NUM_PATTERNS  (10)
+#define NUM_PATTERNS  (20)
 #define NUM_CHANNELS  (10)
 #define NUM_SECTIONS (10)
 
