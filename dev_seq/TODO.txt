@@ -1,2 +1,6 @@
 Add TransportPlay and TransportReset.
 
+( I think thats in)
+
+Put NOTE_ON time in the .pat file.
+
