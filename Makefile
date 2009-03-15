@@ -12,6 +12,7 @@ DEVICE_OBJECTS=\
 	$(ROOT)/dev_strings/strings.o\
 	$(ROOT)/dev_strings/delay.o\
 	$(ROOT)/dev_mixer/mixer.o\
+	$(ROOT)/dev_mixer/vol.o\
 	$(ROOT)/dev_sub/sub.o\
 	$(ROOT)/dev_sub/comp.o\
 	$(ROOT)/dev_recorder/recorder.o\
@@ -29,7 +30,9 @@ OBJECTS=\
 	create_device.o\
 	RS7Mapper.o\
 	setsound.o\
-	main.o
+	main.o \
+	/home/user/svn2/Darkbat/api/dkb_api.o \
+	/home/user/svn2/Darkbat/api/UDPSocket.o
 
 LIBS=-lpthread
 
