@@ -4,12 +4,17 @@
 #include <assert.h>
 #include <string.h>
 
+#include <pthread.h>
+#include "/home/user/svn2/Darkbat/api/dkb.h"
+#include "vol.h"
+
 void DeviceMixer::Init( IDeviceEvents *event,
 			char *instance_name,
 			int samplerate,
 			char *startup_params)
 {
 	// dont care about any of these
+	vol_panel = new VolPanel();
 }
 	
 void DeviceMixer::Clock()
@@ -20,7 +25,7 @@ void DeviceMixer::Clock()
 	{
 		if( inputs[i] != NULL )
 		{	
-			val += (*inputs[i] / 2);	
+			val += (*inputs[i] / 20 * vol_panel->vols[i]->vol);	
 		}
 	}
 	if( val >2000000000  )	

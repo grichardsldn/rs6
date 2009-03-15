@@ -1,4 +1,4 @@
-OBJECTS=mixer.o
+OBJECTS=mixer.o vol.o
 
 CFLAGS=-g
 

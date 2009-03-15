@@ -1,6 +1,8 @@
 // This is a test device
 
-#define NUM_INPUTS (10)
+#define NUM_INPUTS (7)
+
+class VolPanel;
 
 class DeviceMixer : public IDevice
 {
@@ -21,5 +23,6 @@ class DeviceMixer : public IDevice
 	int *inputs[NUM_INPUTS];
 	int *out_left;
 	int *out_right;
+	VolPanel *vol_panel;
 };
 
