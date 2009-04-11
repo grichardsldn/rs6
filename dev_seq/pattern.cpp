@@ -7,7 +7,7 @@
 #include "pattern.h"
 #include "notelist.h"
 
-#define NOTE_ON (12)
+#define NOTE_ON (15)
 // (of 16 )
 
 void Pattern::Load( char *filename)
