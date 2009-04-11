@@ -49,18 +49,18 @@ void VolWidget::ReDraw()
 	int y = 3;
 	int z = 1;
 	shape = new dkbShape();		
-	//shape->addLine( x, y,z + pos_x , x , y, z + 2 + pos_x ,0 );
-	shape->addLine( x, y + 10, z + pos_x , x , y + 10, z+2 + pos_x ,0);
-	shape->addLine( x - 1, y + vol, z + pos_x , x - 1, y + vol, z+2 + pos_x ,0 );
-	shape->addClickTriangle(x, y, z + pos_x ,
-				 x, y, z + 2 + pos_x ,
-				x, y - 1, z + 1 + pos_x,
+	//shape->addLine( x, y,z , x , y, z + 2,0 );
+	shape->addLine( x, y + 10, z, x , y + 10, z+2,0);
+	shape->addLine( x - 1, y + vol, z , x - 1, y + vol, z+2 ,0 );
+	shape->addClickTriangle(x, y, z,
+				 x, y, z + 2 ,
+				x, y - 1, z + 1,
 				 0, this, ref );
 
 	dkbPos pos;
-	pos.x = 0;
+	pos.x = pos_y;
 	pos.y = 0;
-	pos.z = 0;
+	pos.z = pos_x;
 
 	dkbAngle angle;
 	printf("Calling addShape from ReDraw\n");
