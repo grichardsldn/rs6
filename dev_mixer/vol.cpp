@@ -11,9 +11,9 @@ VolPanel::VolPanel()
 {
 	dkb_obj = new dkbObj();
 
-	for( int i = 0 ; i < 15 ; i++)
+	for( int i = 0 ; i < 10 ; i++)
 	{
-		vols[i] = new Vol( 2, 300 + i, dkb_obj, i * 3 );
+		vols[i] = new Vol( 8, 300 + i, dkb_obj, i * 3 );
 	}
 
 	dkbBlock block;	
