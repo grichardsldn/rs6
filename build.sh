@@ -19,6 +19,8 @@ cd ../dev_strings
 make
 cd ../dev_sampdrum
 make
+cd ../ui
+make
 
 cd ..
 
