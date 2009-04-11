@@ -8,6 +8,9 @@
 #include "comp.h"
 #include "sub.h"
 
+#include "/home/user/svn2/Darkbat/api/dkb.h"
+#include "../ui/widget.h"
+
 void DeviceSub::Init( 	IDeviceEvents *event,
 				char *instance_name, 
 				int a_samplerate,
@@ -15,6 +18,12 @@ void DeviceSub::Init( 	IDeviceEvents *event,
 {
 	printf("DeviceSub:Init: name=\"%s\" samplerate=#%d params=\"%s\"\n",
 		instance_name, a_samplerate, startup_params );
+
+	panel = new WidgetPanel();
+	attack_widget = new VolWidget( 2, 1, panel->dkb_obj, 3,3, NULL );
+	panel->addWidget( attack_widget );
+	decay_widget = new VolWidget( 2, 5, panel->dkb_obj, 9,9, NULL );
+	panel->addWidget( decay_widget );
 
 	int note = 0;
 	int midi_channel = 0;
@@ -61,9 +70,21 @@ DeviceSub::DeviceSub()
 	output = NULL;
 }
 
+void DeviceSub::CopyParams()
+{
+	float val;
+	val = (float)attack_widget->getVol() / 10.0;
+	amp_adsr->setAttack( val );
+	val = (float)decay_widget->getVol() / 10.0;
+	amp_adsr->decay =  val;
+}
+
 void DeviceSub::Clock()
 {
 	assert( tonegen );
+
+	CopyParams();
+	
 	float al = amp_adsr->Clock();
 	//float val = tonegen->Clock( pwm_lfo->Clock()/80.0, al/2.0);
 	float val = tonegen->Clock( 0.0, 0.0);

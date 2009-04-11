@@ -22,7 +22,9 @@ class ADSR
 	public:
 	ADSR( int sammplerate);
 
-	float attack;
+	float getAttack();
+	void setAttack(float val );
+	float priv_attack;
 	float decay;
 	float sustain_level;
 	float release;

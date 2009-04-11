@@ -3,6 +3,9 @@ class LFO;
 class ADSR;
 class LinearSlewer;
 
+class VolWidget;
+class WidgetPanel;
+
 class DeviceSub : public IDevice
 {
 	public:
@@ -31,5 +34,10 @@ class DeviceSub : public IDevice
 	int *output;
 	int current_note;
 	float pwm;
+
+	void CopyParams();
+	VolWidget *attack_widget;
+	VolWidget *decay_widget;
+	WidgetPanel *panel;
 };
 

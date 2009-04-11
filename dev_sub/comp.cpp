@@ -44,7 +44,7 @@ ADSR::ADSR( int a_samplerate)
 	assert(a_samplerate > 0 );
 
 	samplerate = (float) a_samplerate;
-	attack = 5.0;
+	priv_attack = 5.0;
 	decay = 0.2;
 	sustain_level = 0.05;
 	release = 0.1;
@@ -52,6 +52,16 @@ ADSR::ADSR( int a_samplerate)
 	level = 0.0;
 	state = STATE_RELEASE;
 }	
+
+void ADSR::setAttack( float val )
+{
+	priv_attack = val;
+}
+
+float ADSR::getAttack()
+{
+	return priv_attack;
+}
 
 void ADSR::Trigger( )
 {
@@ -76,7 +86,7 @@ float ADSR::Clock()
 		case STATE_ATTACK:
 		
 			diff = 1.0 - level;
-			level += Scale( diff, attack );
+			level += Scale( diff, getAttack() );
 
 			if( level > 0.98 )
 			{	
