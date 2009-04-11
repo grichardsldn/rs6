@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	ctrl->SetDeviceMidiInput( id1, "", 1 );
 
 	int id2;
-	id2 = ctrl->CreateDevice( "samp", "instance2", "" );
+	id2 = ctrl->CreateDevice( "sub", "instance2", "dev_samp/strings.samp" );
 	ctrl->SetDeviceOutput(id2, "output", 1);
 	ctrl->SetDeviceMidiInput(id2, "", 2 );
 
@@ -46,13 +46,16 @@ int main(int argc, char **argv)
 	id3= ctrl->CreateDevice("mixer", "inst1", "");
 	ctrl->SetDeviceInput(id3,"", 1);
 	ctrl->SetDeviceInput(id3,"", 2);
+	ctrl->SetDeviceInput(id3,"", 3);
+	ctrl->SetDeviceInput(id3,"", 4);
 	ctrl->SetDeviceOutput(id3,"left", 10);
 	ctrl->SetDeviceOutput(id3,"right", 11);
 
 	int id_rec;
 	id_rec = ctrl->CreateDevice("recorder", "rec1", "");
-	//ctrl->SetDeviceInput( id_rec,"test.raw", 10 );
-	//ctrl->SetDeviceOutput( id_rec,"play.raw", 9 );
+	//c//trl->SetDeviceInput( id_rec,"test.raw", 10 );
+	ctrl->SetDeviceOutput( id_rec,"lead.raw", 3 );
+	ctrl->SetDeviceOutput( id_rec,"vox.raw", 4 );
 
 
 	if( argc == 2 )
