@@ -35,6 +35,10 @@ class DeviceSub : public IDevice
 	int current_note;
 	float pwm;
 	float pitch_mod;
+	float filt_level;
+	float filt_env;
+	float filt_lfo;
+
 	bool running;
 
 	void CopyParams();
@@ -44,6 +48,10 @@ class DeviceSub : public IDevice
 	VolWidget *amp_release_widget;
 	VolWidget *pitch_mod_widget;
 	VolWidget *pwm_widget;
+
+	VolWidget *filt_level_widget;
+	VolWidget *filt_env_widget;
+	VolWidget *filt_lfo_widget;
 	
 	
 	WidgetPanel *panel;

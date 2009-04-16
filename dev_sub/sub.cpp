@@ -38,7 +38,17 @@ void DeviceSub::Init( 	IDeviceEvents *event,
 	panel->addWidget( pitch_mod_widget );
 
 	pwm_widget = new VolWidget( 2, 7, panel->dkb_obj, -8,3, NULL );
-	//panel->addWidget( pwm_widget );
+	panel->addWidget( pwm_widget );
+	
+	filt_level_widget = new VolWidget( 2, 9, panel->dkb_obj, -12, 1, NULL);
+	panel->addWidget( filt_level_widget );
+	
+	filt_env_widget = new VolWidget( 2, 10, panel->dkb_obj, -14, 1, NULL);
+	panel->addWidget( filt_env_widget );
+	
+	filt_lfo_widget = new VolWidget( 2, 11, panel->dkb_obj, -16, 1, NULL);
+	panel->addWidget( filt_lfo_widget );
+	
 
 	int note = 0;
 	int midi_channel = 0;
@@ -51,7 +61,7 @@ void DeviceSub::Init( 	IDeviceEvents *event,
 	amp_adsr->reset_on_trigger = true;
 
 	pwm_lfo = new LFO(a_samplerate);
-	pwm_lfo->setRate(3.4);
+	pwm_lfo->setRate(0.1);
 
 	slewer = new LinearSlewer( a_samplerate );
 	output = NULL;
@@ -108,6 +118,10 @@ void DeviceSub::CopyParams()
 
 	val = (float)pwm_widget->getVol() / 10.0;
 	pwm = val;
+
+	filt_level = (float)filt_level_widget->getVol() / 10.0;
+	filt_env = (float)filt_env_widget->getVol() / 10.0;
+	filt_lfo = (float)filt_lfo_widget->getVol() / 10.0;
 }
 
 void DeviceSub::Clock()
@@ -119,18 +133,22 @@ void DeviceSub::Clock()
 	CopyParams();
 	
 	float al = amp_adsr->Clock();
-	
-	float val = tonegen->Clock( pwm_lfo->Clock()*pitch_mod, al*pwm);
+
+	float lfo_val = pwm_lfo->Clock();	
+
+	float val = tonegen->Clock( lfo_val*pitch_mod, al*pwm);
 	//float val = tonegen->Clock( 0.0, 0.0);
 	val *= al;
 	
 	//	if( val > 0 ) val = 0.5;
 	//if( val < 0 ) val = -0.5;
 	
-
-	// BBB
+	
+	float filt_out = filt_level +
+			(filt_lfo * lfo_val ) +
+			(filt_env * al );
 	// 0.01 lowest?
-	//val = slewer->Clock( val, al);
+	val = slewer->Clock( val, filt_out);
 
 	if( output)
 	{
