@@ -19,11 +19,26 @@ void DeviceSub::Init( 	IDeviceEvents *event,
 	printf("DeviceSub:Init: name=\"%s\" samplerate=#%d params=\"%s\"\n",
 		instance_name, a_samplerate, startup_params );
 
+	running=false;
+
 	panel = new WidgetPanel();
-	attack_widget = new VolWidget( 2, 1, panel->dkb_obj, 3,3, NULL );
-	panel->addWidget( attack_widget );
-	decay_widget = new VolWidget( 2, 5, panel->dkb_obj, 9,9, NULL );
-	panel->addWidget( decay_widget );
+	amp_attack_widget = new VolWidget( 2, 1, panel->dkb_obj, 4,3, NULL );
+	panel->addWidget( amp_attack_widget );
+
+	amp_decay_widget = new VolWidget( 2, 2, panel->dkb_obj, 2,3, NULL );
+	panel->addWidget( amp_decay_widget );
+
+	amp_sustain_widget = new VolWidget( 2, 3, panel->dkb_obj, 0,3, NULL );
+	panel->addWidget( amp_sustain_widget );
+
+	amp_release_widget = new VolWidget( 2, 4, panel->dkb_obj, -2,3, NULL );
+	panel->addWidget( amp_release_widget );
+
+	pitch_mod_widget = new VolWidget( 2, 5, panel->dkb_obj, -5,3, NULL );
+	panel->addWidget( pitch_mod_widget );
+
+	pwm_widget = new VolWidget( 2, 7, panel->dkb_obj, -8,3, NULL );
+	//panel->addWidget( pwm_widget );
 
 	int note = 0;
 	int midi_channel = 0;
@@ -33,12 +48,15 @@ void DeviceSub::Init( 	IDeviceEvents *event,
 	mod_tonegen = new ToneGen( a_samplerate);
 	mod_tonegen->SetWaveform( WAVEFORM_SAW);
 	amp_adsr = new ADSR(a_samplerate);
+	amp_adsr->reset_on_trigger = true;
 
 	pwm_lfo = new LFO(a_samplerate);
-	pwm_lfo->setRate(0.5);
+	pwm_lfo->setRate(3.4);
 
 	slewer = new LinearSlewer( a_samplerate );
 	output = NULL;
+
+	running = true;
 }
 
 bool DeviceSub::SetMidiInput( char *input_name, int channel )
@@ -73,29 +91,46 @@ DeviceSub::DeviceSub()
 void DeviceSub::CopyParams()
 {
 	float val;
-	val = (float)attack_widget->getVol() / 10.0;
+	val = (float)amp_attack_widget->getVol() / 10.0;
+	//val *= val;
 	amp_adsr->setAttack( val );
-	val = (float)decay_widget->getVol() / 10.0;
-	amp_adsr->decay =  val;
+
+	val = (float)amp_decay_widget->getVol() / 10.0;
+	//val *= val;
+	amp_adsr->decay = val;
+	val = (float)amp_sustain_widget->getVol() / 10.0;
+	amp_adsr->sustain_level =  val;
+	val = (float)amp_release_widget->getVol() / 10.0;
+	amp_adsr->release =  val;
+
+	val = (float)pitch_mod_widget->getVol() / 200.0;
+	pitch_mod = val;
+
+	val = (float)pwm_widget->getVol() / 10.0;
+	pwm = val;
 }
 
 void DeviceSub::Clock()
 {
+	if( running == false ) return;
+
 	assert( tonegen );
 
 	CopyParams();
 	
 	float al = amp_adsr->Clock();
-	//float val = tonegen->Clock( pwm_lfo->Clock()/80.0, al/2.0);
-	float val = tonegen->Clock( 0.0, 0.0);
+	
+	float val = tonegen->Clock( pwm_lfo->Clock()*pitch_mod, al*pwm);
+	//float val = tonegen->Clock( 0.0, 0.0);
 	val *= al;
-	if( val > 0 ) val = 0.5;
-	if( val < 0 ) val = -0.5;
+	
+	//	if( val > 0 ) val = 0.5;
+	//if( val < 0 ) val = -0.5;
 	
 
 	// BBB
 	// 0.01 lowest?
-	val = slewer->Clock( val, al);
+	//val = slewer->Clock( val, al);
 
 	if( output)
 	{

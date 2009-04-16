@@ -34,10 +34,18 @@ class DeviceSub : public IDevice
 	int *output;
 	int current_note;
 	float pwm;
+	float pitch_mod;
+	bool running;
 
 	void CopyParams();
-	VolWidget *attack_widget;
-	VolWidget *decay_widget;
+	VolWidget *amp_attack_widget;
+	VolWidget *amp_decay_widget;
+	VolWidget *amp_sustain_widget;
+	VolWidget *amp_release_widget;
+	VolWidget *pitch_mod_widget;
+	VolWidget *pwm_widget;
+	
+	
 	WidgetPanel *panel;
 };
 
