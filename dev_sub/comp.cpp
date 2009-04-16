@@ -66,6 +66,10 @@ float ADSR::getAttack()
 void ADSR::Trigger( )
 {
 	state = STATE_ATTACK;
+	if( reset_on_trigger == true )
+	{
+		level = 0.0;
+	}	
 }
 
 void ADSR::Release( )
@@ -96,14 +100,14 @@ float ADSR::Clock()
 		break;
 
 		case STATE_DECAY:
-			diff = level - sustain_level;	
-			level -= Scale( diff, decay );
-
 			if( level < sustain_level )
 			{
 				state = STATE_SUSTAIN;
 				level = sustain_level;
 			}
+
+			diff = level - sustain_level;	
+			level -= Scale( diff, decay );
 		break;
 		
 		case STATE_SUSTAIN:

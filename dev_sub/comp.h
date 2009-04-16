@@ -28,10 +28,11 @@ class ADSR
 	float decay;
 	float sustain_level;
 	float release;
-
+	bool reset_on_trigger;
 	float Clock();
 	void Trigger();
 	void Release();
+	
 
 	private:
 	
