@@ -11,10 +11,10 @@ class LinearSlewer
 	public:
 	LinearSlewer( int samplerate );
 
-	float Clock(float input,float max_per_ms);
+	double Clock(double input,double max_per_ms);
 	private:
-	float val;
-	float samplerate;
+	double val;
+	double samplerate;
 };
 
 class Slewer
@@ -22,10 +22,10 @@ class Slewer
 	public:
 	Slewer( int samplerate );
 	
-	float Clock( float input, float rate );
+	double Clock( double input, double rate );
 	private:
 	double val;
-	float samplerate;
+	double samplerate;
 };
 
 class ADSR
@@ -33,14 +33,14 @@ class ADSR
 	public:
 	ADSR( int sammplerate);
 
-	float getAttack();
-	void setAttack(float val );
-	float priv_attack;
-	float decay;
-	float sustain_level;
-	float release;
+	double getAttack();
+	void setAttack(double val );
+	double priv_attack;
+	double decay;
+	double sustain_level;
+	double release;
 	bool reset_on_trigger;
-	float Clock();
+	double Clock();
 	void Trigger();
 	void Release();
 	
@@ -48,24 +48,24 @@ class ADSR
 	private:
 	
 	int state;
-	float level;
-	float samplerate;	
-	float Scale( float diff, float rate );
+	double level;
+	double samplerate;	
+	double Scale( double diff, double rate );
 };
 
 class LFO
 {
 	public:
 	LFO(int samplerate);
-	float Clock( );
-	void setRate( float rate);
-	float getRate();
+	double Clock( );
+	void setRate( double rate);
+	double getRate();
 	private:
 	
-	float samplerate;
-	float rate;	// remembered for getRate()
-	float through;
-	float increment;
+	double samplerate;
+	double rate;	// remembered for getRate()
+	double through;
+	double increment;
 };
 
 class ToneGen
@@ -75,15 +75,15 @@ class ToneGen
 	void SetWaveform( int waveform );
 	void NoteOn( int note );
 	void NoteOff();  // probably not needed
-	float Clock( float note_offset, float adjust );   
+	double Clock( double note_offset, double adjust );   
 
 	private:
-	float through;
-	float increment;
+	double through;
+	double increment;
 	//int through;
 	//int sub_through;
-	//float delta;
-	//float sub_delta;
+	//double delta;
+	//double sub_delta;
 	int waveform;
 	int note;
 	int samplerate;
@@ -92,9 +92,9 @@ class ToneGen
 class Envelope
 {
 	public:
-	float attack;
-	float decay;	
-	float sustain_level;
-	float release;
-	float Clock();
+	double attack;
+	double decay;	
+	double sustain_level;
+	double release;
+	double Clock();
 };

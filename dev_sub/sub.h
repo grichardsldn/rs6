@@ -34,13 +34,13 @@ class DeviceSub : public IDevice
 	int note;
 	int *output;
 	int current_note;
-	float pwm;
-	float pitch_mod;
-	float filt_level;
-	float filt_env;
-	float filt_lfo;
-	float sub_vol;	
-	float noise_vol;
+	double pwm;
+	double pitch_mod;
+	double filt_level;
+	double filt_env;
+	double filt_lfo;
+	double sub_vol;	
+	double noise_vol;
 
 	bool running;
 

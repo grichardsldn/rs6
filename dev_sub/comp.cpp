@@ -26,7 +26,7 @@ LinearSlewer::LinearSlewer( int a_samplerate )
 	val = 0.0;
 }
 
-float Slewer::Clock( float input, float rate )
+double Slewer::Clock( double input, double rate )
 {
 	rate = rate * rate;
 	//rate = rate *4800.0/samplerate;
@@ -37,17 +37,17 @@ float Slewer::Clock( float input, float rate )
 	//diff = diff / rate;
 	val += diff;
 
-	return (float)val;
+	return (double)val;
 }
 
 // rate is max per ms.
-float LinearSlewer::Clock( float input, float rate )
+double LinearSlewer::Clock( double input, double rate )
 {
 	rate = rate * rate;
 
 	rate *= 3.0;
 
-	float delta = rate * 4800.0 / samplerate ;
+	double delta = rate * 4800.0 / samplerate ;
 	if( input > val )
 	{
 		val += delta;
@@ -65,7 +65,7 @@ ADSR::ADSR( int a_samplerate)
 {
 	assert(a_samplerate > 0 );
 
-	samplerate = (float) a_samplerate;
+	samplerate = (double) a_samplerate;
 	priv_attack = 5.0;
 	decay = 0.2;
 	sustain_level = 0.05;
@@ -75,12 +75,12 @@ ADSR::ADSR( int a_samplerate)
 	state = STATE_RELEASE;
 }	
 
-void ADSR::setAttack( float val )
+void ADSR::setAttack( double val )
 {
 	priv_attack = val;
 }
 
-float ADSR::getAttack()
+double ADSR::getAttack()
 {
 	return priv_attack;
 }
@@ -101,7 +101,7 @@ void ADSR::Release( )
 	state = STATE_RELEASE;
 }
 
-float  ADSR::Scale( float diff, float rate )
+double  ADSR::Scale( double diff, double rate )
 {
 	rate += 0.05;
 	rate *= (rate*2.0);
@@ -109,9 +109,9 @@ float  ADSR::Scale( float diff, float rate )
 	return (  (diff / (samplerate / 48) ) * rate / 4.0 );
 } 
 
-float ADSR::Clock()
+double ADSR::Clock()
 {	
-	float diff;
+	double diff;
 	switch( state )
 	{
 		case STATE_ATTACK:
@@ -154,24 +154,24 @@ float ADSR::Clock()
 LFO::LFO(int a_samplerate)
 {
 	assert( a_samplerate > 0 );
-	samplerate = (float)a_samplerate;
+	samplerate = (double)a_samplerate;
 	
 	setRate( 0.1 );
 	through = 0.0;
 }
 
-void LFO::setRate( float a_rate )
+void LFO::setRate( double a_rate )
 {
 	rate = a_rate;
 	increment = a_rate  / samplerate;
 }
 
-float LFO::getRate()
+double LFO::getRate()
 {
 	return rate;
 }
 
-float LFO::Clock()
+double LFO::Clock()
 {	
 	through += increment;
 
@@ -215,14 +215,14 @@ void ToneGen::SetWaveform(int a_waveform)
 
 void ToneGen::NoteOn( int a_note )
 {	
-	float freq;
+	double freq;
 	
 	note = a_note;
 	note += 2; // Dunno why, dev_strings did this
 	
 	freq= 8.1758 * pow(2.0, (double)(note/12.0) );
 	
-	increment = (float) freq/(float)samplerate;
+	increment = (double) freq/(double)samplerate;
 
 	// reset the wave
 	through = 0.0;
@@ -233,15 +233,15 @@ void ToneGen::NoteOff()
 	note = 0;
 }
 
-float ToneGen::Clock( float note_offset, float adjust )
+double ToneGen::Clock( double note_offset, double adjust )
 {
-	float ret = 0.0;
+	double ret = 0.0;
 	if( note == 0)
 	{
 		return ret;
 	}
 
-	float mod_increment;
+	double mod_increment;
 	if( note_offset > 0 )
 	{
 		mod_increment = increment * (note_offset + 1.0);
@@ -260,7 +260,7 @@ float ToneGen::Clock( float note_offset, float adjust )
 	
 	if( waveform == WAVEFORM_SAW )
 	{
-		//return( ((float)(random() & 255))/500.0 );
+		//return( ((double)(random() & 255))/500.0 );
 		return( (through*2.0) - 1.0 );
 	}	
 
@@ -292,7 +292,7 @@ float ToneGen::Clock( float note_offset, float adjust )
 	{
 		int ran = random() & 255;	
 
-		return (((float) ran) / 128.0 ) - 1.0;
+		return (((double) ran) / 128.0 ) - 1.0;
 	}
 	return ret;
 }

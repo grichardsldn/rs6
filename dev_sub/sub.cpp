@@ -110,31 +110,31 @@ DeviceSub::DeviceSub()
 
 void DeviceSub::CopyParams()
 {
-	float val;
-	val = (float)amp_attack_widget->getVol() / 10.0;
+	double val;
+	val = (double)amp_attack_widget->getVol() / 10.0;
 	//val *= val;
 	amp_adsr->setAttack( val );
 
-	val = (float)amp_decay_widget->getVol() / 10.0;
+	val = (double)amp_decay_widget->getVol() / 10.0;
 	//val *= val;
 	amp_adsr->decay = val;
-	val = (float)amp_sustain_widget->getVol() / 10.0;
+	val = (double)amp_sustain_widget->getVol() / 10.0;
 	amp_adsr->sustain_level =  val;
-	val = (float)amp_release_widget->getVol() / 10.0;
+	val = (double)amp_release_widget->getVol() / 10.0;
 	amp_adsr->release =  val;
 
-	val = (float)pitch_mod_widget->getVol() / 200.0;
+	val = (double)pitch_mod_widget->getVol() / 200.0;
 	pitch_mod = val;
 
-	val = (float)pwm_widget->getVol() / 10.0;
+	val = (double)pwm_widget->getVol() / 10.0;
 	pwm = val;
 
-	filt_level = (float)filt_level_widget->getVol() / 10.0;
-	filt_env = (float)filt_env_widget->getVol() / 10.0;
-	filt_lfo = (float)filt_lfo_widget->getVol() / 10.0;
+	filt_level = (double)filt_level_widget->getVol() / 10.0;
+	filt_env = (double)filt_env_widget->getVol() / 10.0;
+	filt_lfo = (double)filt_lfo_widget->getVol() / 10.0;
 
-	sub_vol = (float)sub_vol_widget->getVol() / 10.0;
-	noise_vol = (float)noise_vol_widget->getVol() / 10.0;
+	sub_vol = (double)sub_vol_widget->getVol() / 10.0;
+	noise_vol = (double)noise_vol_widget->getVol() / 10.0;
 }
 
 void DeviceSub::Clock()
@@ -145,22 +145,22 @@ void DeviceSub::Clock()
 
 	CopyParams();
 	
-	float al = amp_adsr->Clock();
+	double al = amp_adsr->Clock();
 
-	float lfo_val = pwm_lfo->Clock();	
+	double lfo_val = pwm_lfo->Clock();	
 
-	float val = tonegen->Clock( lfo_val*pitch_mod, al*pwm);
+	double val = tonegen->Clock( lfo_val*pitch_mod, al*pwm);
 	val += sub_tonegen->Clock( lfo_val *pitch_mod , 0.0) * sub_vol;
 	val += noise_tonegen->Clock( lfo_val * pitch_mod,0.0 ) * noise_vol;
 
-	//float val = tonegen->Clock( 0.0, 0.0);
+	//double val = tonegen->Clock( 0.0, 0.0);
 	val *= al;
 	
 	//	if( val > 0 ) val = 0.5;
 	//if( val < 0 ) val = -0.5;
 	
 	
-	float filt_out = filt_level +
+	double filt_out = filt_level +
 			(filt_lfo * lfo_val ) +
 			(filt_env * al );
 	// 0.01 lowest?
