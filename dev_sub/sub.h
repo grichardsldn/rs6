@@ -25,7 +25,8 @@ class DeviceSub : public IDevice
 
 	private:
 	ToneGen *tonegen;
-	ToneGen *mod_tonegen;
+	ToneGen *sub_tonegen;
+	ToneGen *noise_tonegen;
 	ADSR *amp_adsr;
 	LFO	*pwm_lfo;
 	Slewer *slewer;
@@ -38,6 +39,8 @@ class DeviceSub : public IDevice
 	float filt_level;
 	float filt_env;
 	float filt_lfo;
+	float sub_vol;	
+	float noise_vol;
 
 	bool running;
 
@@ -52,7 +55,9 @@ class DeviceSub : public IDevice
 	VolWidget *filt_level_widget;
 	VolWidget *filt_env_widget;
 	VolWidget *filt_lfo_widget;
-	
+
+	VolWidget *sub_vol_widget;
+	VolWidget *noise_vol_widget;	
 	
 	WidgetPanel *panel;
 };

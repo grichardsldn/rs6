@@ -48,15 +48,23 @@ void DeviceSub::Init( 	IDeviceEvents *event,
 	
 	filt_lfo_widget = new VolWidget( 2, 11, panel->dkb_obj, -16, 1, NULL);
 	panel->addWidget( filt_lfo_widget );
-	
+
+	sub_vol_widget = new VolWidget( 2, 12, panel->dkb_obj, -19, 1, NULL);
+	panel->addWidget( sub_vol_widget );
+	noise_vol_widget = new VolWidget( 2, 13, panel->dkb_obj, -21, 1, NULL );
+	panel->addWidget( noise_vol_widget );
 
 	int note = 0;
 	int midi_channel = 0;
 	tonegen = new ToneGen( a_samplerate );
 	tonegen->SetWaveform( WAVEFORM_PWM);
 	
-	mod_tonegen = new ToneGen( a_samplerate);
-	mod_tonegen->SetWaveform( WAVEFORM_SAW);
+	sub_tonegen = new ToneGen( a_samplerate);
+	sub_tonegen->SetWaveform( WAVEFORM_SAW);
+
+	noise_tonegen = new ToneGen( a_samplerate );
+	noise_tonegen->SetWaveform( WAVEFORM_NOISE );
+
 	amp_adsr = new ADSR(a_samplerate);
 	amp_adsr->reset_on_trigger = true;
 
@@ -95,6 +103,8 @@ DeviceSub::DeviceSub()
 	int note = 0;
 	int midi_channel = 0;
 	tonegen = NULL;
+	sub_tonegen = NULL;
+	noise_tonegen = NULL;
 	output = NULL;
 }
 
@@ -122,6 +132,9 @@ void DeviceSub::CopyParams()
 	filt_level = (float)filt_level_widget->getVol() / 10.0;
 	filt_env = (float)filt_env_widget->getVol() / 10.0;
 	filt_lfo = (float)filt_lfo_widget->getVol() / 10.0;
+
+	sub_vol = (float)sub_vol_widget->getVol() / 10.0;
+	noise_vol = (float)noise_vol_widget->getVol() / 10.0;
 }
 
 void DeviceSub::Clock()
@@ -137,6 +150,9 @@ void DeviceSub::Clock()
 	float lfo_val = pwm_lfo->Clock();	
 
 	float val = tonegen->Clock( lfo_val*pitch_mod, al*pwm);
+	val += sub_tonegen->Clock( lfo_val *pitch_mod , 0.0) * sub_vol;
+	val += noise_tonegen->Clock( lfo_val * pitch_mod,0.0 ) * noise_vol;
+
 	//float val = tonegen->Clock( 0.0, 0.0);
 	val *= al;
 	
@@ -163,6 +179,8 @@ void DeviceSub::MidiNoteOn( int channel, int note, int vol )
 		//note-=12;	
 		assert( tonegen );
 		tonegen->NoteOn( note );
+		sub_tonegen->NoteOn( note - 12);
+		noise_tonegen->NoteOn( note );
 		current_note = note;
 		printf("GDR: Sub, got note #%d\n", note );
 	

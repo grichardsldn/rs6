@@ -29,14 +29,15 @@ LinearSlewer::LinearSlewer( int a_samplerate )
 float Slewer::Clock( float input, float rate )
 {
 	rate = rate * rate;
+	//rate = rate *4800.0/samplerate;
 
-	rate = rate *4800.0/samplerate;
+	double diff = input - val;
 
-	float diff = input - val;
-	diff *= rate * 0.1;
+	diff *= (rate * 0.1);
+	//diff = diff / rate;
 	val += diff;
 
-	return val;
+	return (float)val;
 }
 
 // rate is max per ms.
@@ -91,6 +92,8 @@ void ADSR::Trigger( )
 	{
 		level = 0.0;
 	}	
+	//state = STATE_DECAY;
+	//level= 1.0;
 }
 
 void ADSR::Release( )
@@ -100,7 +103,7 @@ void ADSR::Release( )
 
 float  ADSR::Scale( float diff, float rate )
 {
-	return (  (diff / (samplerate / 48) ) * rate );
+	return (  (diff / (samplerate / 48) ) * rate / 4.0 );
 } 
 
 float ADSR::Clock()

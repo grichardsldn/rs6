@@ -24,7 +24,7 @@ class Slewer
 	
 	float Clock( float input, float rate );
 	private:
-	float val;
+	double val;
 	float samplerate;
 };
 
