@@ -103,6 +103,9 @@ void ADSR::Release( )
 
 float  ADSR::Scale( float diff, float rate )
 {
+	rate += 0.05;
+	rate *= (rate*2.0);
+	rate *= 4.0;
 	return (  (diff / (samplerate / 48) ) * rate / 4.0 );
 } 
 
@@ -113,8 +116,10 @@ float ADSR::Clock()
 	{
 		case STATE_ATTACK:
 		
-			diff = 1.0 - level;
-			level += Scale( diff, getAttack() );
+			//diff = 1.0 - level;
+			diff = 1.0;
+			level += Scale( diff, getAttack() ) *2.0;
+			// ^ time 2 because attack wants to be faster
 
 			if( level > 0.98 )
 			{	
