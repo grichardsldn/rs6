@@ -17,6 +17,17 @@ class LinearSlewer
 	float samplerate;
 };
 
+class Slewer
+{
+	public:
+	Slewer( int samplerate );
+	
+	float Clock( float input, float rate );
+	private:
+	float val;
+	float samplerate;
+};
+
 class ADSR
 {
 	public:

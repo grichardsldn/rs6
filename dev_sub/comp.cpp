@@ -10,12 +10,33 @@
 #define STATE_SUSTAIN  (3)
 #define STATE_RELEASE (4)
 
+Slewer::Slewer( int a_samplerate)
+{
+	assert( a_samplerate > 0 );
+
+	samplerate = a_samplerate;
+	val = 0.0;
+}
+
 LinearSlewer::LinearSlewer( int a_samplerate )
 {
 	assert( a_samplerate > 0 );
 
 	samplerate = a_samplerate;
 	val = 0.0;
+}
+
+float Slewer::Clock( float input, float rate )
+{
+	rate = rate * rate;
+
+	rate = rate *4800.0/samplerate;
+
+	float diff = input - val;
+	diff *= rate * 0.1;
+	val += diff;
+
+	return val;
 }
 
 // rate is max per ms.

@@ -63,7 +63,7 @@ void DeviceSub::Init( 	IDeviceEvents *event,
 	pwm_lfo = new LFO(a_samplerate);
 	pwm_lfo->setRate(0.1);
 
-	slewer = new LinearSlewer( a_samplerate );
+	slewer = new Slewer( a_samplerate );
 	output = NULL;
 
 	running = true;

@@ -1,7 +1,7 @@
 class ToneGen;
 class LFO;
 class ADSR;
-class LinearSlewer;
+class Slewer;
 
 class VolWidget;
 class WidgetPanel;
@@ -28,7 +28,7 @@ class DeviceSub : public IDevice
 	ToneGen *mod_tonegen;
 	ADSR *amp_adsr;
 	LFO	*pwm_lfo;
-	LinearSlewer *slewer;
+	Slewer *slewer;
 	int midi_channel;
 	int note;
 	int *output;
