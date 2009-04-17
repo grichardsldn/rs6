@@ -160,7 +160,7 @@ void DeviceSub::MidiNoteOn( int channel, int note, int vol )
 {
 	if( channel == midi_channel )
 	{
-		note-=12;	
+		//note-=12;	
 		assert( tonegen );
 		tonegen->NoteOn( note );
 		current_note = note;
@@ -174,6 +174,8 @@ void DeviceSub::MidiNoteOn( int channel, int note, int vol )
 void DeviceSub::MidiNoteOff( int channel, int note )
 {
 	assert(tonegen );
+
+	printf("DeviceSub::MidiNoteOff\n");
 
 	if( channel == midi_channel )
 	{	

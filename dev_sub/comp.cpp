@@ -73,7 +73,7 @@ void ADSR::Trigger( )
 }
 
 void ADSR::Release( )
-{
+{	
 	state = STATE_RELEASE;
 }
 
@@ -115,7 +115,7 @@ float ADSR::Clock()
 		break;
 		
 		case STATE_RELEASE:
-			level -= Scale( level, decay );
+			level -= Scale( level, release );
 		break;
 	}
 
