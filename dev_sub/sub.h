@@ -44,6 +44,7 @@ class DeviceSub : public IDevice
 
 	bool running;
 
+	int octave_adjust;
 	void CopyParams();
 	VolWidget *amp_attack_widget;
 	VolWidget *amp_decay_widget;

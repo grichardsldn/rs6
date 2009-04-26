@@ -74,6 +74,7 @@ void DeviceSub::Init( 	IDeviceEvents *event,
 	slewer = new Slewer( a_samplerate );
 	output = NULL;
 
+	octave_adjust = -1;
 	running = true;
 }
 
@@ -178,9 +179,9 @@ void DeviceSub::MidiNoteOn( int channel, int note, int vol )
 	{
 		//note-=12;	
 		assert( tonegen );
-		tonegen->NoteOn( note );
-		sub_tonegen->NoteOn( note - 12);
-		noise_tonegen->NoteOn( note );
+		tonegen->NoteOn( note + (octave_adjust * 12) );
+		sub_tonegen->NoteOn( note - 12 + (octave_adjust * 12));
+		noise_tonegen->NoteOn( note + (octave_adjust * 12 ) );
 		current_note = note;
 		printf("GDR: Sub, got note #%d\n", note );
 	
