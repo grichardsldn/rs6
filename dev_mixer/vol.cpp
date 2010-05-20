@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <string.h>
 
-#include "/home/user/svn2/Darkbat/api/dkb.h"
+#include "/home/user/Darkbat/api/dkb.h"
 #include "vol.h"
 
 VolPanel::VolPanel()

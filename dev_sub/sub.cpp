@@ -8,7 +8,7 @@
 #include "comp.h"
 #include "sub.h"
 
-#include "/home/user/svn2/Darkbat/api/dkb.h"
+#include "/home/user/Darkbat/api/dkb.h"
 #include "../ui/widget.h"
 
 void DeviceSub::Init( 	IDeviceEvents *event,
@@ -80,7 +80,7 @@ void DeviceSub::Init( 	IDeviceEvents *event,
 
 bool DeviceSub::SetMidiInput( char *input_name, int channel )
 {
-	if( strcmp( input_name, "") == 0)
+	if( strcmp( input_name, "main") == 0)
 	{
 		midi_channel = channel;
 	}

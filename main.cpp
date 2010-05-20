@@ -7,6 +7,8 @@
 #include "IManage.h"
 
 #include "RS7Mapper.h"
+#include "script.h"
+
 
 int main(int argc, char **argv)
 {
@@ -24,49 +26,52 @@ int main(int argc, char **argv)
 
 	ctrl = mapper->GetControl();
 
-	ctrl->Monitor(10, 11 );
-	//ctrl->Monitor(1, 2 );
+	Script *script = new Script( ctrl );
+	script->Run( argv[1] );
 
-	int id1;
-	//id1 = ctrl->CreateDevice( "strings", "instance1", "" );
-	//ctrl->SetDeviceOutput( id1, "output", 2);
-	//ctrl->SetDeviceMidiInput(id1, "", 1 );
+//	ctrl->Monitor(10, 11 );
+//	//ctrl->Monitor(1, 2 );
 
-
-	id1 = ctrl->CreateDevice("sampdrum", "sampdrum1", "" );
-	ctrl->SetDeviceOutput( id1, "output", 2 );
-	ctrl->SetDeviceMidiInput( id1, "", 1 );
-
-	int id2;
-	id2 = ctrl->CreateDevice( "sub", "instance2", "dev_samp/strings.samp" );
-	ctrl->SetDeviceOutput(id2, "output", 1);
-	ctrl->SetDeviceMidiInput(id2, "", 2 );
-
-	int id3;
-	id3= ctrl->CreateDevice("mixer", "inst1", "");
-	ctrl->SetDeviceInput(id3,"", 1);
-	ctrl->SetDeviceInput(id3,"", 2);
-	ctrl->SetDeviceInput(id3,"", 3);
-	ctrl->SetDeviceInput(id3,"", 4);
-	ctrl->SetDeviceOutput(id3,"left", 10);
-	ctrl->SetDeviceOutput(id3,"right", 11);
-
-	int id_rec;
-	id_rec = ctrl->CreateDevice("recorder", "rec1", "");
-	//c//trl->SetDeviceInput( id_rec,"test.raw", 10 );
-	ctrl->SetDeviceOutput( id_rec,"lead.raw", 3 );
-	ctrl->SetDeviceOutput( id_rec,"vox.raw", 4 );
-
-
-	if( argc == 2 )
-	{
-		int seq1;
-		seq1 = ctrl->CreateDevice( "seq", "seq1", argv[1]);
-	}
-
-	int midi1;
-	midi1 = ctrl->CreateDevice( "midirx", "midi1", "/dev/midi1");
-
+//	int id1;
+//	//id1 = ctrl->CreateDevice( "strings", "instance1", "" );
+//	//ctrl->SetDeviceOutput( id1, "output", 2);
+//	//ctrl->SetDeviceMidiInput(id1, "", 1 );
+//
+//
+//	id1 = ctrl->CreateDevice("sampdrum", "sampdrum1", "" );
+//	ctrl->SetDeviceOutput( id1, "output", 2 );
+//	ctrl->SetDeviceMidiInput( id1, "", 1 );
+//
+//	int id2;
+//	id2 = ctrl->CreateDevice( "sub", "instance2", "dev_samp/strings.samp" );
+//	ctrl->SetDeviceOutput(id2, "output", 1);
+//	ctrl->SetDeviceMidiInput(id2, "", 2 );
+//
+//	int id3;
+//	id3= ctrl->CreateDevice("mixer", "inst1", "");
+//	ctrl->SetDeviceInput(id3,"", 1);
+//	ctrl->SetDeviceInput(id3,"", 2);
+//	ctrl->SetDeviceInput(id3,"", 3);
+//	ctrl->SetDeviceInput(id3,"", 4);
+//	ctrl->SetDeviceOutput(id3,"left", 10);
+//	ctrl->SetDeviceOutput(id3,"right", 11);
+//
+//	int id_rec;
+//	//id_rec = ctrl->CreateDevice("recorder", "rec1", "");
+//	//c//trl->SetDeviceInput( id_rec,"test.raw", 10 );
+//	//ctrl->SetDeviceOutput( id_rec,"lead.raw", 3 );
+//	////ctrl->SetDeviceOutput( id_rec,"vox.raw", 4 );
+//
+//
+//	if( argc == 2 )
+//	{
+//		int seq1;
+//		seq1 = ctrl->CreateDevice( "seq", "seq1", argv[1]);
+//	}
+//
+//	int midi1;
+////	midi1 = ctrl->CreateDevice( "midirx", "midi1", "/dev/midi1");
+//
 	ctrl->TransportPlay();	
 	sleep(1000);
 	ctrl->TransportStop();

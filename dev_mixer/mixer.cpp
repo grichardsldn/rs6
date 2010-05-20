@@ -5,8 +5,10 @@
 #include <string.h>
 
 #include <pthread.h>
-#include "/home/user/svn2/Darkbat/api/dkb.h"
+#include "/home/user/Darkbat/api/dkb.h"
 #include "vol.h"
+
+static int nowhere = 0;
 
 void DeviceMixer::Init( IDeviceEvents *event,
 			char *instance_name,
@@ -15,6 +17,8 @@ void DeviceMixer::Init( IDeviceEvents *event,
 {
 	// dont care about any of these
 	vol_panel = new VolPanel();
+	out_left = &nowhere;
+	out_right = &nowhere;	
 }
 	
 void DeviceMixer::Clock()
@@ -45,8 +49,9 @@ void DeviceMixer::Clock()
 	{
 		val = -8388600;
 	}*/
-	*out_left = val;
-	*out_right = val;
+
+	if( out_left != NULL ) *out_left = val;
+	if( out_right != NULL ) *out_right = val;
 }
 
 

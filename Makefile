@@ -24,6 +24,7 @@ SOURCES=Makefile\
 	IDevice.cpp\
 	create_device.cpp\
 	RS7Mapper.cpp\
+	script.cpp\
 	main.cpp
 
 OBJECTS=\
@@ -31,9 +32,10 @@ OBJECTS=\
 	create_device.o\
 	RS7Mapper.o\
 	setsound.o\
+	script.cpp\
 	main.o \
-	/home/user/svn2/Darkbat/api/dkb_api.o \
-	/home/user/svn2/Darkbat/api/UDPSocket.o
+	/home/user/Darkbat/api/dkb_api.o \
+	/home/user/Darkbat/api/UDPSocket.o
 
 LIBS=-lpthread
 
