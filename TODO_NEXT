@@ -4,11 +4,5 @@ Add pre-play.  Probably done by extending adding a midi call.
  -- This call would be processed like a midi note. 
 
 Work out out how to manage patches for the devices.
--- Idea of a Project?  Holds the configuration.  It this specified in
-   a .seq?  Does the project point to a .seq?  I dont think so.
-
-   Basically a script interface for IManage.
-
-Stuff to do  sometime:
 
 fix quotess in Reader.

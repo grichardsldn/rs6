@@ -7,6 +7,7 @@
 #include <pthread.h>
 #include "/home/user/Darkbat/api/dkb.h"
 #include "vol.h"
+#include "../settings.h"
 
 static int nowhere = 0;
 
@@ -15,10 +16,29 @@ void DeviceMixer::Init( IDeviceEvents *event,
 			int samplerate,
 			char *startup_params)
 {
+	char name[1024];
+	printf( "instance=%s\n", instance_name);
+	sprintf( &name[0], "%s.set", instance_name);
+	printf( "instance=%s\n", name);
+	x = 0; y =0; z = 0;
+	settings = new Settings( name );
+	settings->AddSetting( "x", &x );
+	settings->AddSetting( "y", &y );
+	settings->AddSetting( "z", &z );
+	printf( "y=%d\n", y );
 	// dont care about any of these
-	vol_panel = new VolPanel();
+	//vol_panel = new VolPanel();
+	vol_panel = new VolPanel(x,y,z);
+	for( int i = 0 ; i < NUM_INPUTS ; i ++ )
+	{
+		char sname[100];
+		sprintf( &sname[0], "chvol%d", i );
+		settings->AddSetting( sname, &vol_panel->vols[i]->vol );
+	}
 	out_left = &nowhere;
 	out_right = &nowhere;	
+	settings->Read();
+	settings->Write();
 }
 	
 void DeviceMixer::Clock()

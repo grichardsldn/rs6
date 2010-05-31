@@ -17,6 +17,8 @@ cd ../dev_samp
 make
 cd ../dev_strings
 make
+cd ../dev_smodel
+make
 cd ../dev_sampdrum
 make
 cd ../ui

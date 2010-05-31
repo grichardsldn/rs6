@@ -3,6 +3,7 @@
 #define NUM_INPUTS (7)
 
 class VolPanel;
+class Settings;
 
 class DeviceMixer : public IDevice
 {
@@ -24,5 +25,9 @@ class DeviceMixer : public IDevice
 	int *out_left;
 	int *out_right;
 	VolPanel *vol_panel;
+	Settings *settings;
+	int x;
+	int y;
+	int z;
 };
 

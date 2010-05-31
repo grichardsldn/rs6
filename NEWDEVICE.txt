@@ -1,5 +1,5 @@
 
-x Copy dev_strings
+x Copy dev_null
 x change makefile
 x edit clean.sh
 x edit builsh.sh

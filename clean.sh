@@ -17,6 +17,8 @@ cd ../dev_samp
 make clean
 cd ../dev_recorder
 make clean
+cd ../dev_smodel
+make clean
 cd ../dev_sampdrum
 make clean
 cd ../ui

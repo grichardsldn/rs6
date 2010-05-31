@@ -18,6 +18,7 @@ DEVICE_OBJECTS=\
 	$(ROOT)/dev_recorder/recorder.o\
 	$(ROOT)/dev_samp/samp.o\
 	$(ROOT)/dev_sampdrum/sampdrum.o\
+	$(ROOT)/dev_smodel/smodel.o\
 	$(ROOT)/ui/widget.o
 
 SOURCES=Makefile\
@@ -25,6 +26,7 @@ SOURCES=Makefile\
 	create_device.cpp\
 	RS7Mapper.cpp\
 	script.cpp\
+	settings.cpp\
 	main.cpp
 
 OBJECTS=\
@@ -32,7 +34,8 @@ OBJECTS=\
 	create_device.o\
 	RS7Mapper.o\
 	setsound.o\
-	script.cpp\
+	script.o\
+	settings.o\
 	main.o \
 	/home/user/Darkbat/api/dkb_api.o \
 	/home/user/Darkbat/api/UDPSocket.o

@@ -1,0 +1,11 @@
+Modelling drum synth.
+Strings box
+Guitar synth
+bass sub synth
+harp sub synth
+ - sub synth for plucked sounds - polyphonic?
+bass organ
+ - sinewave synth in 100-200 hz range
+ - envelope on harmonics?
+
+

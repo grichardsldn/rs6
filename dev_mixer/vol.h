@@ -19,6 +19,7 @@ class VolPanel
 	public:
 	Vol *vols[15];
 	VolPanel();
+	VolPanel(int x, int y, int z);
 	private:
 	dkbObj *dkb_obj;	
 };

@@ -18,6 +18,21 @@ bool Reader::OpenFile( char *a_filename )
 	strcpy( filename, a_filename );
 }
 
+Reader::Reader()
+{
+	strcpy( filename ,  "" );
+	inptr = NULL;
+}
+
+Reader::~Reader()
+{
+	if( inptr != NULL )
+	{
+		fclose( inptr );
+	}
+}
+
+
 bool Reader::isMonoWord( char val )
 {
 	switch (val )
@@ -179,6 +194,7 @@ int Reader::CurrentLine()
 	return line_number;
 }
 
+#if 0
 main()
 {
 	Reader my_reader;
@@ -188,3 +204,4 @@ main()
 		printf("\"%s\"\n", my_reader.NextWord( ) );
 	}
 }
+#endif

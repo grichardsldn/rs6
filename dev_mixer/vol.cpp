@@ -9,8 +9,14 @@
 
 VolPanel::VolPanel()
 {
+	VolPanel::VolPanel( 0,0,0);
+}
+
+VolPanel::VolPanel(int x, int y, int z)
+{
 	dkb_obj = new dkbObj();
 
+	printf("GDR: Creating vols\n");
 	for( int i = 0 ; i < 10 ; i++)
 	{
 		vols[i] = new Vol( 8, 300 + i, dkb_obj, i * 3 );
@@ -18,9 +24,9 @@ VolPanel::VolPanel()
 
 	dkbBlock block;	
 	dkbPos pos;
-	pos.x = 0;
-	pos.y = 0;
-	pos.z = 0;
+	pos.x = x;
+	pos.y = y;
+	pos.z = z;
 	dkb_obj->project( block, pos );
 }
 
