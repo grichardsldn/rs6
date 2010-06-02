@@ -74,7 +74,7 @@ void DeviceSub::Init( 	IDeviceEvents *event,
 	slewer = new Slewer( a_samplerate );
 	output = NULL;
 
-	octave_adjust = -1;
+	octave_adjust = 0;
 	running = true;
 }
 

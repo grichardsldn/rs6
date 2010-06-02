@@ -32,12 +32,12 @@ void Pattern::Load( char *filename)
 		return;
 	}
 
-	int notelen = atoi( reader.NextWord() );
-	if( notelen != 4 )
-	{
-		printf("Only quarter notes supported\n");
-		return;
-	}
+	notelen = atoi( reader.NextWord() );
+	//if(( notelen != 4 ) && (notelen != 3) )
+	//{
+//		printf("Only quarter or third notes supported\n");
+//		return;
+//	}
 
 	char *read;
 	while (strcmp( read = reader.NextWord(), "end" ) != 0 )
@@ -74,20 +74,31 @@ int Pattern::Write( NoteList *nl,
 
 	for (int i = 0 ; i < num_notes ; i ++ )
 	{
-		nl->AddEvent( NOTELIST_EVENT_NOTE_ON,
-			midi_channel, 
-			notes[i].note_num + transpose, // note
-			64, // vel
-			location );
+		bool play_note = true;
+		if( notes[i].note_num == 0 )
+		{
+			play_note = false;
+		}	
+
+		if( play_note )
+		{
+			nl->AddEvent( NOTELIST_EVENT_NOTE_ON,
+				midi_channel, 
+				notes[i].note_num + transpose, // note
+				64, // vel
+				location );
+		}
 	
-		int note_len = samplerate * 60 / tempo / 4 * notes[i].length;
+		int note_len = samplerate * 60 / tempo / notelen * notes[i].length;
 		int note_on_len = note_len * NOTE_ON / 16;
-		nl->AddEvent( NOTELIST_EVENT_NOTE_OFF,
-			midi_channel, 
-			notes[i].note_num + transpose, // note
-			0, // unused 
-			location + note_on_len );
-		
+		if( play_note )
+		{
+			nl->AddEvent( NOTELIST_EVENT_NOTE_OFF,
+				midi_channel, 
+				notes[i].note_num + transpose, // note
+				0, // unused 
+				location + note_on_len );
+		}	
 		location += note_len;
 	}
 

@@ -34,6 +34,7 @@ class Pattern
 		int midi_channel );
 
 	private:
+	int notelen;
 	Note notes[256];
 	int num_notes;
 };

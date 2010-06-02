@@ -7,5 +7,5 @@ harp sub synth
 bass organ
  - sinewave synth in 100-200 hz range
  - envelope on harmonics?
-
+compressor for listening on a train.
 
