@@ -6,7 +6,7 @@
 #include "reader.h"
 #include "settings.h"
 
-Settings::Settings( char *a_filename )
+Settings::Settings( const char *a_filename )
 {
 	assert( a_filename );
 	num_settings = 0;
@@ -14,22 +14,22 @@ Settings::Settings( char *a_filename )
 	strcpy( filename , a_filename);
 }
 
-void Settings::AddSetting( char *name, float *addr )
+void Settings::AddSetting( const char *name, float *addr )
 {
 	AddSetting( name, DATATYPE_FLOAT, addr );
 }
 
-void Settings::AddSetting( char *name, int *addr )
+void Settings::AddSetting( const char *name, int *addr )
 {
 	AddSetting( name, DATATYPE_INT, addr );
 }
 
-void Settings::AddSetting( char *name, char *addr )
+void Settings::AddSetting(const char *name, char *addr )
 {
 	AddSetting( name, DATATYPE_STRING, addr );
 }
 
-int Settings::FindSetting( char *name )
+int Settings::FindSetting( const char *name )
 {
 	for( int i = 0 ; i < num_settings ; i ++ )
 	{
@@ -41,7 +41,7 @@ int Settings::FindSetting( char *name )
 	return -1;
 }
 
-void Settings::AddSetting( char *name, int datatype, void *ptr)
+void Settings::AddSetting( const char *name, int datatype, void *ptr)
 {
 	if( FindSetting( name ) != -1 ) 
 	{
@@ -60,7 +60,11 @@ void Settings::AddSetting( char *name, int datatype, void *ptr)
 void Settings::Read()
 {
 	Reader *reader = new Reader();
-	reader->OpenFile( filename );
+	if( reader->OpenFile( filename ) == false )
+	{
+		// now file to read
+		return;
+	}
 
 	char *word;
 	while( strcmp( (word = reader->NextWord()) , "" ) != 0 )

@@ -7,16 +7,16 @@ class Settings
 {
 	public:
 
-	Settings( char *filename );
-	void AddSetting( char *name, float *addr );
-	void AddSetting( char *name, int *addr );
-	void AddSetting( char *name, char *addr );
+	Settings( const char *filename );
+	void AddSetting( const char *name, float *addr );
+	void AddSetting( const char *name, int *addr );
+	void AddSetting(const  char *name, char *addr );
 
 	void Write();
 	void Read();
 	private:
-	int FindSetting( char *name );
-	void AddSetting( char *name, int datatype, void *ptr );
+	int FindSetting( const char *name );
+	void AddSetting( const char *name, int datatype, void *ptr );
 	char *filename;
 	int num_settings;
 	char *names[MAX_SETTINGS];

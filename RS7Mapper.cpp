@@ -148,6 +148,9 @@ int RS7Manage::CreateDevice(	char *device_type,
 	assert( device_type );
 	assert( name );
 
+	printf("CreateDevice: device_type=%s, name=%s, params=%s\n",
+		device_type, name, params );
+
 	char blank_string [1] = "";
 
 	if( params == NULL)
@@ -188,7 +191,7 @@ int RS7Manage::CreateDevice(	char *device_type,
 	// init the device
 	device_interface->Init( mapper->devices[device_id].event_receiver,
 		name, mapper->samplerate, params );	
-
+	printf("GDR: Called Init\n");
 	return device_id;
 }
 		

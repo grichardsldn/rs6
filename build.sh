@@ -15,6 +15,8 @@ cd ../dev_recorder
 make
 cd ../dev_samp
 make
+cd ../dev_sub102
+make
 cd ../dev_strings
 make
 cd ../dev_smodel

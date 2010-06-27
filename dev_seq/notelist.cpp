@@ -66,8 +66,8 @@ NoteListPrivate::NoteListPrivate()
 void NoteList::AddEvent( int event, int channel, int note, int vel,
 		int location )
 {
-	printf("AddEvent: event=#%dm channel=#%d, note=#%d, loc=#%d\n",
-		event, channel, note, location );
+	//printf("AddEvent: event=#%dm channel=#%d, note=#%d, loc=#%d\n",
+	//	event, channel, note, location );
 
 	// do this the slow way, start from the beginning
 	NoteListEvent *cur = priv->head;

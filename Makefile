@@ -19,6 +19,8 @@ DEVICE_OBJECTS=\
 	$(ROOT)/dev_samp/samp.o\
 	$(ROOT)/dev_sampdrum/sampdrum.o\
 	$(ROOT)/dev_smodel/smodel.o\
+	$(ROOT)/dev_sub102/sub102.o\
+	$(ROOT)/dev_sub102/sub102comp.o\
 	$(ROOT)/ui/widget.o
 
 SOURCES=Makefile\

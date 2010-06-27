@@ -15,6 +15,9 @@
 #include "dev_recorder/recorder.h"
 #include "dev_samp/samp.h"
 #include "dev_smodel/smodel.h"
+#include "dev_sub102/sub102comp.h"
+#include "dev_sub102/sub102.h"
+
 
 // END DEVICES
 
@@ -86,6 +89,11 @@ IDevice *create_device( char *device_type )
 	if( strcmp( device_type, "smodel") == 0)
 	{
 		IDevice *dev = new DeviceSModel;
+		return dev;
+	}
+	if( strcmp( device_type, "sub102") == 0)
+	{
+		IDevice *dev = new DeviceSub102;
 		return dev;
 	}
 	return NULL;
