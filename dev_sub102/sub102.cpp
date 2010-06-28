@@ -74,9 +74,11 @@ void DeviceSub102::Init( 	IDeviceEvents *event,
 	pwm_lfo->setRate(0.1);
 
 	slewer = new Sub102::Slewer( a_samplerate );
+	slewer2 = new Sub102::Slewer( a_samplerate );
 	output = NULL;
 
 	octave_adjust = 0;
+	pitch_mod = 0.0;
 	settings->Read();
 	settings->Write();
 	running = true;
@@ -168,10 +170,11 @@ void DeviceSub102::Clock()
 			(filt_env * al );
 	// 0.01 lowest?
 	val = slewer->Clock( val, filt_out);
+	val = slewer2->Clock( val, filt_out);
 
 	if( output)
 	{
-		*output = ((int)(val*16.0) << 24);
+		*output = ((int)(val*(16.0*256.0)) << 16);
 	} 
 }
 

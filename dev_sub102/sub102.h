@@ -1,4 +1,3 @@
-class ToneGen;
 class LFO;
 class ADSR;
 class Slewer;
@@ -28,6 +27,7 @@ class DeviceSub102 : public IDevice
 	Sub102::ADSR *amp_adsr;
 	Sub102::LFO	*pwm_lfo;
 	Sub102::Slewer *slewer;
+	Sub102::Slewer *slewer2;
 	int midi_channel;
 	int note;
 	int *output;

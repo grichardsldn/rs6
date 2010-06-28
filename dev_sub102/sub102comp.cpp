@@ -244,7 +244,7 @@ double ToneGen::Clock( double note_offset, double adjust )
 		return ret;
 	}
 
-	double mod_increment;
+	double mod_increment = 0.0 ;
 	if( note_offset > 0 )
 	{
 		mod_increment = increment * (note_offset + 1.0);
@@ -253,7 +253,6 @@ double ToneGen::Clock( double note_offset, double adjust )
 	{
 		mod_increment = increment / ((note_offset* -1.0) + 1.0);
 	}
-
 	through += mod_increment;
 	assert( mod_increment < 1.0 );
 	if( through > 1.0)
