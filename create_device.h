@@ -4,5 +4,5 @@
 
 class IDevice;
 
-extern IDevice *create_device( char *device_type );
+extern IDevice *create_device( const char *device_type );
 

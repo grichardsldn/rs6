@@ -31,7 +31,7 @@ void RS7Manage::Monitor( int left_bus_id, int right_bus_id )
 	mapper->right_monitor_bus = right_bus_id;
 }
 
-bool RS7Manage::SetDeviceOutput( int device_id, char *output_name, int bus )
+bool RS7Manage::SetDeviceOutput( int device_id, const char *output_name, int bus )
 {
 	assert( output_name );
 	assert( bus >= 0 );
@@ -54,7 +54,7 @@ bool RS7Manage::SetDeviceOutput( int device_id, char *output_name, int bus )
 		&mapper->busses[bus].current_value );
 }
 
-bool RS7Manage::SetDeviceMidiInput( int device_id, char *input_name, int channel )
+bool RS7Manage::SetDeviceMidiInput( int device_id, const char *input_name, int channel )
 {
 	assert( input_name );
 	assert( channel >= 0 );
@@ -69,7 +69,7 @@ bool RS7Manage::SetDeviceMidiInput( int device_id, char *input_name, int channel
 
 	return device->device_interface->SetMidiInput( input_name, channel );
 }
-bool RS7Manage::SetDeviceInput( int device_id, char *input_name, int bus )
+bool RS7Manage::SetDeviceInput( int device_id, const char *input_name, int bus )
 {
 	assert( input_name );
 	assert( bus >= 0 );
@@ -112,7 +112,7 @@ bool RS7Manage::DeleteDevice( int device_id )
 	return true;
 }
 
-int RS7Manage::FindDevice( char *device_type, char *name )
+int RS7Manage::FindDevice( const char *device_type, const char *name )
 {
 	assert( device_type );
 	assert( name );
@@ -141,9 +141,9 @@ int RS7Manage::CountBusses()
 	return( NUM_BUSSES );
 }
 
-int RS7Manage::CreateDevice(	char *device_type,
-				char *name,
-				char *params )
+int RS7Manage::CreateDevice(	const char *device_type,
+				const char *name,
+				const char *params )
 {
 	assert( device_type );
 	assert( name );
@@ -209,8 +209,8 @@ Device::Device()
 }
 
 void Device::Set( IDevice *a_device_interface, 
-	char *a_device_type, 
-	char *a_name )
+	const char *a_device_type, 
+	const char *a_name )
 {
 	assert( a_device_interface);
 	assert( a_device_type );
@@ -235,7 +235,7 @@ IManage *RS7Mapper::GetControl()
 	return manage_interface;
 }
 
-RS7Mapper::RS7Mapper( int a_samplerate, char *audio_device )
+RS7Mapper::RS7Mapper( int a_samplerate, const char *audio_device )
 {
 	samplerate = a_samplerate;
 

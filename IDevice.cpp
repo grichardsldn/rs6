@@ -19,7 +19,7 @@ void IDevice::Clock()
 {
 }
 
-int IDevice::ReceiveCommand( 	char *command,
+int IDevice::ReceiveCommand( const	char *command,
 				int command_length,
 				char *response_buffer,
 				int response_buffer_length )
@@ -30,7 +30,7 @@ int IDevice::ReceiveCommand( 	char *command,
 	return 0;
 }
 
-bool IDevice::SetMidiInput( char *input_name, int channel )
+bool IDevice::SetMidiInput( const char *input_name, int channel )
 {
 	return false;
 }
@@ -50,6 +50,7 @@ bool IDevice::TransportPlay()
 
 bool IDevice::TransportStop()
 {
+	return false;
 }
 
 bool IDevice::TransportReset()
@@ -57,7 +58,7 @@ bool IDevice::TransportReset()
 	return false;
 }
 
-bool IDevice::SetOutput( char *output_name, int *output_ptr )
+bool IDevice::SetOutput( const char *output_name, int *output_ptr )
 {
 	assert( output_name );
 	assert( output_ptr );
@@ -66,9 +67,9 @@ bool IDevice::SetOutput( char *output_name, int *output_ptr )
 }	
 
 void IDevice::Init( 	IDeviceEvents *event_receiver,
-			char *instance_name,
+			const char *instance_name,
 			int samplerate,
-			char *startup_params )
+			const char *startup_params )
 {
 	assert( event_receiver );
 	assert( instance_name );
@@ -76,7 +77,7 @@ void IDevice::Init( 	IDeviceEvents *event_receiver,
 	assert( startup_params );
 }
 
-bool IDevice::SetInput( char *input_name, int *input_ptr )
+bool IDevice::SetInput( const char *input_name, int *input_ptr )
 {
 	assert( input_name );
 	assert( input_ptr );

@@ -7,9 +7,9 @@
 // This is a test device
 
 void DeviceTestDevice::Init( 	IDeviceEvents *event,
-				char *instance_name, 
+				const char *instance_name, 
 				int a_samplerate,
-				char *startup_params )
+				const char *startup_params )
 {
 	printf("DeviceTestDevice:Init: name=\"%s\" samplerate=#%d params=\"%s\"\n",
 		instance_name, a_samplerate, startup_params );
@@ -21,14 +21,14 @@ void DeviceTestDevice::Init( 	IDeviceEvents *event,
 	midi_channel = 1;
 }
 
-bool DeviceTestDevice::SetMidiInput( char *input_name, int channel )
+bool DeviceTestDevice::SetMidiInput( const char *input_name, int channel )
 {
 	midi_channel = channel;
 	
 	return true;
 }
 
-bool DeviceTestDevice::SetOutput( char *output_name, int *output_ptr )
+bool DeviceTestDevice::SetOutput( const char *output_name, int *output_ptr )
 {
 	printf("DeviceTestDevice:SetOutput: output_name=\"%s\"\n", output_name );
 	outptr = output_ptr;

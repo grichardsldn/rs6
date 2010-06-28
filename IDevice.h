@@ -12,21 +12,21 @@ class IDevice
 {
 	public:
 	virtual void Init( 	IDeviceEvents *event,
-				char *instance_name, 
+				const char *instance_name, 
 				int samplerate,
-				char *startup_params );
+				const char *startup_params );
 
 	// plumbing
-	virtual bool SetInput( char *input_name, int *input_ptr );
-	virtual bool SetOutput( char *output_name, int *output_ptr );
+	virtual bool SetInput( const char *input_name, int *input_ptr );
+	virtual bool SetOutput( const char *output_name, int *output_ptr );
 
-	virtual bool SetMidiInput( char *input_name, int channel );
+	virtual bool SetMidiInput( const char *input_name, int channel );
 
 	virtual void MidiNoteOn( int channel, int note, int volume );
 	virtual void MidiNoteOff( int channel, int note );
 
 	// management
-	virtual int ReceiveCommand( 	char *command,
+	virtual int ReceiveCommand( 	const char *command,
 					int command_length,
 					char *response_buffer,
 					int response_buffer_length );

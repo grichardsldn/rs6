@@ -10,9 +10,9 @@ class DeviceMidiRX : public IDevice
 
 	// IDevice stuff
 	virtual void Init( 	IDeviceEvents *event,
-				char *instance_name, 
+				const char *instance_name, 
 				int samplerate,
-				char *startup_params );
+				const char *startup_params );
 	virtual void Clock();
 
 	DeviceMidiRX();

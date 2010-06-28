@@ -4,7 +4,7 @@
 
 #include "reader.h"
 
-bool Reader::OpenFile( char *a_filename )
+bool Reader::OpenFile( const char *a_filename )
 {
 	assert( a_filename );
 	inptr = fopen( a_filename, "r" );

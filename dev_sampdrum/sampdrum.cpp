@@ -17,7 +17,7 @@ class DrumChannel
 	int current;
 	int length;
 	void Trigger( );
-	bool Load( char *filename );
+	bool Load( const char *filename );
 	signed short Clock();
 };
 */
@@ -29,7 +29,7 @@ DrumChannel::DrumChannel()
 	int length = 0;
 }
 
-bool DrumChannel::Load( char *a_filename )
+bool DrumChannel::Load( const char *a_filename )
 {
 	FILE *inptr;
 	inptr = fopen(a_filename, "rb");
@@ -102,9 +102,9 @@ DeviceSampDrum::DeviceSampDrum()
 }
 
 void DeviceSampDrum::Init( 	IDeviceEvents *event,
-				char *instance_name, 
+				const char *instance_name, 
 				int a_samplerate,
-				char *startup_params )
+				const char *startup_params )
 {
 	printf("DeviceSampDrum:Init: name=\"%s\" samplerate=#%d params=\"%s\"\n",
 		instance_name, a_samplerate, startup_params );
@@ -133,7 +133,7 @@ void DeviceSampDrum::Init( 	IDeviceEvents *event,
 	initialised = true;
 }
 
-bool DeviceSampDrum::SetMidiInput( char *input_name, int a_channel )
+bool DeviceSampDrum::SetMidiInput( const char *input_name, int a_channel )
 {
 	assert( input_name );
 	
@@ -141,7 +141,7 @@ bool DeviceSampDrum::SetMidiInput( char *input_name, int a_channel )
 	return true;
 }
 
-bool DeviceSampDrum::SetOutput( char *output_name, int *output_ptr )
+bool DeviceSampDrum::SetOutput( const char *output_name, int *output_ptr )
 {
 	printf("DeviceSampDrum:SetOutput: output_name=\"%s\"\n", output_name );
 

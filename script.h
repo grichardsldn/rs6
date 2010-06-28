@@ -40,14 +40,14 @@ class Script
 {
 	public:
 	Script( IManage *manager);
-	bool Run( char *filename );
+	bool Run( const char *filename );
 	private:
-	bool monitor( Reader *reader, char *word );
-	bool create_dev( Reader *reader, char *word );
-	bool dev_midi_out( Reader *reader, char *word);
-	bool dev_midi_in( Reader *reader, char *word);
-	bool dev_out( Reader *reader, char *word);
-	bool dev_in( Reader *reader, char *word);
+	bool monitor( Reader *reader, const char *word );
+	bool create_dev( Reader *reader, const char *word );
+	bool dev_midi_out( Reader *reader, const char *word);
+	bool dev_midi_in( Reader *reader, const char *word);
+	bool dev_out( Reader *reader, const char *word);
+	bool dev_in( Reader *reader, const char *word);
 	bool ctrl( Reader *reader );
 	IManage *manager;
 };

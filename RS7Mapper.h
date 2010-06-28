@@ -11,16 +11,16 @@ class RS7Manage : public IManage
 	RS7Manage( RS7Mapper *mapper );
 
 	int CountBusses( );
-	int CreateDevice(	char *device_type, 
-				char *instance_name, 
-				char *params );
+	int CreateDevice(	const char *device_type, 
+				const char *instance_name, 
+				const char *params );
 	
-	int FindDevice( char *device_type, char *instance_name );
+	int FindDevice( const char *device_type, const char *instance_name );
 	bool DeleteDevice( int device_id );
 
-	bool SetDeviceInput( int device_id, char *input_name, int bus );
-	bool SetDeviceMidiInput( int device_id, char *input_name, int channel );
-	bool SetDeviceOutput( int device_id, char *output_name, int bus );
+	bool SetDeviceInput( int device_id, const char *input_name, int bus );
+	bool SetDeviceMidiInput( int device_id, const char *input_name, int channel );
+	bool SetDeviceOutput( int device_id, const char *output_name, int bus );
 
 	void Monitor( int left_device_id, int right_device_id );
 
@@ -60,8 +60,8 @@ struct Device
 	public:
 	Device();
 	void Set( IDevice *device_interface,
-		char *device_type,
-		char *name );
+		const char *device_type,
+		const char *name );
 	void Clear();
 
 	public:
@@ -74,8 +74,8 @@ struct Device
 class RS7Mapper
 {
 	public:
-	RS7Mapper( int samplerate, char *audio_device );
-
+	RS7Mapper( int samplerate, const char *audio_device );
+	void Run();
 	IManage *GetControl();
 
 	void BroadcastMidiNoteOn( int channel, int note, int volume );

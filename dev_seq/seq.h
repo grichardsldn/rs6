@@ -39,7 +39,7 @@ class Section
 class SequenceProcessor
 {
 	public:
-	SequenceProcessor( char *filename, NoteList *notelist, int samplerate, int tempo );
+	SequenceProcessor( const char *filename, NoteList *notelist, int samplerate, int tempo );
 
 	private:
 	void AddSection( Section *a_section );
@@ -56,9 +56,9 @@ class DeviceSeq : public IDevice
 
 	// IDevice stuff
 	virtual void Init( 	IDeviceEvents *event,
-				char *instance_name, 
+				const char *instance_name, 
 				int samplerate,
-				char *startup_params );
+				const char *startup_params );
 	virtual void Clock();
 	virtual bool TransportPlay();
 	virtual bool TransportStop();

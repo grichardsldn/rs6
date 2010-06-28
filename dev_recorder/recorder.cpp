@@ -8,9 +8,9 @@
 
 
 void DeviceRecorder::Init( 	IDeviceEvents *event,
-				char *instance_name, 
+				const char *instance_name, 
 				int a_samplerate,
-				char *startup_params )
+			const 	char *startup_params )
 {
 //	printf("DeviceRecorder:Init: name=\"%s\" samplerate=#%d params=\"%s\"\n",
 ///		instance_name, a_samplerate, startup_params );
@@ -20,7 +20,7 @@ void DeviceRecorder::Init( 	IDeviceEvents *event,
 	head = NULL;
 }
 
-bool DeviceRecorder::SetOutput( char *output_name, int *output_ptr )
+bool DeviceRecorder::SetOutput( const char *output_name, int *output_ptr )
 {
 	printf("DeviceRecorder:SetOutput: output_name=\"%s\"\n", output_name );
 
@@ -36,7 +36,7 @@ bool DeviceRecorder::SetOutput( char *output_name, int *output_ptr )
 	return true;
 }
 
-bool DeviceRecorder::SetInput( char *input_name, int *input_ptr )
+bool DeviceRecorder::SetInput( const char *input_name, int *input_ptr )
 {
 	printf("DeviceRecorder:SetInput: input_name=\"%s\"\n", input_name );
 

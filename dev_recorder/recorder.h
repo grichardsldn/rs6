@@ -20,11 +20,11 @@ class DeviceRecorder : public IDevice
 
 	// IDevice stuff
 	virtual void Init( 	IDeviceEvents *event,
-				char *instance_name, 
+				const char *instance_name, 
 				int samplerate,
-				char *startup_params );
-	virtual bool SetInput( char *input_name, int *input_ptr );
-	virtual bool SetOutput( char *output_name, int *outptr_ptr );
+				const char *startup_params );
+	virtual bool SetInput( const char *input_name, int *input_ptr );
+	virtual bool SetOutput( const char *output_name, int *outptr_ptr );
 	virtual void Clock();
 	virtual bool TransportPlay();
 	virtual bool TransportStop();

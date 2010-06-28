@@ -177,7 +177,8 @@ void DeviceSub102::Clock()
 
 void DeviceSub102::MidiNoteOn( int channel, int note, int vol )
 {
-	assert(running);
+	if (!running ) return;
+
 	if( channel == midi_channel )
 	{
 		//note-=12;	
@@ -195,7 +196,7 @@ void DeviceSub102::MidiNoteOn( int channel, int note, int vol )
 
 void DeviceSub102::MidiNoteOff( int channel, int note )
 {
-	assert(running);
+	if (!running ) return;
 	assert(tonegen );
 
 	printf("DeviceSub102::MidiNoteOff\n");

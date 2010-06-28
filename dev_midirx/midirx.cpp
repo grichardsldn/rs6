@@ -18,9 +18,9 @@ DeviceMidiRX::DeviceMidiRX( )
 }
 
 void DeviceMidiRX::Init( 	IDeviceEvents *a_event,
-				char *a_instance_name, 
+				const char *a_instance_name, 
 				int a_samplerate,
-				char *a_startup_params )
+				const char *a_startup_params )
 {
 	assert(a_event);
 	assert(a_instance_name);

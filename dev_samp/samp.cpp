@@ -16,7 +16,7 @@
 //  start, loop_start, loop_end, release
 // samplerate, note_freq
 // mono (on its own)
-void SampleData::ReadFile ( char *a_filename )
+void SampleData::ReadFile ( const char *a_filename )
 {
 	strcpy( filename, a_filename );
 	Reader reader;
@@ -181,9 +181,9 @@ void SampChannel::Release()
 }
 		
 void DeviceSamp::Init( 	IDeviceEvents *event,
-				char *instance_name, 
+				const char *instance_name, 
 				int a_samplerate,
-				char *startup_params )
+				const char *startup_params )
 {
 	printf("DeviceSamp:Init: name=\"%s\" samplerate=#%d params=\"%s\"\n",
 		instance_name, a_samplerate, startup_params );
@@ -195,14 +195,14 @@ void DeviceSamp::Init( 	IDeviceEvents *event,
 	data->ReadFile( startup_params );
 }
 
-bool DeviceSamp::SetMidiInput( char *input_name, int channel )
+bool DeviceSamp::SetMidiInput( const char *input_name, int channel )
 {
 	midi_channel = channel;
 	
 	return true;
 }
 
-bool DeviceSamp::SetOutput( char *output_name, int *output_ptr )
+bool DeviceSamp::SetOutput( const char *output_name, int *output_ptr )
 {
 	printf("DeviceTestDevice:SetOutput: output_name=\"%s\"\n", output_name );
 	output = output_ptr;

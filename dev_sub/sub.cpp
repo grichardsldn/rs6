@@ -12,9 +12,9 @@
 #include "../ui/widget.h"
 
 void DeviceSub::Init( 	IDeviceEvents *event,
-				char *instance_name, 
+				const char *instance_name, 
 				int a_samplerate,
-				char *startup_params )
+				const char *startup_params )
 {
 	printf("DeviceSub:Init: name=\"%s\" samplerate=#%d params=\"%s\"\n",
 		instance_name, a_samplerate, startup_params );
@@ -78,7 +78,7 @@ void DeviceSub::Init( 	IDeviceEvents *event,
 	running = true;
 }
 
-bool DeviceSub::SetMidiInput( char *input_name, int channel )
+bool DeviceSub::SetMidiInput( const char *input_name, int channel )
 {
 	if( strcmp( input_name, "main") == 0)
 	{
@@ -91,7 +91,7 @@ bool DeviceSub::SetMidiInput( char *input_name, int channel )
 	return true;
 }
 
-bool DeviceSub::SetOutput( char *output_name, int *output_ptr )
+bool DeviceSub::SetOutput( const char *output_name, int *output_ptr )
 {
 	printf("Sub: set output to &%08x\n", (unsigned int)output_ptr);
 	assert( output_ptr );

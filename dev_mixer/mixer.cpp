@@ -12,9 +12,9 @@
 static int nowhere = 0;
 
 void DeviceMixer::Init( IDeviceEvents *event,
-			char *instance_name,
+			const char *instance_name,
 			int samplerate,
-			char *startup_params)
+			const char *startup_params)
 {
 	char name[1024];
 	printf( "instance=%s\n", instance_name);
@@ -75,7 +75,7 @@ void DeviceMixer::Clock()
 }
 
 
-bool DeviceMixer::SetInput( char *input_name, int *input_ptr )
+bool DeviceMixer::SetInput( const char *input_name, int *input_ptr )
 {
 	int index = -1;
 	for( int i = 0 ; i<  NUM_INPUTS; i++)
@@ -97,7 +97,7 @@ bool DeviceMixer::SetInput( char *input_name, int *input_ptr )
 	return true;
 }
 
-bool DeviceMixer::SetOutput( char *output_name, int *output_ptr)
+bool DeviceMixer::SetOutput( const char *output_name, int *output_ptr)
 {
 	assert( output_name );
 	assert( output_ptr );

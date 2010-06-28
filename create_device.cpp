@@ -21,7 +21,7 @@
 
 // END DEVICES
 
-IDevice *create_device( char *device_type )
+IDevice *create_device( const char *device_type )
 {
 	assert( device_type );
 

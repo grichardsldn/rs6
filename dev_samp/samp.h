@@ -16,7 +16,7 @@ class SampleData
 	char filename[1024];
 	char data_filename[1024];
 	bool mono;
-	void ReadFile( char *filename );
+	void ReadFile( const char *filename );
 };
 
 class SampChannel
@@ -43,14 +43,14 @@ class DeviceSamp : public IDevice
 
 	// IDevice stuff
 	virtual void Init( 	IDeviceEvents *event,
-				char *instance_name, 
+				const char *instance_name, 
 				int samplerate,
-				char *startup_params );
-	virtual bool SetOutput( char *output_name, int *output_ptr );
+				const char *startup_params );
+	virtual bool SetOutput( const char *output_name, int *output_ptr );
 	virtual void Clock();
 	virtual void MidiNoteOn( int channel, int note, int volume );
 	virtual void MidiNoteOff( int channel, int note );
-	virtual bool SetMidiInput( char *input, int channel );
+	virtual bool SetMidiInput( const char *input, int channel );
 
 	DeviceSamp();
 

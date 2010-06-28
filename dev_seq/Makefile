@@ -2,7 +2,7 @@ OBJECTS=notelist.o main.o pattern.o seq.o reader.o
 
 CFLAGS=-g
 
-all: $(OBJECTS) main
+all: $(OBJECTS)
 
 main: Makefile notelist.o main.o pattern.o seq.o
 	g++ -o main notelist.o main.o pattern.o seq.o

@@ -17,7 +17,7 @@ Script::Script(IManage *a_manager)
 }
 
 // dev_midi_in instance inputname channel 
-bool Script::dev_midi_in ( Reader *reader, char *word )
+bool Script::dev_midi_in ( Reader *reader, const char *word )
 {
 	if( strcmp( word , "dev_midi_in" ) != 0 )
 	{
@@ -37,7 +37,7 @@ bool Script::dev_midi_in ( Reader *reader, char *word )
 }
 
 // dev_in instance inputname channel 
-bool Script::dev_in ( Reader *reader, char *word )
+bool Script::dev_in ( Reader *reader, const char *word )
 {
 	if( strcmp( word , "dev_in" ) != 0 )
 	{
@@ -57,7 +57,7 @@ bool Script::dev_in ( Reader *reader, char *word )
 }
 
 // dev_midi_out instance oututname channel 
-bool Script::dev_midi_out ( Reader *reader, char *word )
+bool Script::dev_midi_out ( Reader *reader, const char *word )
 {
 	if( strcmp( word , "dev_midi_out" ) != 0 )
 	{
@@ -77,7 +77,7 @@ bool Script::dev_midi_out ( Reader *reader, char *word )
 }
 
 // dev_out instance oututname channel 
-bool Script::dev_out ( Reader *reader, char *word )
+bool Script::dev_out ( Reader *reader, const char *word )
 {
 	if( strcmp( word , "dev_out" ) != 0 )
 	{
@@ -97,7 +97,7 @@ bool Script::dev_out ( Reader *reader, char *word )
 }
 
 // create_dev type instance param 
-bool Script::create_dev( Reader *reader, char *word )
+bool Script::create_dev( Reader *reader, const char *word )
 {
 	if( strcmp( word , "create_dev" ) != 0 )
 	{
@@ -116,7 +116,7 @@ bool Script::create_dev( Reader *reader, char *word )
 }
 
 // monitor leftchannel rightchannel
-bool Script::monitor( Reader *reader, char *word )
+bool Script::monitor( Reader *reader, const char *word )
 {
 	if( strcmp( word , "monitor" ) != 0 )
 	{
@@ -171,7 +171,7 @@ bool Script::ctrl( Reader *reader )
 	return  ok;
 }
 
-bool Script::Run( char *filename )
+bool Script::Run( const char *filename )
 {
 	bool ok = false;
 	assert( filename );
@@ -180,7 +180,7 @@ bool Script::Run( char *filename )
 	if( ok )
 	{
 		char *word = NULL;
-		while (word = reader->NextWord())
+		while ( (word = reader->NextWord()) )
 		{
 			if( strcmp( word, "ctrl" ) == 0)
 			{

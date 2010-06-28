@@ -1,7 +1,7 @@
-class Sub102::ToneGen;
-class Sub102::LFO;
-class Sub102::ADSR;
-class Sub102::Slewer;
+class ToneGen;
+class LFO;
+class ADSR;
+class Slewer;
 
 class DeviceSub102 : public IDevice
 {

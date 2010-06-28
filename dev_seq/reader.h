@@ -1,7 +1,7 @@
 class Reader
 {
 	public:
-	bool OpenFile( char *filename );
+	bool OpenFile( const char *filename );
 	char *NextWord();  // returns empty string if eof
 	int CurrentLine();
 	~Reader();

@@ -229,7 +229,7 @@ void Section::ProcessSection( Reader *reader )
 		
 }
 
-SequenceProcessor::SequenceProcessor( char *a_filename, NoteList *notelist, int samplerate, int tempo )
+SequenceProcessor::SequenceProcessor( const char *a_filename, NoteList *notelist, int samplerate, int tempo )
 {
 	Reader *reader = new Reader();
 	reader->OpenFile( a_filename );
@@ -375,9 +375,9 @@ DeviceSeq::DeviceSeq()
 }
 
 void DeviceSeq::Init( IDeviceEvents *a_events,
-	char *instance_name,
+	const char *instance_name,
 	int a_samplerate,
-	char *startup_params )
+	const char *startup_params )
 {
 	assert( a_events );
 	assert( instance_name );
