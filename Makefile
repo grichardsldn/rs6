@@ -29,6 +29,7 @@ SOURCES=Makefile\
 	RS7Mapper.cpp\
 	script.cpp\
 	settings.cpp\
+	dbwidgetset.cpp\
 	main.cpp
 
 OBJECTS=\
@@ -38,6 +39,7 @@ OBJECTS=\
 	setsound.o\
 	script.o\
 	settings.o\
+	dbwidgetset.o\
 	main.o \
 	/home/user/Darkbat/api/dkb_api.o \
 	/home/user/Darkbat/api/UDPSocket.o
