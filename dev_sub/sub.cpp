@@ -54,8 +54,6 @@ void DeviceSub::Init( 	IDeviceEvents *event,
 	noise_vol_widget = new VolWidget( 2, 13, panel->dkb_obj, -21, 1, NULL );
 	panel->addWidget( noise_vol_widget );
 
-	int note = 0;
-	int midi_channel = 0;
 	tonegen = new ToneGen( a_samplerate );
 	tonegen->SetWaveform( WAVEFORM_PWM);
 	

@@ -56,8 +56,6 @@ void DeviceSub102::Init( 	IDeviceEvents *event,
 	noise_vol_setting = 1;
 	settings->AddSetting("noise_vol", &noise_vol_setting );
 
-	int note = 0;
-	int midi_channel = 0;
 	tonegen = new Sub102::ToneGen( a_samplerate );
 	tonegen->SetWaveform( WAVEFORM_PWM);
 	

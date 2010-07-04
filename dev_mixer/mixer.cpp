@@ -54,7 +54,7 @@ void DeviceMixer::Clock()
 	}
 	if( val >2000000000  )	
 	{
-		val == 2000000000;;
+		val = 2000000000;;
 	}
 	if( val < -2000000000)
 	{

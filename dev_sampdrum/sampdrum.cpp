@@ -26,7 +26,7 @@ DrumChannel::DrumChannel()
 {
 	data = NULL;
 	current = -1;
-	int length = 0;
+	length = 0;
 }
 
 bool DrumChannel::Load( const char *a_filename )

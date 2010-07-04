@@ -52,7 +52,7 @@ void DeviceMidiRX::Clock()
 	
 		if( amount_read > 0 )
 		{
-			printf("MidiRX %d: Got 0x%02x\n", instance_name, buf );
+			printf("MidiRX %d: Got 0x%02x\n", instance_name, (int)buf );
 	
 			bool was_data;
 			was_data = midi_reader->Input((int)buf );

@@ -1,5 +1,5 @@
 // This is a test device
-#define NUM_CHANNELS (8)
+#define DEVSAMP_NUM_CHANNELS (8)
 
 
 class SampleData
@@ -58,7 +58,7 @@ class DeviceSamp : public IDevice
 	int midi_channel;
 	int *output;
 	int next_channel;
-	SampChannel channels[NUM_CHANNELS];
+	SampChannel channels[DEVSAMP_NUM_CHANNELS];
 	SampleData *data;
 	int samplerate;
 };

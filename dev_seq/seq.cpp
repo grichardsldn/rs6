@@ -399,6 +399,7 @@ void DeviceSeq::Init( IDeviceEvents *a_events,
 	*/
 
 	SequenceProcessor *sp = new SequenceProcessor( startup_params, notelist, samplerate, tempo );
+	delete sp;
 
 	// dont set running true yet, this is done by TransportPlay()
 	// running = true;

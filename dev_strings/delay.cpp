@@ -41,7 +41,7 @@ int Delay::Clock( int input )
 
 	for( int i = 0 ; i < DELAY_NUM_DELAYS ; i++)
 	{
-		if( alloced[i] = true)
+		if( alloced[i] == true)
 		{
 			outval += Read( i );
 			delays_pending --;
@@ -100,6 +100,7 @@ bool Delay::AddDelay( int tag, int *samples, signed short *amount )
 bool Delay::RemoveDelay( int tag )
 {
 	printf("GDR: RemoveDelays not written\n");
+	return false;
 }
 
 	

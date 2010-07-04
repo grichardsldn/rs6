@@ -15,6 +15,8 @@ bool Reader::OpenFile( const char *a_filename )
 	line_number = 1;
 	col_number = 1;
 	strcpy( filename, a_filename );
+
+	return true;
 }
 
 Reader::~Reader()

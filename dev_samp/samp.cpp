@@ -222,7 +222,7 @@ void DeviceSamp::Clock()
 {
 	int val = 0;
 
-	for( int i = 0 ; i < NUM_CHANNELS ; i++)
+	for( int i = 0 ; i < DEVSAMP_NUM_CHANNELS ; i++)
 	{
 		val += channels[i].Clock();
 	}
@@ -249,7 +249,7 @@ void DeviceSamp::MidiNoteOn( int channel, int note, int vol )
 	if( data->mono == false )
 	{
 		next_channel ++;
-		if( next_channel == NUM_CHANNELS)
+		if( next_channel == DEVSAMP_NUM_CHANNELS)
 		{
 			next_channel = 0;
 		}	
@@ -272,7 +272,7 @@ void DeviceSamp::MidiNoteOff( int channel, int note )
 		channel, note );
 
 	// Release the first channel playig that note
-	for( int i = 0 ; i < NUM_CHANNELS ; i++)
+	for( int i = 0 ; i < DEVSAMP_NUM_CHANNELS ; i++)
 	{
 		printf("ch %d note=%d\n", i, channels[i].getNote() );
 
