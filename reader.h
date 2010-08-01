@@ -4,6 +4,7 @@ class Reader
 	bool OpenFile( const char *filename );
 	char *NextWord();  // returns empty string if eof
 
+	Reader();
 	~Reader();
 	int CurrentLine();
 

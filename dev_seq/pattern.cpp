@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
-#include "reader.h"
+#include "../reader.h"
 #include <stdlib.h>
 #include <string.h>
 

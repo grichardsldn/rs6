@@ -1,8 +1,11 @@
 
+fix quotess in Reader. 
+
+Add modifier param to Midi note. (to be used for
+selecting which sample to play, where to hit drum etc).
+
+
 Add pre-play.  Probably done by extending adding a midi call.
 
  -- This call would be processed like a midi note. 
 
-Work out out how to manage patches for the devices.
-
-fix quotess in Reader.

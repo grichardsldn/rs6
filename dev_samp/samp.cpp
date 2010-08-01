@@ -6,7 +6,7 @@
 
 #include "../IDevice.h"
 #include "samp.h"
-#include "../dev_seq/reader.h"
+#include "../reader.h"
 
 // filename <filename> 
 // valuename value
@@ -66,7 +66,7 @@ void SampleData::ReadFile ( const char *a_filename )
 		else if( strcmp( word, "freq" ) == 0)
 		{
 			note_freq = atoi( reader.NextWord() );	
-			printf("read %d\n", note_freq);
+			printf("freq %d\n", note_freq);
 		}
 		else if( strcmp( word, "filename" ) == 0)
 		{

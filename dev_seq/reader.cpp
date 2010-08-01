@@ -4,7 +4,7 @@
 
 #include "reader.h"
 
-bool Reader::OpenFile( const char *a_filename )
+bool Reader2::OpenFile( const char *a_filename )
 {
 	assert( a_filename );
 	inptr = fopen( a_filename, "r" );
@@ -19,12 +19,12 @@ bool Reader::OpenFile( const char *a_filename )
 	return true;
 }
 
-Reader::~Reader()
+Reader2::~Reader2()
 {
 	fclose(inptr );
 }
 
-bool Reader::isMonoWord( char val )
+bool Reader2::isMonoWord( char val )
 {
 	switch (val )
 	{
@@ -58,7 +58,7 @@ bool Reader::isMonoWord( char val )
 	return false;
 }
 
-bool Reader::isNewline( char val )
+bool Reader2::isNewline( char val )
 {
 	if ( val == '\n' )
 	{
@@ -68,7 +68,7 @@ bool Reader::isNewline( char val )
 	return false;
 }
 
-bool Reader::isWhitespace( char val )
+bool Reader2::isWhitespace( char val )
 {
 	switch( val )
 	{
@@ -79,7 +79,7 @@ bool Reader::isWhitespace( char val )
 	return false;
 }
 
-void Reader::SkipTillNewline()
+void Reader2::SkipTillNewline()
 {
 	while( true )	
 	{
@@ -97,7 +97,7 @@ void Reader::SkipTillNewline()
 	}
 }
 
-char *Reader::NextWord() 
+char *Reader2::NextWord() 
 {
 	assert( inptr );
 	char *bp = &return_buffer[0];
@@ -180,14 +180,14 @@ char *Reader::NextWord()
 	}
 }
 
-int Reader::CurrentLine()
+int Reader2::CurrentLine()
 {
 	return line_number;
 }
 /*
 main()
 {
-	Reader my_reader;
+	Reader2 my_reader;
 	my_reader.OpenFile( "t.txt" );
 	for( int i = 0 ; i < 40 ; i++)
 	{

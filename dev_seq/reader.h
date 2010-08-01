@@ -1,10 +1,10 @@
-class Reader
+class Reader2
 {
 	public:
 	bool OpenFile( const char *filename );
 	char *NextWord();  // returns empty string if eof
 	int CurrentLine();
-	~Reader();
+	~Reader2();
 
 	private:
 	bool isWhitespace( char val );

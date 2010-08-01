@@ -6,7 +6,6 @@ DEVICE_OBJECTS=\
 	$(ROOT)/dev_seq/seq.o\
 	$(ROOT)/dev_seq/notelist.o\
 	$(ROOT)/dev_seq/pattern.o\
-	$(ROOT)/dev_seq/reader.o\
 	$(ROOT)/dev_midirx/midirx.o\
 	$(ROOT)/dev_midirx/midi.o\
 	$(ROOT)/dev_strings/strings.o\
@@ -30,6 +29,7 @@ SOURCES=Makefile\
 	script.cpp\
 	settings.cpp\
 	dbwidgetset.cpp\
+	reader.cpp\
 	main.cpp
 
 OBJECTS=\
@@ -40,6 +40,7 @@ OBJECTS=\
 	script.o\
 	settings.o\
 	dbwidgetset.o\
+	reader.o\
 	main.o \
 	/home/user/Darkbat/api/dkb_api.o \
 	/home/user/Darkbat/api/UDPSocket.o

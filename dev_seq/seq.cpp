@@ -3,7 +3,7 @@
 #include "../IDevice.h"
 #include "notelist.h"
 #include "pattern.h"
-#include "reader.h"
+#include "../reader.h"
 #include "seq.h"
 #include <string.h>
 #include <stdlib.h>

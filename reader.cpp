@@ -54,7 +54,7 @@ bool Reader::isMonoWord( char val )
 		case '+':
 		case ',':
 		//case '.':
-		case '/':
+		//case '/':
 		case '\\':
 		case '#':
 		case '~':
