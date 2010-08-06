@@ -71,7 +71,7 @@ int Pattern::Write( NoteList *nl,
 	int transpose, 	
 	int midi_channel)
 {
-
+	int pos_in_bar = 0;
 	for (int i = 0 ; i < num_notes ; i ++ )
 	{
 		bool play_note = true;
@@ -80,16 +80,26 @@ int Pattern::Write( NoteList *nl,
 			play_note = false;
 		}	
 
+		int retard = 0;
+		int note_len = samplerate * 60 / tempo / notelen * notes[i].length;
+		if(( pos_in_bar % 3 ) == 2 )
+		{
+			retard = note_len / 10;
+		}
+		
 		if( play_note )
 		{
 			nl->AddEvent( NOTELIST_EVENT_NOTE_ON,
 				midi_channel, 
 				notes[i].note_num + transpose, // note
 				64, // vel
-				location );
+				location + retard );
 		}
+
+		pos_in_bar += notes[i].length;
+		pos_in_bar %= notelen;
+
 	
-		int note_len = samplerate * 60 / tempo / notelen * notes[i].length;
 		int note_on_len = note_len * NOTE_ON / 16;
 		if( play_note )
 		{

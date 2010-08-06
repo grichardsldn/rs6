@@ -173,6 +173,10 @@ double LFO::getRate()
 {
 	return rate;
 }
+void LFO::Randomise()
+{
+	through = ((double)(random()&255)) / 255.0;
+}
 
 double LFO::Clock()
 {	

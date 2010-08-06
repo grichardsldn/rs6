@@ -63,6 +63,7 @@ namespace Sub102
 		double Clock( );
 		void setRate( double rate);
 		double getRate();
+		void Randomise();
 		private:
 		
 		double samplerate;

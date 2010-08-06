@@ -1,7 +1,4 @@
 complete making the sampler read a .samp file.  This specifies
 the parameters and the filename for the sample.
 
-Need take into account the samplerate and freq values so that
-the note is the right note.
-
 

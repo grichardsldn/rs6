@@ -189,7 +189,7 @@ void DeviceSub102::MidiNoteOn( int channel, int note, int vol )
 		noise_tonegen->NoteOn( note + (octave_adjust * 12 ) );
 		current_note = note;
 		printf("GDR: Sub, got note #%d\n", note );
-	
+		pwm_lfo->Randomise();	
 		amp_adsr->Trigger();
 	}
 

@@ -164,7 +164,8 @@ void SampChannel::Trigger( SampleData *new_data, int new_note, int new_vol, int 
 	
 
 	freq = 8.1758 * pow(2.0, (double)((note +2)/12.0) );
-
+	freq *= 440.0 / data->note_freq;
+	freq *= (float)data->samplerate / (float)samplerate;
 	printf("freq=%f\n", freq);
 	
 	increment = (float) freq / (float)samplerate * 2.0;
