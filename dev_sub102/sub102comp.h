@@ -30,7 +30,16 @@ namespace Sub102
 		double val;
 		double samplerate;
 	};
-	
+	class Returner
+	{
+		public:
+		Returner( int samplerate );
+		double Clock( double intput, double rate );
+		private:
+		double val;
+		double samplerate;
+	};
+		
 	class ADSR
 	{
 		public:

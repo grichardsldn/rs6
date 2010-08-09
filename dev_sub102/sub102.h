@@ -1,6 +1,7 @@
 class LFO;
 class ADSR;
 class Slewer;
+class Returner;
 
 class DeviceSub102 : public IDevice
 {
@@ -28,6 +29,10 @@ class DeviceSub102 : public IDevice
 	Sub102::LFO	*pwm_lfo;
 	Sub102::Slewer *slewer;
 	Sub102::Slewer *slewer2;
+	Sub102::Slewer *slewer3;
+	Sub102::Returner *returner;
+	Sub102::Returner *returner2;
+	Sub102::Returner *returner3;
 	int midi_channel;
 	int note;
 	int *output;

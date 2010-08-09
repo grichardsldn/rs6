@@ -73,9 +73,13 @@ void DeviceSub102::Init( 	IDeviceEvents *event,
 
 	slewer = new Sub102::Slewer( a_samplerate );
 	slewer2 = new Sub102::Slewer( a_samplerate );
+	slewer3 = new Sub102::Slewer( a_samplerate );
+	returner = new Sub102::Returner( a_samplerate );
+	returner2 = new Sub102::Returner( a_samplerate );
+	returner3 = new Sub102::Returner( a_samplerate );
 	output = NULL;
 
-	octave_adjust = 0;
+	octave_adjust = -1;
 	pitch_mod = 0.0;
 	settings->Read();
 	settings->Write();
@@ -154,10 +158,12 @@ void DeviceSub102::Clock()
 
 	double val = tonegen->Clock( lfo_val*pitch_mod, al*pwm);
 	val += sub_tonegen->Clock( lfo_val *pitch_mod , 0.0) * sub_vol;
+
 	val += noise_tonegen->Clock( lfo_val * pitch_mod,0.0 ) * noise_vol;
 
 	//double val = tonegen->Clock( 0.0, 0.0);
 	val *= al;
+	// ^^ comment out the above for gate
 	
 	//	if( val > 0 ) val = 0.5;
 	//if( val < 0 ) val = -0.5;
@@ -165,11 +171,16 @@ void DeviceSub102::Clock()
 	
 	double filt_out = filt_level +
 			(filt_lfo * lfo_val ) +
-			(filt_env * al );
+			(filt_env * al * 3.0);
 	// 0.01 lowest?
 	val = slewer->Clock( val, filt_out);
 	val = slewer2->Clock( val, filt_out);
-
+	val = slewer3->Clock( val, filt_out);
+	double fval;
+	fval = returner->Clock( val, filt_out );
+	fval = returner2->Clock( fval, filt_out);
+	fval = returner3->Clock( fval, filt_out );
+	val += fval;
 	if( output)
 	{
 		*output = ((int)(val*(16.0*256.0)) << 16);

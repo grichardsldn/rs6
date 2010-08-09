@@ -13,6 +13,21 @@
 namespace Sub102
 {
 
+Returner::Returner ( int a_samplerate )
+{
+	assert( a_samplerate > 0 );
+	val = 0.0;
+}
+
+double Returner::Clock( double input, double rate )
+{	
+	rate /= rate;
+	double diff = input - val;
+	diff *= (rate * 0.1);
+	val += diff;
+	return input - val;
+}
+
 Slewer::Slewer( int a_samplerate)
 {
 	assert( a_samplerate > 0 );
@@ -31,7 +46,7 @@ LinearSlewer::LinearSlewer( int a_samplerate )
 
 double Slewer::Clock( double input, double rate )
 {
-	rate = rate * rate;
+	//rate = rate / rate;
 	//rate = rate *4800.0/samplerate;
 
 	double diff = input - val;
