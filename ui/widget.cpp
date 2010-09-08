@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <string.h>
 
-#include "/home/user/Darkbat/api/dkb.h"
+#include "../darkbat/dkb.h"
 #include "widget.h"
 
 #include "icd_queue.h"

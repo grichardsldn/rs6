@@ -42,8 +42,8 @@ OBJECTS=\
 	dbwidgetset.o\
 	reader.o\
 	main.o \
-	/home/user/Darkbat/api/dkb_api.o \
-	/home/user/Darkbat/api/UDPSocket.o
+	darkbat/dkb_api.o \
+	darkbat/UDPSocket.o
 
 LIBS=-lpthread
 
@@ -52,7 +52,7 @@ TARGETS=main
 CFLAGS=-Wall  -O4
 
 %.o: %.cpp Makefile
-	g++ -c $(CFLAGS) $*.cpp
+	gcc -c $(CFLAGS) $*.cpp
 
 all: $(TARGETS)
 	

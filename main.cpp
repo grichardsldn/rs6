@@ -8,10 +8,24 @@
 
 #include "RS7Mapper.h"
 #include "script.h"
+#include "rs7global.h"
+#include <string.h>
+#include <stdlib.h>
 
+char *rs7_lib_path;
 
-int main(int argc, char **argv)
+int main(int argc, char **argv, char *envp[])
 {
+	rs7_lib_path = (char *)new char[1000];
+	if( getenv("RS7_HOME") == NULL )
+	{	
+		strcpy( rs7_lib_path, "/home/graham/svn/RS7");
+	}
+	else
+	{
+		strcpy( rs7_lib_path, getenv("RS7_HOME"));
+	}
+
 	//if( argc != 2 )
 	//{
 //		printf("Please specify sequence file\n");

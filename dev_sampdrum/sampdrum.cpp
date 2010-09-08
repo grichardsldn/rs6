@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include "sampdrum.h"
 #include <assert.h>
+#include "../rs7global.h"
 
 // 36, 38, 42, 44
 
@@ -111,15 +112,19 @@ void DeviceSampDrum::Init( 	IDeviceEvents *event,
 	DrumChannel *temp;
 
 	temp = new DrumChannel();
-	temp->Load("dev_sampdrum/bd48.raw");	
+	char filename[1024];
+	sprintf( filename, "%s/dev_sampdrum/bd48.raw", rs7_lib_path );
+	temp->Load(filename);	
 	channels[0] = temp;
 
 	temp = new DrumChannel();
-	temp->Load("dev_sampdrum/sd48.raw");	
+	sprintf( filename, "%s/dev_sampdrum/sd48.raw", rs7_lib_path );
+	temp->Load(filename);	
 	channels[1] = temp;
 
 	temp = new DrumChannel();
-	temp->Load("dev_sampdrum/rimshot48.raw");	
+	sprintf( filename, "%s/dev_sampdrum/rimshot48.raw", rs7_lib_path );
+	temp->Load(filename);	
 	channels[2] = temp;
 
 	temp = new DrumChannel();

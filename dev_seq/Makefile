@@ -14,6 +14,6 @@ depend:
 	makedepend *.cpp
 
 %.o: %.cpp Makefile
-	g++ -c $(CFLAGS) $*.cpp
+	gcc -c $(CFLAGS) $*.cpp
 
 # DO NOT DELETE

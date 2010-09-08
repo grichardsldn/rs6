@@ -7,7 +7,7 @@
 #include "../IDevice.h"
 #include "smodel.h"
 
-#include "/home/user/Darkbat/api/dkb.h"
+#include "../darkbat/dkb.h"
 #include "../ui/widget.h"
 
 void DeviceSModel::Init( 	IDeviceEvents *event,

@@ -8,7 +8,7 @@
 #include "comp.h"
 #include "sub.h"
 
-#include "/home/user/Darkbat/api/dkb.h"
+#include "../darkbat/dkb.h"
 #include "../ui/widget.h"
 
 void DeviceSub::Init( 	IDeviceEvents *event,

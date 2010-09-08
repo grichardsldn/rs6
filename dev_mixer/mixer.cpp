@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include <pthread.h>
-#include "/home/user/Darkbat/api/dkb.h"
+#include "../darkbat/dkb.h"
 #include "vol.h"
 #include "../settings.h"
 
