@@ -30,6 +30,8 @@ SOURCES=Makefile\
 	settings.cpp\
 	dbwidgetset.cpp\
 	reader.cpp\
+	ALSAWriter.cpp\
+	ALSAWriterImpl.cpp\
 	main.cpp
 
 OBJECTS=\
@@ -42,10 +44,12 @@ OBJECTS=\
 	dbwidgetset.o\
 	reader.o\
 	main.o \
+	ALSAWriter.o\
+	ALSAWriterImpl.o\
 	darkbat/dkb_api.o \
 	darkbat/UDPSocket.o
 
-LIBS=-lpthread
+LIBS=-lpthread -lasound
 
 TARGETS=main
 

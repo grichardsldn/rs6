@@ -1,0 +1,11 @@
+Ad the moment if I have two Shapes with the same ref, then
+becasue that ref gets used in the Model in the player and items
+are remoed before they are re-added to the Model, the net result 
+is that the first shape with a given ref gets replaced by one that
+follows it. - Not sure what that means.
+
+Next need to write being able to create multiple dkkbObjects
+and have them use the same socket.
+
+
+

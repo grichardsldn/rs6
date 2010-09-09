@@ -7,6 +7,7 @@
 #include "../IDevice.h"
 #include "samp.h"
 #include "../reader.h"
+#include "../rs7global.h"
 
 // filename <filename> 
 // valuename value
@@ -70,7 +71,8 @@ void SampleData::ReadFile ( const char *a_filename )
 		}
 		else if( strcmp( word, "filename" ) == 0)
 		{
-			strcpy( data_filename, reader.NextWord() );	
+			sprintf( data_filename, "%s/%s" , rs7_lib_path, reader.NextWord() ); 
+
 			printf("Reading %s:\n", data_filename );
 		}
 		else if( strcmp( word, "mono") == 0)
@@ -192,7 +194,7 @@ void DeviceSamp::Init( 	IDeviceEvents *event,
 	data = new SampleData;
 	assert(data !=NULL);
 	samplerate = a_samplerate;
-
+	
 	data->ReadFile( startup_params );
 }
 

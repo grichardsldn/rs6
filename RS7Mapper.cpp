@@ -8,11 +8,17 @@
 #include "RS7Mapper.h"
 #include "create_device.h"
 #include "setsound.h"
-
+#include <unistd.h>
 
 // interface for managing the plumber.
 
 #define WRITE_BLOCK_SIZE (128)
+
+#define ALSA
+
+#ifdef ALSA
+#include "ALSAWriter.h"
+#endif
 
 void RS7Manage::Monitor( int left_bus_id, int right_bus_id )
 {
@@ -239,9 +245,6 @@ RS7Mapper::RS7Mapper( int a_samplerate, const char *audio_device )
 {
 	samplerate = a_samplerate;
 
-	audio_output = fopen( audio_device, "wb");
-
-	assert( audio_output );
 	left_monitor_bus = -1;
 	right_monitor_bus = -1;
 
@@ -258,12 +261,6 @@ RS7Mapper::RS7Mapper( int a_samplerate, const char *audio_device )
 		er->device = &devices[device];
 		er->mapper = this;
 	}
-
-	// XXX set samplerate
-	set_card( fileno (audio_output), samplerate, 16, 2 );
-
-	// XXX set the fragment size
-	set_frag( fileno( audio_output) );
 
 	// XXX start play thread
 	pthread_create( &run_thread, NULL, run_thread_start, this );
@@ -317,7 +314,40 @@ void RS7Mapper::DoFrame( signed short * data_left, signed short *data_right )
 
 void RS7Mapper::RunThread()
 {
-	signed short outbuffer[WRITE_BLOCK_SIZE* 2];
+	signed short outbuffer[WRITE_BLOCK_SIZE* 20];
+#ifdef ALSA
+	
+	ALSAWriter *aw = ALSAWriter::CreateALSAWriter();
+
+	usleep(5000000);
+	printf("Go!\n");	
+	printf( "GDR: Abount to call alsa init\n");	
+	printf("aw=%08x\n", (int) aw );
+
+	int blocksize = aw->Init( samplerate, 2, 32 );
+	printf( "GDR: called ALSAWriter::Init()\n");
+	fprintf(stderr, "GDR: blocksize=%d\n", blocksize );
+	
+	for (;;)
+	{
+		int i;
+		for( i = 0; i< (blocksize) ; i++)
+		{
+			DoFrame( &outbuffer[i*2] , &outbuffer[(i*2)+1]);
+		}
+		aw->Write( (char *)&outbuffer[0], blocksize * 2 );
+	}
+
+#else
+	audio_output = fopen( audio_device, "wb");
+	assert( audio_output );
+
+	// XXX set samplerate
+	set_card( fileno (audio_output), samplerate, 16, 2 );
+
+	// XXX set the fragment size
+	set_frag( fileno( audio_output) );
+
 
 	printf("GDR: Started run thread.\n");
 	for (;;)
@@ -330,6 +360,7 @@ void RS7Mapper::RunThread()
 		//printf("GDR: WriteBlock\n");
 		fwrite( &outbuffer[0], 2, WRITE_BLOCK_SIZE * 2, audio_output );
 	}
+#endif
 }
 	
 void RS7Mapper::BroadcastMidiNoteOn( int channel, int note, int volume )
