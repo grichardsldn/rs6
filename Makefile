@@ -20,6 +20,8 @@ DEVICE_OBJECTS=\
 	$(ROOT)/dev_smodel/smodel.o\
 	$(ROOT)/dev_sub102/sub102.o\
 	$(ROOT)/dev_sub102/sub102comp.o\
+	$(ROOT)/ui/Panel.o\
+	$(ROOT)/ui/PanelImpl.o\
 	$(ROOT)/ui/widget.o
 
 SOURCES=Makefile\

@@ -15,6 +15,8 @@
 #define ELEMENT_FLATRECT (3)
 #define ELEMENT_CLICKTRI (4)
 
+#define DKB_MAGIC (0xbcdef10)
+
 char *writeInt( char *buf, int val)
 {
 	signed short sval = (signed short) val;
@@ -26,11 +28,13 @@ char *writeInt( char *buf, int val)
 	
 char *dkbPos::write( char *buf )
 {
-	printf("GDR: dkbPos::write: writing %d %d %d\n",
-		x,y,z );
+	//printf("GDR: dkbPos::write: writing %d %d %d\n",
+	//	x,y,z );
 	buf = writeInt( buf, x );
 	buf = writeInt( buf, y );
 	buf = writeInt( buf, z );
+
+	return buf;
 }
 
 
@@ -114,6 +118,7 @@ char *dkbElement::write( char *buf )
 		} 
 		break;
 	}
+	return buf;
 }
 
 dkbElement::dkbElement()
@@ -208,17 +213,21 @@ dkbShapeEntry::dkbShapeEntry()
 dkbObj::dkbObj()
 {
 	FILE *inptr = fopen("/dev/urandom", "rb");
-	int anint;
-	fread( &ref, 4, 1, inptr );
+	//int anint;
+	if(fread( &ref, 4, 1, inptr ) <= 0 )
+	{
+		printf("Failed to read /dev/urandom\n");
+	}
 	fclose( inptr );
 	ref &= 0x7fff;
 
-	for (int i = 0 ; i < 15 ; i++)
+	for (int i = 0 ; i < 25 ; i++)
 	{
 		shapes[i] = new dkbShapeEntry();
 	}
 
 	projecting = false;
+	magic = DKB_MAGIC;
 }
 
 void dkbObj::Changed()
@@ -237,7 +246,7 @@ void dkbObj::addShape( dkbShape *shape, dkbAngle angle, dkbPos trans,
 	assert( shape != NULL );
 
 	int found = -1;
-	for (int i = 0 ; i < 15 ; i++)
+	for (int i = 0 ; i < 95 ; i++)
 	{
 		if( shapes[i]->allocated == false)	
 		{
@@ -262,7 +271,7 @@ void dkbObj::addShape( dkbShape *shape, dkbAngle angle, dkbPos trans,
 void dkbObj::RxPress( int clickref, int key )
 {
 	printf("RxPress\n");
-	for (int i = 0 ; i < 15 ; i++)
+	for (int i = 0 ; i < 25 ; i++)
 	{
 		printf("iteration %d\n", i );
 		if( shapes[i]->allocated == true)	
@@ -279,8 +288,7 @@ bool dkbObj::connect( dkbBlock block )
 
 void dkbObj::removeShape( int ref )
 {
-	int found = -1;
-	for (int i = 0 ; i < 15 ; i++)
+	for (int i = 0 ; i < 25 ; i++)
 	{
 		if( shapes[i]->ref == ref)	
 		{
@@ -343,7 +351,7 @@ void dkbObj::StartReceiveThread()
 		int *key = (int*)&buffer[4];
 		printf("ReceiveThread: Received packet: clickref %d\n",
 			*ip);
-		for ( int obj = 0 ; obj<15; obj++)
+		for ( int obj = 0 ; obj<25; obj++)
 		{
 			if( shapes[obj]->allocated == true )
 			{
@@ -364,6 +372,7 @@ void dkbObj::StartSendThread()
 
 void dkbObj::Xmit()
 {
+	assert( magic == DKB_MAGIC );
 	char buffer[1024];
 
 	char *bp = &buffer[0];
@@ -380,7 +389,7 @@ void dkbObj::Xmit()
 	bp = position.write( bp );
 
 	printf("Xmit shapes are:\n");
-	for( int i = 0 ; i <15 ; i++)
+	for( int i = 0 ; i <25 ; i++)
 	{
 		if (shapes[i]->allocated)
 		{

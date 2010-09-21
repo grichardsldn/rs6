@@ -14,7 +14,7 @@
 
 #define WRITE_BLOCK_SIZE (128)
 
-#define ALSA
+#define NOT_ALSA
 
 #ifdef ALSA
 #include "ALSAWriter.h"
@@ -339,6 +339,7 @@ void RS7Mapper::RunThread()
 	}
 
 #else
+	char *audio_device = "/dev/dsp";
 	audio_output = fopen( audio_device, "wb");
 	assert( audio_output );
 

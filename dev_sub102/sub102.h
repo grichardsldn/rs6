@@ -3,6 +3,7 @@ class ADSR;
 class Slewer;
 class Returner;
 
+class Panel;
 class DeviceSub102 : public IDevice
 {
 	public:
@@ -21,6 +22,7 @@ class DeviceSub102 : public IDevice
 	DeviceSub102();
 
 	private:
+	void CreatePanel();
 	Settings* settings;
 	Sub102::ToneGen *tonegen;
 	Sub102::ToneGen *sub_tonegen;
@@ -44,6 +46,7 @@ class DeviceSub102 : public IDevice
 	double filt_lfo;
 	double sub_vol;	
 	double noise_vol;
+	double lfo_rate;
 
 	bool running;
 
@@ -54,13 +57,15 @@ class DeviceSub102 : public IDevice
 	int amp_sustain_setting;
 	int amp_release_setting;
 	int pitch_mod_setting;
+	int lfo_rate_setting;
 	int pwm_setting;
 
 	int filt_level_setting;
 	int filt_env_setting;
 	int filt_lfo_setting;
-
+	int x, y, z;
 	int sub_vol_setting;
 	int noise_vol_setting;	
+	Panel *panel;
 };
 

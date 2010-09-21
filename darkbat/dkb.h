@@ -1,4 +1,4 @@
-
+// requires pthread.h
 class dkbElement;
 
 class dkbClickReceiver
@@ -80,13 +80,14 @@ class dkbObj
 	private:
 	void Xmit();
 	void Changed();
-	dkbShapeEntry *shapes[15];
+	dkbShapeEntry *shapes[95];
 	dkbPos position;
 	pthread_t send_thread;
 	pthread_t receive_thread;
 	UDPSocket *txrx_socket;
 	int ref;
 	bool projecting;
+	int magic;
 };
 
 

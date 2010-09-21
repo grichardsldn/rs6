@@ -11,6 +11,7 @@
 #include "sub102comp.h"
 #include "sub102.h"
 
+#include "../ui/Panel.h"
 
 void DeviceSub102::Init( 	IDeviceEvents *event,
 				const char *instance_name, 
@@ -24,6 +25,10 @@ void DeviceSub102::Init( 	IDeviceEvents *event,
 
 	settings = new Settings(startup_params);
 
+	x=0; y=0; z=0;
+	settings->AddSetting( "x", &x);
+	settings->AddSetting( "y", &y);
+	settings->AddSetting( "z", &z);
 	amp_attack_setting = 1;
 	settings->AddSetting( "amp_attack", &amp_attack_setting );
 
@@ -55,6 +60,12 @@ void DeviceSub102::Init( 	IDeviceEvents *event,
 
 	noise_vol_setting = 1;
 	settings->AddSetting("noise_vol", &noise_vol_setting );
+	
+	pitch_mod_setting = 0;
+	settings->AddSetting("pitch_mod", &pitch_mod_setting );
+	
+	lfo_rate_setting = 0;
+	settings->AddSetting("lfo_rate", &lfo_rate_setting );
 
 	tonegen = new Sub102::ToneGen( a_samplerate );
 	tonegen->SetWaveform( WAVEFORM_PWM);
@@ -83,8 +94,42 @@ void DeviceSub102::Init( 	IDeviceEvents *event,
 	pitch_mod = 0.0;
 	settings->Read();
 	settings->Write();
+
+	CreatePanel();
+
 	running = true;
 }
+
+void DeviceSub102::CreatePanel()
+{
+	int w= 26;
+	int h = 28;
+        panel = Panel::CreatePanel();
+        panel->SetPos( x,y,z );
+        panel->SetZ(0);
+        panel->AddLine( 100, 0,0, w, 0 );
+        panel->AddLine( 101, w,0, w, h );
+        panel->AddLine( 102, w,h, 0, h );
+        panel->AddLine( 103, 0,h, 0, 0 );
+
+	panel->AddVSlider(104, 2, 15, 10, &amp_attack_setting );
+	panel->AddVSlider(105, 5, 15, 10, &amp_decay_setting );
+	panel->AddVSlider(106, 8, 15, 10, &amp_sustain_setting );
+	panel->AddVSlider(107, 11, 15, 10, &amp_release_setting );
+
+	panel->AddVSlider( 108, 2, 2, 10, &filt_level_setting );
+	panel->AddVSlider( 109, 5, 2, 10, &filt_env_setting );
+	panel->AddVSlider( 110, 8, 2, 10, &filt_lfo_setting );
+
+	panel->AddVSlider( 111, 15, 15, 10, &pwm_setting );
+	panel->AddVSlider( 112, 15, 2, 10, &noise_vol_setting );
+	panel->AddVSlider( 113, 12, 2, 10, &sub_vol_setting );
+
+	panel->AddVSlider( 114, 19, 15, 10, &pitch_mod_setting );
+	panel->AddVSlider( 115, 22, 15, 10, &lfo_rate_setting );
+	
+}
+
 
 bool DeviceSub102::SetMidiInput( const char *input_name, int channel )
 {
@@ -133,7 +178,14 @@ void DeviceSub102::CopyParams()
 	val = (double)amp_release_setting / 10.0;
 	amp_adsr->release =  val;
 
-	val = (double)pwm_setting / 10.0;
+	val = (double)pwm_setting / 20.0;
+	pitch_mod = (double) pitch_mod_setting / 20.0;
+	pitch_mod *= pitch_mod;
+
+	lfo_rate = (double) lfo_rate_setting / 3.0 ;
+	lfo_rate *= lfo_rate;
+	pwm_lfo->setRate( lfo_rate );
+
 	pwm = val;
 
 	filt_level = (double)filt_level_setting / 10.0;
@@ -200,7 +252,7 @@ void DeviceSub102::MidiNoteOn( int channel, int note, int vol )
 		noise_tonegen->NoteOn( note + (octave_adjust * 12 ) );
 		current_note = note;
 		printf("GDR: Sub, got note #%d\n", note );
-		pwm_lfo->Randomise();	
+		//pwm_lfo->Randomise();	
 		amp_adsr->Trigger();
 	}
 

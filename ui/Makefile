@@ -1,4 +1,4 @@
-OBJECTS=widget.o
+OBJECTS=widget.o Panel.o PanelImpl.o
 
 CFLAGS=-g
 

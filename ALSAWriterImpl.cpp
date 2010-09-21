@@ -67,7 +67,7 @@ printf("GDR: opened sound\n");
   snd_pcm_hw_params_get_period_size(params, &frames,
                                     &dir);
   size = frames * 4; /* 2 bytes/sample, 2 channels */
- fprintf(stderr, "GDR: buffer size in periods=%d\n", frames );
+ fprintf(stderr, "GDR: buffer size in periods=%d\n", (int)frames );
   return frames;
 }
 

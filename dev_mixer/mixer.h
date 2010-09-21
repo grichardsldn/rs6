@@ -5,6 +5,8 @@
 class VolPanel;
 class Settings;
 
+class Panel;
+
 class DeviceMixer : public IDevice
 {
 	public:
@@ -24,10 +26,13 @@ class DeviceMixer : public IDevice
 	int *inputs[NUM_INPUTS];
 	int *out_left;
 	int *out_right;
-	VolPanel *vol_panel;
+	//VolPanel *vol_panel;
 	Settings *settings;
+	int volumes[NUM_INPUTS];
 	int x;
 	int y;
 	int z;
+	Panel *panel;
+	void CreatePanel();
 };
 

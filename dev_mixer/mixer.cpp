@@ -9,6 +9,9 @@
 #include "vol.h"
 #include "../settings.h"
 
+
+#include "../ui/Panel.h"
+
 static int nowhere = 0;
 
 void DeviceMixer::Init( IDeviceEvents *event,
@@ -28,17 +31,38 @@ void DeviceMixer::Init( IDeviceEvents *event,
 	printf( "y=%d\n", y );
 	// dont care about any of these
 	//vol_panel = new VolPanel();
-	vol_panel = new VolPanel(x,y,z);
+	//vol_panel = new VolPanel(x,y,z);
 	for( int i = 0 ; i < NUM_INPUTS ; i ++ )
 	{
 		char sname[100];
 		sprintf( &sname[0], "chvol%d", i );
-		settings->AddSetting( sname, &vol_panel->vols[i]->vol );
+		volumes[i] = 0;
+		settings->AddSetting( sname, &volumes[i] );
 	}
 	out_left = &nowhere;
 	out_right = &nowhere;	
 	settings->Read();
 	settings->Write();
+	CreatePanel();
+}
+
+void DeviceMixer::CreatePanel()
+{
+        int w= (NUM_INPUTS * 3) + 4 ;
+        int h = 14;
+        panel = Panel::CreatePanel();
+        panel->SetPos( x,y,z );
+        panel->SetZ(0);
+        panel->AddLine( 100, 0,0, w, 0 );
+        panel->AddLine( 101, w,0, w, h );
+        panel->AddLine( 102, w,h, 0, h );
+        panel->AddLine( 103, 0,h, 0, 0 );
+
+	for( int i = 0 ; i < NUM_INPUTS ; i ++ )
+	{
+	
+        	panel->AddVSlider(104+i, 2 + (i * 3), 2, 10, &volumes[i] );
+	}
 }
 	
 void DeviceMixer::Clock()
@@ -49,7 +73,7 @@ void DeviceMixer::Clock()
 	{
 		if( inputs[i] != NULL )
 		{	
-			val += (*inputs[i] / 20 * vol_panel->vols[i]->vol);	
+			val += (*inputs[i] / 20 * volumes[i]);	
 		}
 	}
 	if( val >2000000000  )	

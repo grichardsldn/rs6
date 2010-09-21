@@ -17,6 +17,7 @@ class IWidgetSet
 		const char *text ) = 0;
 	virtual bool AddButton( int ref, int x, int y, IWidgetBtnEvRx *events ) = 0;
 	virtual bool AddLabel( int ref, int x, int y, const char *text ) = 0;
-	virtual bool AddVSlider( int ref, int x, int y, int size, int *ptr ) = 0;
+	virtual bool AddHSlider( int ref, int x, int y, int size, int *ptr ) = 0;
 };
+
 

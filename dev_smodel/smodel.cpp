@@ -29,7 +29,7 @@ void DeviceSModel::Init( 	IDeviceEvents *event,
 
 bool DeviceSModel::SetMidiInput( const char *input_name, int channel )
 {
-	return false;
+	//return false;
 	if( strcmp( input_name, "main" ) == 0)
 	{
 		midi_channel = channel;
@@ -59,35 +59,42 @@ void DeviceSModel::Clock()
 		double diff = pos[i-1] - pos[i];
 		diff += (pos[i+1] - pos[i]);
 		//if( pos[i] != 0 ) printf("GDR: diff nonerp\n");	
-		vel[i] += (diff / 5.0 );
+		double mass = (700.0 * ((double) i / 10.0)) + 1000.0;
+		vel[i] += (diff / mass );
+	vel[i] = (vel[i] * 100.0 ) / 101.30;
 
-		//vel[i] = (vel[i] * 100.0 ) / 103.30;
-		if( vel[i] > 0.0 )
-		{
-			vel[i] -= 5.0;
-			if( vel[i]< 0.0 ) vel[i] = 0.0;
-		} else {
-			vel[i] += 5.0;
-			if( vel[i] > 0.0 ) vel[i] = 0.0;
-		}
+		//vel[i] = (vel[i] * 100.0 ) / 118.30;
+		//if( vel[i] > 0.0 )
+		//{
+	//		vel[i] -= 5.0;
+	//		if( vel[i]< 0.0 ) vel[i] = 0.0;
+	//	} else {
+	//		vel[i] += 5.0;
+	//		if( vel[i] > 0.0 ) vel[i] = 0.0;
+	//	}
 		
+	}
+	for( int i = 1 ; i < (SMODEL_NUM_NODES - 1) ; i++)
+	{
 		pos[i] += vel[i];	
 	}
+
 	if( output )
 	{	
 		//if( pos[SMODEL_NUM_NODES / 2] != 0 ) printf("GDR: nonzer\n");
-		*output = ((int)(pos[SMODEL_NUM_NODES / 2]) << 24);
+		*output = ((int)(pos[SMODEL_NUM_NODES / 2]) << 21);
 	}
 }
 
 void DeviceSModel::MidiNoteOn( int channel, int note, int vol )
 {
 		printf("SModel:NoteOn\n");
-		pos[5] = 200;
+		//pos[1] = 200;
 	if( channel == midi_channel )
 	{
 		printf("SModel:NoteOn _C\n");
-		//pos[3] = 100;
+		//vel[1 + random()% 4] = 10;
+		vel[1 ] = 10;
 	}
 
 }
