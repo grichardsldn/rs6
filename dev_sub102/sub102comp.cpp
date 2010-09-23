@@ -21,11 +21,12 @@ Returner::Returner ( int a_samplerate )
 
 double Returner::Clock( double input, double rate )
 {	
-	rate /= rate;
+	rate = rate * rate * rate;
 	double diff = input - val;
-	diff *= (rate * 0.1);
+	diff *= (rate * 0.01);
+
 	val += diff;
-	return input - val;
+	return input-val;
 }
 
 Slewer::Slewer( int a_samplerate)
@@ -61,8 +62,7 @@ double Slewer::Clock( double input, double rate )
 // rate is max per ms.
 double LinearSlewer::Clock( double input, double rate )
 {
-	rate = rate * rate;
-
+	rate = rate * rate; 
 	rate *= 3.0;
 
 	double delta = rate * 4800.0 / samplerate ;

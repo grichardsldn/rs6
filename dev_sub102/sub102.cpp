@@ -210,12 +210,12 @@ void DeviceSub102::Clock()
 
 	double val = tonegen->Clock( lfo_val*pitch_mod, al*pwm);
 	val += sub_tonegen->Clock( lfo_val *pitch_mod , 0.0) * sub_vol;
-
+	//// no osciators
+	//val = 0,0;
 	val += noise_tonegen->Clock( lfo_val * pitch_mod,0.0 ) * noise_vol;
 
 	//double val = tonegen->Clock( 0.0, 0.0);
 	val *= al;
-	// ^^ comment out the above for gate
 	
 	//	if( val > 0 ) val = 0.5;
 	//if( val < 0 ) val = -0.5;
@@ -232,7 +232,7 @@ void DeviceSub102::Clock()
 	fval = returner->Clock( val, filt_out );
 	fval = returner2->Clock( fval, filt_out);
 	fval = returner3->Clock( fval, filt_out );
-	val += fval;
+	val += (fval * 1.0);
 	if( output)
 	{
 		*output = ((int)(val*(16.0*256.0)) << 16);
