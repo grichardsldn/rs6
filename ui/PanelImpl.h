@@ -1,6 +1,9 @@
 // requires Panel.h
 // ../darkbat/dbk.h
 
+#define WVSLIDER ( 2000)
+#define WCHECKBOX (2001)
+
 class PanelWidget
 {
 	public:
@@ -20,11 +23,22 @@ class PanelWidgetSet
 	PanelWidget *before;	
 	PanelWidget *after;	
 };
-
+class CheckboxPanelWidget : public PanelWidget
+{
+	public:
+	void ReceiveClick( int key );
+	int *value;
+	int pos_x;
+	int pos_y;
+	int pos_z;
+	int magic;
+};
+	
 class VSliderPanelWidget : public PanelWidget
 {
 	public:
 	VSliderPanelWidget();
+	void ReceiveClick( int key );	
 	~VSliderPanelWidget();
 	int *value;
 	int size;
@@ -48,6 +62,8 @@ class PanelImpl : public Panel, dkbClickReceiver
 	virtual bool AddButton( int ref, int x, int y, PanelBtnEvRx *events ) ;
 	virtual bool AddLabel( int ref, int x, int y, const char *text );
 	virtual bool AddVSlider( int ref, int x, int y, int size, int *ptr );
+	virtual bool AddCheckbox( int ref, int x, int y, int *ptr);
+	
 	virtual void ReceiveClick( int shape_ref, int key );
 	PanelImpl();
 
@@ -59,6 +75,7 @@ class PanelImpl : public Panel, dkbClickReceiver
 	PanelWidgetSet widgetset;
 	int next_ref;	
 	void DrawVSlider( VSliderPanelWidget *w );
+	void DrawCheckbox( CheckboxPanelWidget *w );
 	void DrawWidgets();	
 	void AddFixedLine( dkbShape *shape,int x1, int y1,int z1, int x2,int y2,int z2 );
 	void AddFixedClickTri( dkbShape *shape, int x1, int y1, int z1, 

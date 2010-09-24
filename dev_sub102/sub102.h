@@ -66,6 +66,7 @@ class DeviceSub102 : public IDevice
 	int x, y, z;
 	int sub_vol_setting;
 	int noise_vol_setting;	
+	int lfo_retrigger_setting;
 	Panel *panel;
 };
 

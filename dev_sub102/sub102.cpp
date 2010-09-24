@@ -67,6 +67,9 @@ void DeviceSub102::Init( 	IDeviceEvents *event,
 	lfo_rate_setting = 0;
 	settings->AddSetting("lfo_rate", &lfo_rate_setting );
 
+	lfo_retrigger_setting = 0;
+	settings->AddSetting("lfo_retrigger", &lfo_retrigger_setting);
+
 	tonegen = new Sub102::ToneGen( a_samplerate );
 	tonegen->SetWaveform( WAVEFORM_PWM);
 	
@@ -125,8 +128,9 @@ void DeviceSub102::CreatePanel()
 	panel->AddVSlider( 112, 15, 2, 10, &noise_vol_setting );
 	panel->AddVSlider( 113, 12, 2, 10, &sub_vol_setting );
 
-	panel->AddVSlider( 114, 19, 15, 10, &pitch_mod_setting );
-	panel->AddVSlider( 115, 22, 15, 10, &lfo_rate_setting );
+	panel->AddVSlider( 114, 18, 15, 10, &pitch_mod_setting );
+	panel->AddVSlider( 115, 22, 2, 10, &lfo_rate_setting );
+	panel->AddCheckbox( 116, 19, 2, &lfo_retrigger_setting );
 	
 }
 
@@ -252,7 +256,10 @@ void DeviceSub102::MidiNoteOn( int channel, int note, int vol )
 		noise_tonegen->NoteOn( note + (octave_adjust * 12 ) );
 		current_note = note;
 		printf("GDR: Sub, got note #%d\n", note );
-		//pwm_lfo->Randomise();	
+		if( lfo_retrigger_setting > 0 )
+		{
+			pwm_lfo->Randomise();	
+		}
 		amp_adsr->Trigger();
 	}
 
