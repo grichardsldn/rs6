@@ -17,6 +17,8 @@
 #include "dev_smodel/smodel.h"
 #include "dev_sub102/sub102comp.h"
 #include "dev_sub102/sub102.h"
+#include "dev_reva/reva.h"
+#include "dev_shaper1/shaper1.h"
 
 
 // END DEVICES
@@ -94,6 +96,16 @@ IDevice *create_device( const char *device_type )
 	if( strcmp( device_type, "sub102") == 0)
 	{
 		IDevice *dev = new DeviceSub102;
+		return dev;
+	}
+	if( strcmp( device_type, "reva") == 0)
+	{
+		IDevice *dev = new DeviceRevA;
+		return dev;
+	}
+	if( strcmp( device_type, "shaper1") == 0)
+	{
+		IDevice *dev = new DeviceShaper1;
 		return dev;
 	}
 	return NULL;

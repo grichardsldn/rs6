@@ -1,5 +1,8 @@
 
-fix quotess in Reader. 
+fix quotess in Reader. -Done?
+
+move 'tune' secttion of pattern.h to a seperate funtion
+ and add xtune pattern type: Need to define that type
 
 Add modifier param to Midi note. (to be used for
 selecting which sample to play, where to hit drum etc).

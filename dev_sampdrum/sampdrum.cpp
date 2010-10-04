@@ -128,11 +128,13 @@ void DeviceSampDrum::Init( 	IDeviceEvents *event,
 	channels[2] = temp;
 
 	temp = new DrumChannel();
-	temp->Load("dev_sampdrum/hhopen48.raw");	
+	sprintf( filename, "%s/dev_sampdrum/hhopen48.raw", rs7_lib_path );
+	temp->Load( filename );	
 	channels[3] = temp;
 
 	temp = new DrumChannel();
-	temp->Load("dev_sampdrum/hhclosed48.raw");	
+	sprintf( filename, "%s/dev_sampdrum/hhclosed48.raw", rs7_lib_path );
+	temp->Load( filename );	
 	channels[4] = temp;
 
 	initialised = true;
