@@ -2,6 +2,9 @@
 
 class Settings;
 
+class Panel;
+class Shaper1Slewer;
+
 class DeviceShaper1 : public IDevice
 {
 	public:
@@ -30,5 +33,14 @@ class DeviceShaper1 : public IDevice
 	int lpf_offset_setting;
 	int lpf_range_setting;
 	int rate_setting;
+	Panel *panel;
+	int midi_channel;
+	int pos;	
+	int through;
+	Shaper1Slewer *slewer1;
+	Shaper1Slewer *slewer2;
+	Shaper1Slewer *slewer3;
+	int *input_ptr;
+	int *output_ptr;
 };
 

@@ -4,6 +4,14 @@ fix quotess in Reader. -Done?
 move 'tune' secttion of pattern.h to a seperate funtion
  and add xtune pattern type: Need to define that type
 
+add postfader output to mixer (so can use second mixer as
+bus send)
+
+add octave to oscilator in sub102
+add keyboard scaling for filter - plus keyboard scaling for vol?
+
+increase throw of sub 102 controls.
+
 Add modifier param to Midi note. (to be used for
 selecting which sample to play, where to hit drum etc).
 

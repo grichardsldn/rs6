@@ -17,6 +17,8 @@ class Note
 	public:
 	int note_num;
 	int length;
+	int vel;
+	int offset;
 };
 
 class Pattern

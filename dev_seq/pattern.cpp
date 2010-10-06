@@ -26,42 +26,81 @@ void Pattern::Load( char *filename)
 	}
 
 	word = reader.NextWord();
-	if(strcmp( word, "tune" ) != 0)
+	bool tunex = false;
+	if( strcmp( word, "tunex" ) == 0)
+	{
+		strcpy( word, "tune" );
+		tunex = true;
+	}
+	if(strcmp( word, "tune" ) == 0)
+	{
+
+		notelen = atoi( reader.NextWord() );
+		//if(( notelen != 4 ) && (notelen != 3) )
+		//{
+//			printf("Only quarter or third notes supported\n");
+//			return;
+//		}
+
+		char *read;
+		while (strcmp( read = reader.NextWord(), "end" ) != 0 )
+		{
+			notes[num_notes].note_num = atoi( read );
+			read = reader.NextWord();
+			if( strcmp(read, ",") != 0 )
+			{
+				printf("Missing comma between note and len\n");
+				return;
+			}
+			notes[num_notes].length = atoi( reader.NextWord() );
+
+			if( tunex )
+			{
+				if( strcmp(reader.NextWord(), ",") != 0 )
+				{
+					printf("Missing comma between len and vel\n");
+					return;
+				}
+				notes[num_notes].vel = atoi( reader.NextWord() );
+				if( strcmp(reader.NextWord(), ",") != 0 )
+				{
+					printf("Missing comma between vel and offset\n");
+					return;
+				}
+				read = reader.NextWord();
+				bool neg = false;
+				if( strcmp( read, "-" ) == 0 )
+				{
+					neg = true;
+					read = reader.NextWord();
+				}
+				int offset = atoi(read);
+				if( neg ) offset *= -1;
+				notes[num_notes].offset = offset;
+
+			} else
+			{
+				notes[num_notes].vel = 64;
+				notes[num_notes].offset = 0;
+			}	
+			read = reader.NextWord();
+			if( strcmp(read, ",") != 0 )
+			{
+				printf("Missing comma after len\n");
+				return;
+			}
+			printf("Read note %d, note=%d len=%d\n", num_notes, 
+				notes[num_notes].note_num,
+				notes[num_notes].length);
+			num_notes ++;
+		}
+		printf("Read file\n");
+	}
+	else
 	{
 		printf("Not of tune type file\n");
 		return;
 	}
-
-	notelen = atoi( reader.NextWord() );
-	//if(( notelen != 4 ) && (notelen != 3) )
-	//{
-//		printf("Only quarter or third notes supported\n");
-//		return;
-//	}
-
-	char *read;
-	while (strcmp( read = reader.NextWord(), "end" ) != 0 )
-	{
-		notes[num_notes].note_num = atoi( read );
-		read = reader.NextWord();
-		if( strcmp(read, ",") != 0 )
-		{
-			printf("Missing comma between note and len\n");
-			return;
-		}
-		notes[num_notes].length = atoi( reader.NextWord() );
-		read = reader.NextWord();
-		if( strcmp(read, ",") != 0 )
-		{
-			printf("Missing comma after len\n");
-			return;
-		}
-		printf("Read note %d, note=%d len=%d\n", num_notes, 
-			notes[num_notes].note_num,
-			notes[num_notes].length);
-		num_notes ++;
-	}
-	printf("Read file\n");
 }
 
 int Pattern::Write( NoteList *nl,
@@ -84,15 +123,18 @@ int Pattern::Write( NoteList *nl,
 		int note_len = samplerate * 60 / tempo / notelen * notes[i].length;
 		if(( pos_in_bar % 3 ) == 2 )
 		{
-			retard = note_len / 10;
+		//	retard = note_len / 10;
 		}
+
+		// should be hundredth of a min length note
+		retard = notes[i].offset * (note_len / notes[i].length / 100 );
 		
 		if( play_note )
 		{
 			nl->AddEvent( NOTELIST_EVENT_NOTE_ON,
 				midi_channel, 
 				notes[i].note_num + transpose, // note
-				64, // vel
+				notes[i].vel, // vel
 				location + retard );
 		}
 
