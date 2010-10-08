@@ -42,8 +42,8 @@ double Shaper1Slewer::Clock( double input, double rate )
         diff *= (rate * 0.1);
         //diff = diff / rate;
         val += diff;
-
-        return (double)val;
+	
+        return (double)val * -1.0;
 }
 
 
@@ -160,7 +160,7 @@ void DeviceShaper1::Clock()
 	val = slewer1->Clock( val, amount );
 	val = slewer2->Clock( val, amount );
 	val = slewer3->Clock( val, amount );
-	val *= -1;
+
 	*output_ptr = ((int)(val*(16.0*256.0)) << 16);
 }
 
