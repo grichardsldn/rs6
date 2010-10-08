@@ -149,12 +149,18 @@ void DeviceShaper1::Clock()
 	double amount = 0.0;
 	if( pos > -1 )
 	{		
-		amount = (double)lpf_value_settings[pos] / 3.0;		
+		int backone = pos - 1;		
+		if( backone < 0 ) backone = 0;
+		double am1 = (double)lpf_value_settings[backone] / 3.0;
+		double am2 = (double)lpf_value_settings[pos] / 3.0;		
+		amount = am1 * ( (100000.0 - (double)through ) / 100000.0);
+		amount += am2 * ( (double)through  / 100000.0);
+
 	}
 	val = slewer1->Clock( val, amount );
 	val = slewer2->Clock( val, amount );
 	val = slewer3->Clock( val, amount );
-
+	val *= -1;
 	*output_ptr = ((int)(val*(16.0*256.0)) << 16);
 }
 
