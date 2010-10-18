@@ -52,11 +52,12 @@ void DeviceMixer::CreatePanel()
         int h = 14;
         panel = Panel::CreatePanel();
         panel->SetPos( x,y,z );
-        panel->SetZ(0);
+        panel->SetZ(5);
         panel->AddLine( 100, 0,0, w, 0 );
         panel->AddLine( 101, w,0, w, h );
         panel->AddLine( 102, w,h, 0, h );
         panel->AddLine( 103, 0,h, 0, 0 );
+        panel->SetZ(0);
 
 	for( int i = 0 ; i < NUM_INPUTS ; i ++ )
 	{

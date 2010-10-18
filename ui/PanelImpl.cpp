@@ -139,7 +139,7 @@ void PanelImpl::DrawVSlider( VSliderPanelWidget *w )
 	switch( w->style )
 	{
 		case 1:
-	AddFixedLine( shape, x, y+ *(w->value), z, x + 2, y + w->size, z );
+	AddFixedLine( shape, x+1, y+ *(w->value), z, x + 1, y + w->size, z + 30 );
         AddFixedClickTri(shape, x, y, z,
                                  x + 2, y, z,
                                 x +1, y - 1, z,
