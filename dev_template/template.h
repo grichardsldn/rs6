@@ -1,3 +1,8 @@
+
+
+class Setting;
+class Panel;
+
 class DeviceTemplate : public IDevice
 {
 	public:
@@ -18,5 +23,12 @@ class DeviceTemplate : public IDevice
 	DeviceTemplate();
 
 	private:
+	Settings *settings;
+	Panel *panel;
+	int x_setting;
+	int y_setting;
+	int z_setting;
+	int *input_ptr;
+	int *output_ptr;
 };
 

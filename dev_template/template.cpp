@@ -8,6 +8,8 @@
 
 
 #include "../settings.h"
+#include "../ui/Panel.h"
+
 #include "template.h"
 
 void DeviceTemplate::Init( 	IDeviceEvents *event,
@@ -15,8 +17,26 @@ void DeviceTemplate::Init( 	IDeviceEvents *event,
 				int a_samplerate,
 				const char *startup_params )
 {
-}
+	settings = new Settings( startup_params );
+	x_setting = 0;
+	y_setting = 0;
+	z_setting = 0;
+	settings->AddSetting( "x", &x_setting );
+        settings->AddSetting( "y", &y_setting );
+        settings->AddSetting( "z", &z_setting );
+	// add settings here...
 
+        settings->Read();
+        settings->Write();
+
+        panel = Panel::CreatePanel();
+        panel->SetPos( x_setting, y_setting,z_setting );
+        panel->SetZ(0);
+	// add panel widgets here...
+
+	input_ptr = NULL;
+        output_ptr = NULL;
+}
 
 bool DeviceTemplate::SetMidiInput( const char *input_name, int channel )
 {
@@ -29,15 +49,18 @@ bool DeviceTemplate::SetMidiOutput( const char *output_name, int channel )
 }
 
 
-bool DeviceTemplate::SetOutput( const char *output_name, int *output_ptr )
+bool DeviceTemplate::SetOutput( const char *output_name, int *a_output_ptr )
 {
-	assert( output_ptr );
+	assert( a_output_ptr );
+	output_ptr = a_output_ptr;
 	return true;
 }
 
-bool DeviceTemplate::SetInput( const char *input_name, int *input_ptr )
+bool DeviceTemplate::SetInput( const char *input_name, int *a_input_ptr )
 {
-	assert( input_ptr );
+	assert( a_input_ptr );
+	input_ptr = a_input_ptr;
+	return true;
 }
 
 DeviceTemplate::DeviceTemplate()

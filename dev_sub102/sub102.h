@@ -67,6 +67,10 @@ class DeviceSub102 : public IDevice
 	int sub_vol_setting;
 	int noise_vol_setting;	
 	int lfo_retrigger_setting;
+	int keyscaling_setting;
+	int resonance_setting;
+	int rolloff_setting;
+	int octave_setting;
 	Panel *panel;
 };
 

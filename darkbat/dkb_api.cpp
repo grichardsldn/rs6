@@ -221,7 +221,7 @@ dkbObj::dkbObj()
 	fclose( inptr );
 	ref &= 0x7fff;
 
-	for (int i = 0 ; i < 25 ; i++)
+	for (int i = 0 ; i < 195 ; i++)
 	{
 		shapes[i] = new dkbShapeEntry();
 	}

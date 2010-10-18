@@ -61,7 +61,7 @@ void DeviceMixer::CreatePanel()
 	for( int i = 0 ; i < NUM_INPUTS ; i ++ )
 	{
 	
-        	panel->AddVSlider(104+i, 2 + (i * 3), 2, 10, &volumes[i] );
+        	panel->AddVSlider(104+i, 2 + (i * 3), 2, 10, &volumes[i],0 );
 	}
 }
 	

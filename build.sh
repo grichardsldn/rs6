@@ -21,6 +21,8 @@ cd ../dev_strings
 make
 cd ../dev_smodel
 make
+cd ../dev_dist1
+make
 cd ../dev_reva
 make
 cd ../dev_shaper1

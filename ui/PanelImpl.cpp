@@ -136,12 +136,26 @@ void PanelImpl::DrawVSlider( VSliderPanelWidget *w )
 	int x = w->pos_x;
 	int y = w->pos_y;
 	int z = w->pos_z;
+	switch( w->style )
+	{
+		case 1:
+	AddFixedLine( shape, x, y+ *(w->value), z, x + 2, y + w->size, z );
+        AddFixedClickTri(shape, x, y, z,
+                                 x + 2, y, z,
+                                x +1, y - 1, z,
+                                  this, w->ref );
+		break;
+		default:
+
 	AddFixedLine( shape, x + 1, y, z, x + 1, y + w->size, z );
 	AddFixedLine( shape, x, y + *(w->value), z, x + 2, y + *(w->value), z );
         AddFixedClickTri(shape, x, y, z,
                                  x + 2, y, z,
                                 x +1, y - 1, z,
                                   this, w->ref );
+		break;
+	}
+		
 	dkbPos pos;
         pos.x = pos_x;
         pos.y = pos_y;
@@ -187,7 +201,7 @@ bool PanelImpl::AddCheckbox( int ref, int x, int y, int *ptr)
 	return true;
 }
 
-bool PanelImpl::AddVSlider( int ref, int x, int y, int size, int *ptr )
+bool PanelImpl::AddVSlider( int ref, int x, int y, int size, int *ptr, int style )
 {
 	printf("vslider: ptr=%08x, *ptr=%d\n", 
 		(unsigned int)ptr, *ptr );
@@ -199,6 +213,7 @@ bool PanelImpl::AddVSlider( int ref, int x, int y, int size, int *ptr )
 	w->size = size;
 	w->value = ptr;
 	w->type = WVSLIDER;
+	w->style = style;
 
 	ENSET( &widgetset, w );
 

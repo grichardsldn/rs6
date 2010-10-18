@@ -21,6 +21,8 @@ cd ../dev_smodel
 make clean
 cd ../dev_sub102
 make clean
+cd ../dev_dist1
+make clean
 cd ../dev_reva
 make clean
 cd ../dev_shaper1

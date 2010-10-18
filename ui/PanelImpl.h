@@ -46,6 +46,7 @@ class VSliderPanelWidget : public PanelWidget
 	int pos_y;
 	int pos_z;
 	int magic;
+	int style;
 };
 
 
@@ -61,7 +62,7 @@ class PanelImpl : public Panel, dkbClickReceiver
 		const char *text );
 	virtual bool AddButton( int ref, int x, int y, PanelBtnEvRx *events ) ;
 	virtual bool AddLabel( int ref, int x, int y, const char *text );
-	virtual bool AddVSlider( int ref, int x, int y, int size, int *ptr );
+	virtual bool AddVSlider( int ref, int x, int y, int size, int *ptr, int style );
 	virtual bool AddCheckbox( int ref, int x, int y, int *ptr);
 	
 	virtual void ReceiveClick( int shape_ref, int key );

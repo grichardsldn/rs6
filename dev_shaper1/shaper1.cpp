@@ -81,7 +81,7 @@ void DeviceShaper1::Init( 	IDeviceEvents *event,
 	for (int i = 0 ; i < SHAPER1_NUM_VALUES ;i++)
 	{
         	panel->AddVSlider(104 + i, i * 3, 2, 10, 
-			&lpf_value_settings[i] );
+			&lpf_value_settings[i],0 );
 	}
 
 	slewer1 = new Shaper1Slewer(a_samplerate);	

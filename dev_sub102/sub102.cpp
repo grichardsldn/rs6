@@ -70,6 +70,17 @@ void DeviceSub102::Init( 	IDeviceEvents *event,
 	lfo_retrigger_setting = 0;
 	settings->AddSetting("lfo_retrigger", &lfo_retrigger_setting);
 
+     	keyscaling_setting = 0;
+	settings->AddSetting("keyscaling", &keyscaling_setting );
+
+        resonance_setting = 3;
+	settings->AddSetting("resonance", &resonance_setting );
+        rolloff_setting = 0;
+	settings->AddSetting("rolloff", &rolloff_setting );
+        octave_setting = 1;
+	settings->AddSetting("octave", &octave_setting );
+
+
 	tonegen = new Sub102::ToneGen( a_samplerate );
 	tonegen->SetWaveform( WAVEFORM_PWM);
 	
@@ -110,27 +121,35 @@ void DeviceSub102::CreatePanel()
         panel = Panel::CreatePanel();
         panel->SetPos( x,y,z );
         panel->SetZ(0);
-        panel->AddLine( 100, 0,0, w, 0 );
-        panel->AddLine( 101, w,0, w, h );
-        panel->AddLine( 102, w,h, 0, h );
-        panel->AddLine( 103, 0,h, 0, 0 );
+        //panel->AddLine( 100, 0,0, w, 0 );
+        //panel->AddLine( 101, w,0, w, h );
+        //panel->AddLine( 102, w,h, 0, h );
+        //panel->AddLine( 103, 0,h, 0, 0 );
 
-	panel->AddVSlider(104, 2, 15, 10, &amp_attack_setting );
-	panel->AddVSlider(105, 5, 15, 10, &amp_decay_setting );
-	panel->AddVSlider(106, 8, 15, 10, &amp_sustain_setting );
-	panel->AddVSlider(107, 11, 15, 10, &amp_release_setting );
+	panel->AddVSlider(104, 2, 15, 10, &amp_attack_setting,1 );
+	panel->AddVSlider(105, 5, 15, 10, &amp_decay_setting,1 );
+	panel->AddVSlider(106, 8, 15, 10, &amp_sustain_setting,1 );
+	panel->AddVSlider(107, 11, 15, 10, &amp_release_setting ,1);
 
-	panel->AddVSlider( 108, 2, 2, 10, &filt_level_setting );
-	panel->AddVSlider( 109, 5, 2, 10, &filt_env_setting );
-	panel->AddVSlider( 110, 8, 2, 10, &filt_lfo_setting );
+	panel->AddVSlider( 108, 2, 2, 10, &filt_level_setting,1 );
+	panel->AddVSlider( 117, 5, 2, 10, &resonance_setting,1 );
 
-	panel->AddVSlider( 111, 15, 15, 10, &pwm_setting );
-	panel->AddVSlider( 112, 15, 2, 10, &noise_vol_setting );
-	panel->AddVSlider( 113, 12, 2, 10, &sub_vol_setting );
+	panel->AddVSlider( 109, 9, 2, 10, &filt_env_setting,1 );
+	panel->AddVSlider( 110, 12, 2, 10, &filt_lfo_setting,1 );
+	panel->AddVSlider( 118, 15, 2, 10, &keyscaling_setting,1 );
+	panel->AddVSlider( 119, 18, 8, 4, &rolloff_setting,1 );
 
-	panel->AddVSlider( 114, 18, 15, 10, &pitch_mod_setting );
-	panel->AddVSlider( 115, 22, 2, 10, &lfo_rate_setting );
-	panel->AddCheckbox( 116, 19, 2, &lfo_retrigger_setting );
+	panel->AddVSlider( 111, 15, 15, 10, &pwm_setting,1 );
+	panel->AddVSlider( 112, 24, 2, 10, &noise_vol_setting,1 );
+	panel->AddVSlider( 113, 21, 2, 10, &sub_vol_setting,1 );
+	panel->AddVSlider( 120, 21, 22, 3, &octave_setting,1 );
+	
+
+	panel->AddVSlider( 114, 18, 15, 10, &pitch_mod_setting,1 );
+	panel->AddVSlider( 115, 27, 15, 10, &lfo_rate_setting,1 );
+	panel->AddCheckbox( 116, 24, 15, &lfo_retrigger_setting );
+
+        //int octave_setting;
 	
 }
 

@@ -21,6 +21,7 @@ DEVICE_OBJECTS=\
 	$(ROOT)/dev_sub102/sub102.o\
 	$(ROOT)/dev_sub102/sub102comp.o\
 	$(ROOT)/dev_reva/reva.o\
+	$(ROOT)/dev_dist1/dist1.o\
 	$(ROOT)/dev_shaper1/shaper1.o\
 	$(ROOT)/ui/Panel.o\
 	$(ROOT)/ui/PanelImpl.o\
