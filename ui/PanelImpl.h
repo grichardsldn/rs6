@@ -33,6 +33,17 @@ class CheckboxPanelWidget : public PanelWidget
 	int pos_z;
 	int magic;
 };
+
+class ButtonPanelWidget : public PanelWidget
+{
+	public:
+	ButtonPanelWidget();
+	void ReceiveClick( int key );
+	int pos_x;
+	int pos_y;
+	int pos_z;
+	PanelBtnEvRx *receiver;
+};
 	
 class VSliderPanelWidget : public PanelWidget
 {

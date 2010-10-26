@@ -75,7 +75,7 @@ void DeviceSub102::Init( 	IDeviceEvents *event,
 
         resonance_setting = 3;
 	settings->AddSetting("resonance", &resonance_setting );
-        rolloff_setting = 0;
+        rolloff_setting = 2;
 	settings->AddSetting("rolloff", &rolloff_setting );
         octave_setting = 1;
 	settings->AddSetting("octave", &octave_setting );
@@ -246,16 +246,17 @@ void DeviceSub102::Clock()
 	
 	double filt_out = filt_level +
 			(filt_lfo * lfo_val ) +
-			(filt_env * al * 3.0);
+			(filt_env * al * 3.0) +
+			((current_note / 48.0 ) * (keyscaling_setting / 5.0));
 	// 0.01 lowest?
-	val = slewer->Clock( val, filt_out);
-	val = slewer2->Clock( val, filt_out);
-	val = slewer3->Clock( val, filt_out);
+	if( rolloff_setting > 0 ) val = slewer->Clock( val, filt_out);
+	if( rolloff_setting > 1 ) val = slewer2->Clock( val, filt_out);
+	if( rolloff_setting > 2 ) val = slewer3->Clock( val, filt_out);
 	double fval;
-	fval = returner->Clock( val, filt_out );
-	fval = returner2->Clock( fval, filt_out);
-	fval = returner3->Clock( fval, filt_out );
-	val += (fval * 1.0);
+	if( rolloff_setting > 0 ) fval = returner->Clock( val, filt_out );
+	if( rolloff_setting > 1 ) fval = returner2->Clock( fval, filt_out);
+	if( rolloff_setting > 2 ) fval = returner3->Clock( fval, filt_out );
+	val += (fval * resonance_setting);
 	if( output)
 	{
 		*output = ((int)(val*(16.0*256.0)) << 16);
@@ -270,7 +271,7 @@ void DeviceSub102::MidiNoteOn( int channel, int note, int vol )
 	{
 		//note-=12;	
 		assert( tonegen );
-		tonegen->NoteOn( note + (octave_adjust * 12) );
+		tonegen->NoteOn( note + ((octave_setting - 1) * 12) );
 		sub_tonegen->NoteOn( note - 12 + (octave_adjust * 12));
 		noise_tonegen->NoteOn( note + (octave_adjust * 12 ) );
 		current_note = note;

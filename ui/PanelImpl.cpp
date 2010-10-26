@@ -75,6 +75,7 @@ bool PanelImpl::AddLabel( int ref, int x, int y, int pitch,
 
 bool PanelImpl::AddButton( int ref, int x, int y, PanelBtnEvRx *events ) 
 {
+	
 	return false;
 }
 
@@ -200,6 +201,7 @@ bool PanelImpl::AddCheckbox( int ref, int x, int y, int *ptr)
 	DrawWidgets();
 	return true;
 }
+
 
 bool PanelImpl::AddVSlider( int ref, int x, int y, int size, int *ptr, int style )
 {
