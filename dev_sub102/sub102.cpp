@@ -8,10 +8,10 @@
 
 
 #include "../settings.h"
+#include "../ui/Panel.h"
 #include "sub102comp.h"
 #include "sub102.h"
 
-#include "../ui/Panel.h"
 
 void DeviceSub102::Init( 	IDeviceEvents *event,
 				const char *instance_name, 
@@ -114,6 +114,11 @@ void DeviceSub102::Init( 	IDeviceEvents *event,
 	running = true;
 }
 
+void DeviceSub102::Event( int ref, int key )
+{
+	settings->Write();
+}
+
 void DeviceSub102::CreatePanel()
 {
 	int w= 26;
@@ -149,6 +154,7 @@ void DeviceSub102::CreatePanel()
 	panel->AddVSlider( 115, 27, 15, 10, &lfo_rate_setting,1 );
 	panel->AddCheckbox( 116, 24, 15, &lfo_retrigger_setting );
 
+	panel->AddButton( 117, 27, 4, this );
         //int octave_setting;
 	
 }

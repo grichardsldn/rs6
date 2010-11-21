@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "../IDevice.h"
-#include "mixer.h"
 #include <assert.h>
 #include <string.h>
 
@@ -11,6 +10,7 @@
 
 
 #include "../ui/Panel.h"
+#include "mixer.h"
 
 static int nowhere = 0;
 
@@ -45,10 +45,14 @@ void DeviceMixer::Init( IDeviceEvents *event,
 	settings->Write();
 	CreatePanel();
 }
+void DeviceMixer::Event( int ref, int key )
+{
+	settings->Write();
+}
 
 void DeviceMixer::CreatePanel()
 {
-        int w= (NUM_INPUTS * 3) + 4 ;
+        int w= (NUM_INPUTS * 3) + 4 + 3;
         int h = 14;
         panel = Panel::CreatePanel();
         panel->SetPos( x,y,z );
@@ -59,11 +63,14 @@ void DeviceMixer::CreatePanel()
         panel->AddLine( 103, 0,h, 0, 0 );
         panel->SetZ(0);
 
+	int end_x;
 	for( int i = 0 ; i < NUM_INPUTS ; i ++ )
 	{
-	
-        	panel->AddVSlider(104+i, 2 + (i * 3), 2, 10, &volumes[i],0 );
+		int xpos = 2 + ( i * 3 );
+        	panel->AddVSlider(104+i, xpos, 2, 10, &volumes[i],0 );
+		end_x = xpos;
 	}
+	panel->AddButton( 200, end_x + 3, 2, this );
 }
 	
 void DeviceMixer::Clock()

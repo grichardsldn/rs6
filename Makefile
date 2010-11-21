@@ -6,6 +6,7 @@ DEVICE_OBJECTS=\
 	$(ROOT)/dev_seq/seq.o\
 	$(ROOT)/dev_seq/notelist.o\
 	$(ROOT)/dev_seq/pattern.o\
+	$(ROOT)/dev_seq/seq_timemap.o\
 	$(ROOT)/dev_midirx/midirx.o\
 	$(ROOT)/dev_midirx/midi.o\
 	$(ROOT)/dev_strings/strings.o\

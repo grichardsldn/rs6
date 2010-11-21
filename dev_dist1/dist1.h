@@ -3,7 +3,7 @@
 class Setting;
 class Panel;
 
-class DeviceDist1 : public IDevice
+class DeviceDist1 : public IDevice, PanelBtnEvRx
 {
 	public:
 
@@ -20,6 +20,10 @@ class DeviceDist1 : public IDevice
 	virtual bool SetMidiInput( const char *input, int channel );
 	virtual bool SetMidiOutput( const char *output, int channel );
 
+	// PanelBtnEvRx stuff
+	virtual void Event( int ref, int key );
+
+	// class stuff
 	DeviceDist1();
 
 	private:
@@ -28,6 +32,10 @@ class DeviceDist1 : public IDevice
 	int x_setting;
 	int y_setting;
 	int z_setting;
+	int pre_setting;
+	int post_setting;
+	int level_setting;
+	int engage_setting;
 	int *input_ptr;
 	int *output_ptr;
 };

@@ -3,6 +3,7 @@
 
 #define WVSLIDER ( 2000)
 #define WCHECKBOX (2001)
+#define WBUTTON (2002)
 
 class PanelWidget
 {
@@ -88,6 +89,7 @@ class PanelImpl : public Panel, dkbClickReceiver
 	int next_ref;	
 	void DrawVSlider( VSliderPanelWidget *w );
 	void DrawCheckbox( CheckboxPanelWidget *w );
+	void DrawButton( ButtonPanelWidget *w );
 	void DrawWidgets();	
 	void AddFixedLine( dkbShape *shape,int x1, int y1,int z1, int x2,int y2,int z2 );
 	void AddFixedClickTri( dkbShape *shape, int x1, int y1, int z1, 

@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <string.h>
 #include "IDevice.h"
+#include "ui/Panel.h"
 
 // BEGIN DEVICES
 #include "dev_testdevice/testdevice.h"

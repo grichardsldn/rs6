@@ -7,8 +7,9 @@ move 'tune' secttion of pattern.h to a seperate funtion
 add postfader output to mixer (so can use second mixer as
 bus send)
 
-add octave to oscilator in sub102
-add keyboard scaling for filter - plus keyboard scaling for vol?
+add octave to oscilator in sub102 DONE
+add keyboard scaling for filter - plus keyboard scaling for vol?  
+	DONE (filter only)
 
 increase throw of sub 102 controls.
 
@@ -17,6 +18,16 @@ selecting which sample to play, where to hit drum etc).
 
 
 Add pre-play.  Probably done by extending adding a midi call.
-
  -- This call would be processed like a midi note. 
 
+Add A-B suppoer to settings somehow.
+
+Allow the reading of a timing map which the seq will
+instead of a the tempo for working out where the
+notes go.
+  pattern has note_len (different from notelen which holds
+  the tempo).  note_len is fine to be used for working out
+  cadences, but the note position is based on 'location'.
+  note_len is added to that.  A timing map could present an
+  a method called next_location( current_loc, number notes ).
+  then that would be called with the note length (in notes)

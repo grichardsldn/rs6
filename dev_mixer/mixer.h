@@ -7,7 +7,7 @@ class Settings;
 
 class Panel;
 
-class DeviceMixer : public IDevice
+class DeviceMixer : public IDevice, PanelBtnEvRx
 {
 	public:
 
@@ -20,6 +20,10 @@ class DeviceMixer : public IDevice
 	virtual bool SetInput( const char *input_name, int *input_ptr );
 	virtual void Clock();
 
+	// PanelBtnEvRx stuff
+	void Event( int ref, int key );
+
+	// normal stuff
 	DeviceMixer();
 
 	private:
@@ -32,6 +36,7 @@ class DeviceMixer : public IDevice
 	int x;
 	int y;
 	int z;
+
 	Panel *panel;
 	void CreatePanel();
 };

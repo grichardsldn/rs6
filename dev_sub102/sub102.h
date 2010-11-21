@@ -4,7 +4,7 @@ class Slewer;
 class Returner;
 
 class Panel;
-class DeviceSub102 : public IDevice
+class DeviceSub102 : public IDevice, PanelBtnEvRx
 {
 	public:
 
@@ -19,6 +19,9 @@ class DeviceSub102 : public IDevice
 	virtual void MidiNoteOff( int channel, int note );
 	virtual bool SetMidiInput( const char *input, int channel );
 
+	// PanelBtnEvRx stuff
+	void Event( int ref, int key );
+	// class stuff
 	DeviceSub102();
 
 	private:

@@ -76,7 +76,18 @@ bool PanelImpl::AddLabel( int ref, int x, int y, int pitch,
 bool PanelImpl::AddButton( int ref, int x, int y, PanelBtnEvRx *events ) 
 {
 	
-	return false;
+        ButtonPanelWidget *w = new ButtonPanelWidget();
+        w->ref = ref;
+        w->pos_x = x;
+        w->pos_y = y;
+        w->pos_z = current_z;
+        w->receiver = events;
+        w->type = WBUTTON;
+
+        ENSET( &widgetset, w );
+
+        DrawWidgets();
+        return true;
 }
 
 bool PanelImpl::AddLabel( int ref, int x, int y, const char *text )
@@ -126,6 +137,28 @@ void PanelImpl::DrawCheckbox( CheckboxPanelWidget *w )
 	dkb_object->addShape( shape, angle, pos, w->ref );
 }
 
+void PanelImpl::DrawButton( ButtonPanelWidget *w )
+{
+	dkb_object->removeShape( w->ref );
+	
+	dkbShape *shape = new dkbShape();
+	int x = w->pos_x;
+	int y = w->pos_y;
+	int z = w->pos_z;
+        AddFixedClickTri(shape, x, y, z,
+                                 x + 2, y, z,
+                                x +1, y + 2, z,
+                                  this, w->ref );
+
+	dkbPos pos;
+        pos.x = pos_x;
+        pos.y = pos_y;
+        pos.z = pos_z;
+
+        dkbAngle angle;
+
+	dkb_object->addShape( shape, angle, pos, w->ref );
+}
 	
 void PanelImpl::DrawVSlider( VSliderPanelWidget *w )
 {
@@ -182,6 +215,10 @@ void PanelImpl::DrawWidgets()
 		{
 			DrawCheckbox( (CheckboxPanelWidget*)current );
 		}
+		if( current->type == WBUTTON )
+		{
+			DrawButton( (ButtonPanelWidget*)current );
+		}
 		current = current->next;
 	}
 }
@@ -221,6 +258,18 @@ bool PanelImpl::AddVSlider( int ref, int x, int y, int size, int *ptr, int style
 
 	DrawWidgets();
 	return false;
+}
+
+void ButtonPanelWidget::ReceiveClick( int key )
+{
+	if( receiver != NULL )
+	{
+		receiver->Event( ref, key );
+	}
+}
+
+ButtonPanelWidget::ButtonPanelWidget()
+{
 }
 
 VSliderPanelWidget::VSliderPanelWidget()
@@ -301,6 +350,12 @@ void PanelImpl::ReceiveClick( int shape_ref, int key )
 			{
 				 CheckboxPanelWidget * cw = 
 					(CheckboxPanelWidget*)w;
+				cw->ReceiveClick( key );
+			}
+			case WBUTTON:
+			{
+				 ButtonPanelWidget * cw = 
+					(ButtonPanelWidget*)w;
 				cw->ReceiveClick( key );
 			}
 			break;
