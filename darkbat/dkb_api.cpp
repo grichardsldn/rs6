@@ -221,7 +221,7 @@ dkbObj::dkbObj()
 	fclose( inptr );
 	ref &= 0x7fff;
 
-	for (int i = 0 ; i < 195 ; i++)
+	for (int i = 0 ; i < 225 ; i++)
 	{
 		shapes[i] = new dkbShapeEntry();
 	}
@@ -246,7 +246,7 @@ void dkbObj::addShape( dkbShape *shape, dkbAngle angle, dkbPos trans,
 	assert( shape != NULL );
 
 	int found = -1;
-	for (int i = 0 ; i < 95 ; i++)
+	for (int i = 0 ; i < 225 ; i++)
 	{
 		if( shapes[i]->allocated == false)	
 		{
@@ -389,7 +389,7 @@ void dkbObj::Xmit()
 	bp = position.write( bp );
 
 	printf("Xmit shapes are:\n");
-	for( int i = 0 ; i <25 ; i++)
+	for( int i = 0 ; i <225 ; i++)
 	{
 		if (shapes[i]->allocated)
 		{

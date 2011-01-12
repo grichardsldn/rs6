@@ -154,7 +154,7 @@ void DeviceSub102::CreatePanel()
 	panel->AddVSlider( 115, 27, 15, 10, &lfo_rate_setting,1 );
 	panel->AddCheckbox( 116, 24, 15, &lfo_retrigger_setting );
 
-	panel->AddButton( 117, 27, 4, this );
+	panel->AddButton( 121, 27, 4, this );
         //int octave_setting;
 	
 }

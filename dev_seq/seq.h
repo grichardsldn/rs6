@@ -36,6 +36,7 @@ class Section
 	void ProcessSection( Reader *reader );
 };
 
+class seqTimemap;
 class SequenceProcessor
 {
 	public:
@@ -45,6 +46,7 @@ class SequenceProcessor
 	void AddSection( Section *a_section );
 	Section * sections[NUM_SECTIONS];
 	int RunSection( char *name, int startpoint, NoteList *notelist, int samplerate, int tempo  );
+	seqTimemap *timemap;
 };
 
 

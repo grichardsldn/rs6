@@ -6,6 +6,7 @@
 
 #include "pattern.h"
 #include "notelist.h"
+#include "seq_timemap.h"
 
 #define NOTE_ON (15)
 // (of 16 )
@@ -89,9 +90,9 @@ void Pattern::Load( char *filename)
 				printf("Missing comma after len\n");
 				return;
 			}
-			printf("Read note %d, note=%d len=%d\n", num_notes, 
-				notes[num_notes].note_num,
-				notes[num_notes].length);
+			//printf("Read note %d, note=%d len=%d\n", num_notes, 
+		//		notes[num_notes].note_num,
+		//		notes[num_notes].length);
 			num_notes ++;
 		}
 		printf("Read file\n");
@@ -107,6 +108,7 @@ int Pattern::Write( NoteList *nl,
 	int location,
 	int samplerate, 
 	int tempo,
+	seqTimemap *timemap,
 	int transpose, 	
 	int midi_channel)
 {
@@ -151,7 +153,15 @@ int Pattern::Write( NoteList *nl,
 				0, // unused 
 				location + note_on_len );
 		}	
-		location += note_len;
+		if( timemap != NULL )
+		{
+			location = timemap->next_location( 
+				location, notes[i].length );
+		}
+		else
+		{
+			location += note_len;
+		}
 	}
 
 	return location;

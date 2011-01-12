@@ -20,6 +20,7 @@ class Note
 	int vel;
 	int offset;
 };
+class seqTimemap;
 
 class Pattern
 {
@@ -32,6 +33,7 @@ class Pattern
 		int location,
 		int samplerate, 
 		int tempo, 
+		seqTimemap *timemap,
 		int transpose,
 		int midi_channel );
 
@@ -39,6 +41,7 @@ class Pattern
 	int notelen;
 	Note notes[256];
 	int num_notes;
+	seqTimemap *timemap;
 };
 	
 

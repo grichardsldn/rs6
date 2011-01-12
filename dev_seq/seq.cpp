@@ -7,7 +7,7 @@
 #include "seq.h"
 #include <string.h>
 #include <stdlib.h>
-
+#include "seq_timemap.h"
 
 void ChannelSection::ProcessChannelSection( Reader *reader )
 {
@@ -233,6 +233,7 @@ SequenceProcessor::SequenceProcessor( const char *a_filename, NoteList *notelist
 {
 	Reader *reader = new Reader();
 	reader->OpenFile( a_filename );
+	timemap = NULL;
 
 	char *word;
 
@@ -254,6 +255,18 @@ SequenceProcessor::SequenceProcessor( const char *a_filename, NoteList *notelist
 				return;
 			}
 			tempo=atoi(word);
+		}
+
+		if( strcmp( word, "timemap") == 0 )
+		{
+			word = reader->NextWord();
+			if( word ==NULL )
+			{
+				printf("Unexpected eof at line %d\n", reader->CurrentLine() );
+				return;
+			}
+			timemap = new seqTimemap();
+			timemap->load_timingmap( word, 0 );
 		}
 
 			
@@ -353,7 +366,7 @@ int SequenceProcessor::RunSection( char *name, int startpoint, NoteList *notelis
 
 		for( int pattern = 0 ; c->patterns[pattern] != NULL ; pattern ++ )
 		{
-			ended = c->patterns[pattern]->Write( notelist, ended, samplerate, tempo, 
+			ended = c->patterns[pattern]->Write( notelist, ended, samplerate, tempo, timemap,
 				c->transposes[pattern], c->midi_channel );
 		}
 		if( ended > highest_endpoint )
