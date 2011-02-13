@@ -92,7 +92,9 @@ void DeviceDist1::Clock()
 	double in = ini / ( 16.0 * 256.0);
 	if( engage_setting )
 	{
-		in *= (double)pre_setting / 4.0;
+		double pdb = ((double)pre_setting * 4.0) - 40.0;
+		pdb += 30;
+        	in *= pow(  10, ( pdb / 20  ));
 
 		double sign = 1.0;
 		if ( in < 0.0 ) sign = -1.0;
@@ -101,7 +103,7 @@ void DeviceDist1::Clock()
 
 		// work out the Over amount then subtract
 		// half of it.
-		double level = ((double)level_setting / 5.0 );
+		double level = ((double)level_setting / 10.0 );
 		
 		if ( in > level )
 		{
@@ -113,7 +115,10 @@ void DeviceDist1::Clock()
 		if ( in > 0.9 ) in = 0.9;
 		// ut the sign back
 		in *= sign;
-		in *= (double)post_setting / 5.0;
+
+		double podb = ((double)post_setting * 4.0) - 40.0;
+		podb += 10;
+        	in *= pow(  10, ( podb / 20  ));
 	}
 	double out = in;
         //signed int outi = out * 32700.0;
