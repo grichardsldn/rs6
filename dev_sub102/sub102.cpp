@@ -234,7 +234,7 @@ void DeviceSub102::Clock()
 	CopyParams();
 	
 	double al = amp_adsr->Clock();
-
+	
 	double lfo_val = pwm_lfo->Clock();	
 
 	double val = tonegen->Clock( lfo_val*pitch_mod, al*pwm);
@@ -244,7 +244,11 @@ void DeviceSub102::Clock()
 	val += noise_tonegen->Clock( lfo_val * pitch_mod,0.0 ) * noise_vol;
 
 	//double val = tonegen->Clock( 0.0, 0.0);
-	val *= al;
+	double aldb = (al * 40.0) - 40.0;
+	val *= pow(  10, ( aldb / 20  ));
+	// output ampiltude = Ref value * 10 to the powr( db Value / 20 )
+// double pow( double, x, double y);
+
 	
 	//	if( val > 0 ) val = 0.5;
 	//if( val < 0 ) val = -0.5;

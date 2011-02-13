@@ -10,6 +10,8 @@
 #define STATE_SUSTAIN  (3)
 #define STATE_RELEASE (4)
 
+// output ampiltude = Ref value * 10 to the powr( db Value / 20 )
+// double pow( double, x, double y);
 namespace Sub102
 {
 
