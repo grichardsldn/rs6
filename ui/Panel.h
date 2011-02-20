@@ -16,7 +16,6 @@ class Panel
 	virtual bool AddLabel( int ref, int x, int y, int pitch, 
 		const char *text )=0;
 	virtual bool AddButton( int ref, int x, int y, PanelBtnEvRx *events )=0 ;
-	virtual bool AddLabel( int ref, int x, int y, const char *text )=0;
 	virtual bool AddVSlider( int ref, int x, int y, int size, int *ptr, int style )=0;
 	virtual bool AddCheckbox( int ref, int x, int y, int *ptr) = 0;
 

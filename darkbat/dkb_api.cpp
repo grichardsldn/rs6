@@ -201,8 +201,9 @@ void dkbShape::addLine( int an_x1, int a_y1, int a_z1,
 	addElement( e );
 }
 
-void dkbShape::addPoint( int ax_x1, int a_y1, int a_1, int a_col)
+void dkbShape::addPoint( int x1, int y1, int z1, int col)
 {
+	addLine( x1,y1,z1,x1,y1,z1, col);
 }
 
 dkbShapeEntry::dkbShapeEntry()

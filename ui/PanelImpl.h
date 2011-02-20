@@ -73,7 +73,6 @@ class PanelImpl : public Panel, dkbClickReceiver
 	virtual bool AddLabel( int ref, int x, int y, int pitch, 
 		const char *text );
 	virtual bool AddButton( int ref, int x, int y, PanelBtnEvRx *events ) ;
-	virtual bool AddLabel( int ref, int x, int y, const char *text );
 	virtual bool AddVSlider( int ref, int x, int y, int size, int *ptr, int style );
 	virtual bool AddCheckbox( int ref, int x, int y, int *ptr);
 	
@@ -92,8 +91,10 @@ class PanelImpl : public Panel, dkbClickReceiver
 	void DrawButton( ButtonPanelWidget *w );
 	void DrawWidgets();	
 	void AddFixedLine( dkbShape *shape,int x1, int y1,int z1, int x2,int y2,int z2 );
+	void AddFixedPoint( dkbShape *shape,int x1, int y1,int z1 );
 	void AddFixedClickTri( dkbShape *shape, int x1, int y1, int z1, 
 		int x2, int y2, int z2, int x3, int y3, int z3, dkbClickReceiver*callback, int ref );
+	void GetText( char ch, bool &a, bool &b, bool &c, bool &d, bool&e, bool &f );
 };
 
 
