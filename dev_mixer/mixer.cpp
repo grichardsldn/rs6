@@ -2,6 +2,7 @@
 #include "../IDevice.h"
 #include <assert.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include <pthread.h>
 #include "../darkbat/dkb.h"
@@ -75,13 +76,19 @@ void DeviceMixer::CreatePanel()
 	
 void DeviceMixer::Clock()
 {
-	int val = 0;
+	int val;
 
 	for( int i = 0 ; i < NUM_INPUTS ; i++)
 	{
+		int ch_val = 0;
 		if( inputs[i] != NULL )
 		{	
-			val += (*inputs[i] / 20 * volumes[i]);	
+			ch_val = (*inputs[i] / 20 * volumes[i]);	
+			val += ch_val;
+			if(  post_fader_outs[i] != NULL )
+			{		
+			//	*post_fader_outs[i] = ch_val;
+			}
 		}
 	}
 	if( val >2000000000  )	
@@ -110,22 +117,11 @@ void DeviceMixer::Clock()
 bool DeviceMixer::SetInput( const char *input_name, int *input_ptr )
 {
 	int index = -1;
-	for( int i = 0 ; i<  NUM_INPUTS; i++)
+	if( ( input_name[0] == 'c') && (input_name[1] == 'h') );
 	{
-		if( inputs[i] == NULL)
-		{
-			index = i;
-			break;
-		}
+		int num = atoi( input_name + 2 );
+		inputs[ num - 1] = input_ptr;
 	}
-	if (index == -1 )
-	{
-		printf("DeviceMixer: Too many inputs\n");
-		return false;
-	}
-
-	inputs[index] = input_ptr;
-
 	return true;
 }
 
@@ -142,12 +138,20 @@ bool DeviceMixer::SetOutput( const char *output_name, int *output_ptr)
 	{
 		out_right = output_ptr;
 	}
+	else if( output_name[0] == 'a' )
+	{
+		int num = atoi( output_name + 1 );
+		if( num > 0 )
+		{
+			post_fader_outs[num - 1] = output_ptr;	
+		}
+	}
 	else
 	{
 		printf("DeviceMixer: Output %s unknown\n",
 			output_name);
 		return false;
-	}
+	} 
 	return true;
 }	
 		
@@ -157,6 +161,7 @@ DeviceMixer::DeviceMixer()
 	for( int i = 0 ; i < NUM_INPUTS; i++)
 	{
 		inputs[i] = NULL;
+		post_fader_outs[i] = NULL;
 	}
 	out_left = NULL;
 	out_right = NULL;

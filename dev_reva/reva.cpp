@@ -13,6 +13,22 @@
 
 #define DELAY_NUM_DELAYS (100)
 
+// Things to do:
+// high pass filter on input
+// low pas filter on input
+// morphing + rate
+// predelay
+// spread of delays
+// feedback?
+// write out the delays?
+// option to randomise the delays
+// with an undo? to last save? A-B button?
+//   or just a load of presets? (chosen at random and saved if good)
+// option to morp plus morph rate
+// clip checking
+// IMPROVE PERFORMANCE
+
+
 class RevADelay
 {
 	public:
@@ -64,6 +80,9 @@ RevADelay::RevADelay( int a_buffer_size )
 
 int RevADelay::Clock( int input )
 {
+	if( input > 32700 ) input=32700;
+	if( input < -32700 ) input=-32700;
+
 	buffer[write_point] = input;
 	write_point --;
 	if( write_point <0 )
@@ -148,13 +167,16 @@ void DeviceRevA::Init( 	IDeviceEvents *event,
 				const char *startup_params )
 {
 	delay = new RevADelay(100000);
-	for( int n = 0 ; n < 7 ; n++)
+	for( int n = 0 ; n < 17 ; n++)
 	{
-		delay_times[n] = 2000 + random() % 2000;
+		delay_times[n] = 2000 + random() % 10000;
 		delay_amounts[n] = 5000;
+		if( n & 1 ) delay_amounts[n] *= -1;
 		delay->AddDelay( n, &delay_times[n], &delay_amounts[n] );
 	}
 	last = 0;
+	tick = 0;
+	change = 0;
 }
 
 
@@ -193,10 +215,26 @@ DeviceRevA::DeviceRevA()
 void DeviceRevA::Clock()
 {
 	signed int in = *input_ptr >> 16;
-	signed int out = delay->Clock( in + (last * 0.5) );
+	
+	
+	//signed int out = delay->Clock( in + (last * 0.5) );
+	signed int out = delay->Clock( in );
 	last = out;
 	*output_ptr = out << 16; 
 	//	*output = ((int)(val*(16.0*256.0)) << 16);
+
+	// freaky morphing
+	tick++;
+	if( tick > 10000 )
+	{
+		tick = 0;
+		change ++;
+		if( change > 16 )
+		{
+			change =0;
+		}
+		delay_times[change] = 2000 + random() % 10000;
+	}
 }
 
 void DeviceRevA::MidiNoteOn( int channel, int note, int vol )

@@ -29,5 +29,7 @@ class DeviceRevA : public IDevice
 	int delay_times[NUM_DELAY_SETTINGS];
 	signed short delay_amounts[NUM_DELAY_SETTINGS];	
 	int last;
+	int tick;
+	int change;
 };
 

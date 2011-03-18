@@ -103,6 +103,8 @@ void DeviceSub102::Init( 	IDeviceEvents *event,
 	returner2 = new Sub102::Returner( a_samplerate );
 	returner3 = new Sub102::Returner( a_samplerate );
 	output = NULL;
+	patch_vca_in = NULL;
+	patch_vcf_in = NULL;
 
 	octave_adjust = -1;
 	pitch_mod = 0.0;
@@ -131,10 +133,10 @@ void DeviceSub102::CreatePanel()
         //panel->AddLine( 102, w,h, 0, h );
         //panel->AddLine( 103, 0,h, 0, 0 );
 
-	panel->AddVSlider(104, 2, 15, 10, &amp_attack_setting,1 );
-	panel->AddVSlider(105, 5, 15, 10, &amp_decay_setting,1 );
-	panel->AddVSlider(106, 8, 15, 10, &amp_sustain_setting,1 );
-	panel->AddVSlider(107, 11, 15, 10, &amp_release_setting ,1);
+	panel->AddVSlider(104, 2, 15, 20, &amp_attack_setting,1 );
+	panel->AddVSlider(105, 5, 15, 20, &amp_decay_setting,1 );
+	panel->AddVSlider(106, 8, 15, 20, &amp_sustain_setting,1 );
+	panel->AddVSlider(107, 11, 15, 20, &amp_release_setting ,1);
 
 	panel->AddVSlider( 108, 2, 2, 10, &filt_level_setting,1 );
 	panel->AddVSlider( 117, 5, 2, 10, &resonance_setting,1 );
@@ -159,13 +161,28 @@ void DeviceSub102::CreatePanel()
 	
 }
 
-
+bool DeviceSub102::SetInput( const char *input_name, int *input_ptr )
+{
+	assert( input_ptr );
+	bool ret = false;
+	if( strcmp( input_name, "vca_in" ) )
+	{
+		patch_vca_in = input_ptr;
+		ret = true;
+	} else if (strcmp( input_name, "vcf_in"))
+	{		
+		patch_vca_in = input_ptr;
+		ret = true;
+	}
+	return ret;
+}
 bool DeviceSub102::SetMidiInput( const char *input_name, int channel )
 {
+
 	if( strcmp( input_name, "main") == 0)
 	{
 		midi_channel = channel;
-	}
+	} 
 	else
 	{
 		assert(false);
@@ -195,16 +212,16 @@ DeviceSub102::DeviceSub102()
 void DeviceSub102::CopyParams()
 {
 	double val;
-	val = (double)amp_attack_setting / 10.0;
+	val = (double)amp_attack_setting / 20.0;
 	//val *= val;
 	amp_adsr->setAttack( val );
 
-	val = (double)amp_decay_setting / 10.0;
+	val = (double)amp_decay_setting / 20.0;
 	//val *= val;
 	amp_adsr->decay = val;
-	val = (double)amp_sustain_setting / 10.0;
+	val = (double)amp_sustain_setting / 20.0;
 	amp_adsr->sustain_level =  val;
-	val = (double)amp_release_setting / 10.0;
+	val = (double)amp_release_setting / 20.0;
 	amp_adsr->release =  val;
 
 	val = (double)pwm_setting / 20.0;
@@ -242,6 +259,15 @@ void DeviceSub102::Clock()
 	//// no osciators
 	//val = 0,0;
 	val += noise_tonegen->Clock( lfo_val * pitch_mod,0.0 ) * noise_vol;
+
+	// BBB read patch_vca_in and if set replce val;
+	if( patch_vca_in != NULL ) 
+	{
+		val = (double)((*patch_vca_in) >> 24);
+		val /= 2.0;
+		if (val > 1.0 ) val = 1.0;
+		if( val <1.0 ) val = -1.0;
+	}
 
 	//double val = tonegen->Clock( 0.0, 0.0);
 	double aldb = (al * 40.0) - 40.0;

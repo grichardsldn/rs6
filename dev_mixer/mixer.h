@@ -30,6 +30,8 @@ class DeviceMixer : public IDevice, PanelBtnEvRx
 	int *inputs[NUM_INPUTS];
 	int *out_left;
 	int *out_right;
+	int *post_fader_outs[NUM_INPUTS];
+
 	//VolPanel *vol_panel;
 	Settings *settings;
 	int volumes[NUM_INPUTS];

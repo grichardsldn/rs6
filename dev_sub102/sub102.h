@@ -14,6 +14,7 @@ class DeviceSub102 : public IDevice, PanelBtnEvRx
 				int samplerate,
 				const char *startup_params );
 	virtual bool SetOutput( const char *output_name, int *output_ptr );
+	virtual bool SetInput( const char *input, int *output_ptr );
 	virtual void Clock();
 	virtual void MidiNoteOn( int channel, int note, int volume );
 	virtual void MidiNoteOff( int channel, int note );
@@ -50,7 +51,6 @@ class DeviceSub102 : public IDevice, PanelBtnEvRx
 	double sub_vol;	
 	double noise_vol;
 	double lfo_rate;
-
 	bool running;
 
 	int octave_adjust;
@@ -74,6 +74,8 @@ class DeviceSub102 : public IDevice, PanelBtnEvRx
 	int resonance_setting;
 	int rolloff_setting;
 	int octave_setting;
+	int *patch_vca_in;
+	int *patch_vcf_in;
 	Panel *panel;
 };
 

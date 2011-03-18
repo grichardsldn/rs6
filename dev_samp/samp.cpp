@@ -238,6 +238,7 @@ void DeviceSamp::Clock()
 
 void DeviceSamp::MidiNoteOn( int channel, int note, int vol )
 {
+	note += 12; // GDR temp hack
 	if( channel != midi_channel )
 	{
 		// not for us
@@ -265,6 +266,7 @@ void DeviceSamp::MidiNoteOn( int channel, int note, int vol )
 
 void DeviceSamp::MidiNoteOff( int channel, int note )
 {
+	note += 12;
 	if( channel != midi_channel )
 	{
 		// not for us
