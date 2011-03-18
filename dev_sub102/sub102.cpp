@@ -293,6 +293,9 @@ void DeviceSub102::Clock()
 	if( rolloff_setting > 1 ) fval = returner2->Clock( fval, filt_out);
 	if( rolloff_setting > 2 ) fval = returner3->Clock( fval, filt_out );
 	val += (fval * resonance_setting);
+
+	if( val > 0.99) val = 0.99;
+	if( val < -0.99) val = -0.99;
 	if( output)
 	{
 		*output = ((int)(val*(16.0*256.0)) << 16);
