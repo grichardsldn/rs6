@@ -34,7 +34,7 @@ void ChannelSection::ProcessChannelSection( Reader *reader )
 		return;
 	}
 
-	printf("GDR: midi channel is #%d\n", midi_channel );
+	//printf("GDR: midi channel is #%d\n", midi_channel );
 
 	// now the opening brace
 	word = reader->NextWord();
@@ -128,10 +128,10 @@ void ChannelSection::ProcessChannelSection( Reader *reader )
 		}
 
 		AddPattern( p, transpose );
-		printf("GDR: Added Pattern\n");
+		//printf("GDR: Added Pattern\n");
 	}
 
-	printf("GDR: Got to end brace\n");
+	//printf("GDR: Got to end brace\n");
 }
 
 ChannelSection::ChannelSection(char *a_name)
@@ -204,7 +204,7 @@ void Section::ProcessSection( Reader *reader )
 
 		if( strcmp( word, "end" ) == 0 )
 		{
-			printf("GDR: ProcessSerion: hit end\n" );
+			//printf("GDR: ProcessSerion: hit end\n" );
 			break;
 		}
 
@@ -220,12 +220,12 @@ void Section::ProcessSection( Reader *reader )
 			return;
 		}
 
-		printf("GDR: Processing channel section %s\n", word );
+		//printf("GDR: Processing channel section %s\n", word );
 		ChannelSection *cs = new ChannelSection( word );
 		cs->ProcessChannelSection( reader );	
 		AddChannel( cs );
 	}
-	printf("GDR: end of Section\n");
+	//printf("GDR: end of Section\n");
 		
 }
 
@@ -288,7 +288,7 @@ SequenceProcessor::SequenceProcessor( const char *a_filename, NoteList *notelist
 
 		if( strcmp( word, "play" ) == 0 )
 		{
-			printf("GDR: At \"play\"\n" );
+			//printf("GDR: At \"play\"\n" );
 			break;
 		}
 	}	
@@ -362,7 +362,7 @@ int SequenceProcessor::RunSection( char *name, int startpoint, NoteList *notelis
 		ended = startpoint;
 		// for each pattern in that channel
 		ChannelSection *c = s->channels[channel];
-		printf("GDR: Processing channel \"%s\" midi_channel=#%d\n", c->name, c->midi_channel);
+		//printf("GDR: Processing channel \"%s\" midi_channel=#%d\n", c->name, c->midi_channel);
 
 		for( int pattern = 0 ; c->patterns[pattern] != NULL ; pattern ++ )
 		{

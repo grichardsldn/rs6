@@ -30,5 +30,5 @@ int main( int argc, char **argv)
         dkb_obj->addShape( shape, angle, pos, 0);
         dkb_obj->project( block, pos );
 
-	sleep(30);
+	sleep(3000);
 }

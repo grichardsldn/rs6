@@ -78,13 +78,16 @@ int UDPSocket::ReceiveFrom( char *buffer, int length, unsigned int *addr, unsign
 
 int UDPSocket::Send( char *buffer, int length)
 {
-	printf("GDR: Send: len=%d\n", length );
+	if( length > 1400 )
+	{		
+		printf("GDR: Send: len=%d\n", length );
+	}
 	int res;	
 	//perror("Before UDPSocket");
 	res = sendto( my_socket, buffer, length, 0, &target_sa, 
 		sizeof(target_sa));
 
-	perror("UDPSocket::Send()");
+	//perror("UDPSocket::Send()");
 	//printf("GDR: sendto returned #%d\n", res );
 	return res;
 }

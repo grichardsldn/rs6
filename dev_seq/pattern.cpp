@@ -15,7 +15,7 @@ void Pattern::Load( char *filename)
 {
 	assert(filename);
 
-	printf("Pattern: loading%s\n", filename );
+	//printf("Pattern: loading%s\n", filename );
 	Reader reader;
 	reader.OpenFile( filename );
 
@@ -95,7 +95,7 @@ void Pattern::Load( char *filename)
 		//		notes[num_notes].length);
 			num_notes ++;
 		}
-		printf("Read file\n");
+		//printf("Read file\n");
 	}
 	else
 	{

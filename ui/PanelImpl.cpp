@@ -267,13 +267,13 @@ void PanelImpl::DrawVSlider( VSliderPanelWidget *w )
 
 void PanelImpl::DrawWidgets()
 {
-	printf( "GDR: DrawWidgets\n");
+	//printf( "GDR: DrawWidgets\n");
 	PanelWidget *current = widgetset.head;
 	while ( current != NULL )
 	{
 		if( current->type == WVSLIDER )
 		{
-			printf("GDR: Calling DrawVSlider\n");
+			//printf("GDR: Calling DrawVSlider\n");
 			DrawVSlider( (VSliderPanelWidget*)current );
 		}
 		if( current->type == WCHECKBOX )
@@ -307,8 +307,8 @@ bool PanelImpl::AddCheckbox( int ref, int x, int y, int *ptr)
 
 bool PanelImpl::AddVSlider( int ref, int x, int y, int size, int *ptr, int style )
 {
-	printf("vslider: ptr=%08x, *ptr=%d\n", 
-		(unsigned int)ptr, *ptr );
+	//printf("vslider: ptr=%08x, *ptr=%d\n", 
+	//	(unsigned int)ptr, *ptr );
 	VSliderPanelWidget *w = new VSliderPanelWidget();
 	w->ref = ref;	
 	w->pos_x = x;

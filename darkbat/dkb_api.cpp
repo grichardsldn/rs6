@@ -235,9 +235,9 @@ void dkbObj::Changed()
 {
 	if( projecting )
 	{
-		printf("Calling XMmit()\n");
+	//	printf("Calling XMmit()\n");
 		Xmit();
-		printf("Called XMmit()\n");
+	//	printf("Called XMmit()\n");
 	}
 }
 
@@ -382,14 +382,14 @@ void dkbObj::Xmit()
 	bp = writeInt( bp, DKB_1_MAGIC );
 
 	bp = writeInt( bp, DKB_CONNECTION_REF );
-	printf("GDR: Writing ref #%d\n", ref );
+	//printf("GDR: Writing ref #%d\n", ref );
 	bp = writeInt( bp, ref );
 
 	// write the object poition
 	bp = writeInt( bp, DKB_POS );
 	bp = position.write( bp );
 
-	printf("Xmit shapes are:\n");
+	//printf("Xmit shapes are:\n");
 	for( int i = 0 ; i <225 ; i++)
 	{
 		if (shapes[i]->allocated)
